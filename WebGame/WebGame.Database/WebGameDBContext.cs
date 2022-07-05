@@ -12,6 +12,7 @@ namespace WebGame.Database
     public class WebGameDBContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<Hero> Heroes { get; set; }
 
         public WebGameDBContext([NotNull] DbContextOptions options) : base(options) 
         {
