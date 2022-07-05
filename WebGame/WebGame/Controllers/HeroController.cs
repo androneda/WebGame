@@ -7,41 +7,30 @@ using System.Configuration;
 using System.Linq;
 using WebGame.Database;
 using WebGame.Database.Model;
+using WebGame.Core.Services.Interfaces;
 
 namespace WebGame.Api.Controllers
 {
+    [ApiController]
+    [Route ("/api/[controller]")]
     public class HeroController : Controller
     {
-
-
+        private readonly IHeroService _heroService;
+        public HeroController(IHeroService heroService) 
+        {
+            _heroService = heroService;
+        }
 
         // GET: HeroController
         [HttpGet]
-        [Route("/[controller]")]
         public ActionResult Index()
         {
-            return View();
-        }
-
-        // GET: test
-        [HttpGet]
-        [Route("/[controller]/{id}")]
-        public ActionResult Test()
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<WebGameDBContext>();
-            var options = optionsBuilder.UseNpgsql("User ID=postgres; Password=postgres;Host=localhost;Port=5432;Database=WebGameBD;Pooling=true").Options;
-
-            WebGameDBContext db = new(options);
-
-            Hero hero = new Hero() { Id = Guid.NewGuid(), Name="Виталя" };
-            db.Heroes.Add(hero);
-
-            return View(db.Heroes.ToList());
+            return Ok(_heroService.GetHeroes());
         }
 
         // GET: HeroController/Details/5
         [HttpGet]
-        [Route("/WebGame/[controller]/Details")]
+        [Route("/Details")]
         public ActionResult Details(int id)
         {
             return View();
@@ -49,10 +38,12 @@ namespace WebGame.Api.Controllers
 
         // GET: HeroController/Create
         [HttpGet]
-        [Route("/WebGame/[controller]/")]
-        public ActionResult Create()
+        [Route("/[controller]/Create")]
+        public ActionResult Create(Hero hero)
         {
-            return View();
+            hero.Id= Guid.NewGuid();
+            _heroService.InsertHero(hero);
+            return Ok(_heroService.GetHeroes());
         }
 
         // POST: HeroController/Create
@@ -62,7 +53,7 @@ namespace WebGame.Api.Controllers
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+                return View();
             }
             catch
             {
@@ -92,9 +83,12 @@ namespace WebGame.Api.Controllers
         }
 
         // GET: HeroController/Delete/5
-        public ActionResult Delete(int id)
+        [HttpGet]
+        [Route ("/Delete")]
+        public ActionResult Delete(Guid id)
         {
-            return View();
+            _heroService.DeleteHero(id);
+            return Ok(_heroService.GetHeroes());
         }
 
         // POST: HeroController/Delete/5

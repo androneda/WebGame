@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using WebGame.Database.Model;
 
 namespace WebGame.Database.Repositories.Interfaces
 {
-    internal interface IHeroRepository
+    public interface IHeroRepository: IDisposable
     {
+            List<Hero> GetHero();
+            Hero GetHeroByID(Guid heroId);
+            void InsertHero(Hero hero);
+            void DeleteHero(Guid heroId);
+            void UpdateHero(Hero hero);
+            void Save();
     }
 }

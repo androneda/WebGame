@@ -20,6 +20,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Page Include="Controllers\HeroController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WebGame.Core\WebGame.Core.csproj" />
     <ProjectReference Include="..\WebGame.Database\WebGame.Database.csproj" />
   </ItemGroup>
 
