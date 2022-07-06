@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebGame.Core.Model
 {
-    public class UpdateHeroDto
+    public class HeroViewDto
     {
         /// <summary>
         /// Id
@@ -37,5 +37,20 @@ namespace WebGame.Core.Model
         /// Hero Show Helmet
         /// </summary>
         public bool ShowHelmet { get; set; }
+
+        /// <summary>
+        /// Name
+        /// </summary>
+        public string Stats { get; set; }
+
+        /// <summary>
+        /// Name
+        /// </summary>
+        public string History { get; set; }
+
+        /// <summary>
+        /// Name
+        /// </summary>
+        public string Armor { get; set; }
     }
 }
