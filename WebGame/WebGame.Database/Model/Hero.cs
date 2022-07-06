@@ -11,10 +11,14 @@ namespace WebGame.Database.Model
         public Guid Id { get; set; }
         public string Name { get; set; }
 
+        public int Level { get; set; }
         public int HeadId { get; set; }
         public int BodyId { get; set; }
         public int WeaponId { get; set; }
 
         public bool Sex { get; set; }
+
+        public bool ShowHelmet { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

@@ -10,8 +10,8 @@ using WebGame.Database;
 namespace WebGame.Database.Migrations
 {
     [DbContext(typeof(WebGameDBContext))]
-    [Migration("20220705075546_init")]
-    partial class init
+    [Migration("20220706075822_New")]
+    partial class New
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,6 +33,9 @@ namespace WebGame.Database.Migrations
                     b.Property<int>("HeadId")
                         .HasColumnType("integer");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Name")
                         .HasColumnType("text");
 
@@ -44,21 +47,7 @@ namespace WebGame.Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Heroes");
-                });
-
-            modelBuilder.Entity("WebGame.Database.Model.User", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
+                    b.ToTable("Hero");
                 });
 #pragma warning restore 612, 618
         }

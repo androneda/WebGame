@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebGame.Database;
@@ -9,9 +10,10 @@ using WebGame.Database;
 namespace WebGame.Database.Migrations
 {
     [DbContext(typeof(WebGameDBContext))]
-    partial class WebGameDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220706071618_DeleteUser")]
+    partial class DeleteUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,9 +32,6 @@ namespace WebGame.Database.Migrations
 
                     b.Property<int>("HeadId")
                         .HasColumnType("integer");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");

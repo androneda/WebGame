@@ -4,11 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebGame.Database.Model
+namespace WebGame.Core.Model
 {
-    public class User
+    public class CreateHeroDto
     {
+        /// <summary>
+        /// Id
+        /// </summary>
         public Guid Id { get; set; }
+
+        /// <summary>
+        /// Name
+        /// </summary>
         public string Name { get; set; }
+
+
     }
 }

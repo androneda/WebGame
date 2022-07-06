@@ -12,7 +12,7 @@ using WebGame.Core.Services.Interfaces;
 namespace WebGame.Api.Controllers
 {
     [ApiController]
-    [Route ("/api/[controller]")]
+    [Route ("/[controller]")]
     public class HeroController : Controller
     {
         private readonly IHeroService _heroService;
@@ -31,55 +31,19 @@ namespace WebGame.Api.Controllers
         // GET: HeroController/Details/5
         [HttpGet]
         [Route("/Details")]
-        public ActionResult Details(int id)
+        public ActionResult Details()
         {
             return View();
         }
 
         // GET: HeroController/Create
         [HttpGet]
-        [Route("/[controller]/Create")]
+        [Route("/Create")]
         public ActionResult Create(Hero hero)
         {
             hero.Id= Guid.NewGuid();
             _heroService.InsertHero(hero);
             return Ok(_heroService.GetHeroes());
-        }
-
-        // POST: HeroController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return View();
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: HeroController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: HeroController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
         }
 
         // GET: HeroController/Delete/5
@@ -91,19 +55,6 @@ namespace WebGame.Api.Controllers
             return Ok(_heroService.GetHeroes());
         }
 
-        // POST: HeroController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+
     }
 }

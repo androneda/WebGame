@@ -8,30 +8,18 @@ namespace WebGame.Core.Services
 {
     public class HeroService : IHeroService
     {
-        private readonly IHeroRepository _HeroRepo;
+        private readonly IHeroRepository _heroRepo;
 
         public HeroService(IHeroRepository HeroRepo)
         {
-            _HeroRepo = HeroRepo;
+            _heroRepo = HeroRepo;
         }
 
-        public List<Hero> GetHeroes() => _HeroRepo.GetHero();
-        public Hero GetHeroByID(Guid id) => _HeroRepo.GetHeroByID(id);
-        public void InsertHero(Hero hero)
-        {
-            _HeroRepo.InsertHero(hero);
-            _HeroRepo.Save();
-        }
-        public void DeleteHero(Guid heroId)
-        {
-            _HeroRepo.DeleteHero(heroId);
-            _HeroRepo.Save();
-        }
-        public void UpdateHero(Hero hero)
-        {
-            _HeroRepo.UpdateHero(hero);
-            _HeroRepo.Save();
-        }
+        public List<Hero> GetHeroes() => _heroRepo.GetHeroes();
+        public Hero GetHeroByID(Guid id) => _heroRepo.GetHeroByID(id);
+        public void InsertHero(Hero hero) => _heroRepo.AddHeroAsync(hero);
+        public void DeleteHero(Guid heroId) => _heroRepo.DeleteHeroAsync(heroId);
+        public void UpdateHero(Hero hero) => _heroRepo.UpdateHero(hero);
 
     }
 }
