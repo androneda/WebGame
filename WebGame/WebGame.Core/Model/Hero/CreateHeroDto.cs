@@ -4,21 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebGame.Core.Model
+namespace WebGame.Core.Model.Hero
 {
-    public class ShortHeroViewDto
+    public class CreateHeroDto
     {
+        /// <summary>
+        /// Id
+        /// </summary>
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Name
         /// </summary>
         public string Name { get; set; }
-
-        /// <summary>
-        /// Level
-        /// </summary>
-        public string Level { get; set; }
-
 
         /// <summary>
         /// Race
@@ -29,11 +27,6 @@ namespace WebGame.Core.Model
         /// Hero Class
         /// </summary>
         public string HeroClass { get; set; }
-
-        /// <summary>
-        /// Hero Show Helmet
-        /// </summary>
-        public bool ShowHelmet { get; set; }
 
     }
 }
