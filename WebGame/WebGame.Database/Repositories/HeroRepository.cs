@@ -11,7 +11,7 @@ namespace WebGame.Database.Repositories
     {
         private readonly WebGameDBContext context;
 
-        public HeroRepository(WebGameDBContext context, BaseRepository<Hero> baseRepository)  //Ошибки как исправить?
+        public HeroRepository(WebGameDBContext context)  
         {
             context = context;
         }

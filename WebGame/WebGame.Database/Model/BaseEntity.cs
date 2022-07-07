@@ -8,9 +8,7 @@ namespace WebGame.Database.Model
 {
     public class BaseEntity
     {
-        public Guid Id { get; set; } // тут вообще? надо какие то обобщенности пихать?
-        public string Name { get; set; }
-        public string Race { get; set; }
-        public string HeroClass { get; set; }
+        public Guid Id { get; set; } 
+        public bool IsDeleted { get; set; }
     }
 }

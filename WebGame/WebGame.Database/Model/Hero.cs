@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace WebGame.Database.Model
 {
-    public class Hero
+    public class Hero : BaseEntity
     {
-        public Guid Id { get; set; }
+        public Guid BaseId { get; set; }
         public string Name { get; set; }
         public string Race { get; set; }
         public string HeroClass { get; set; }
@@ -25,6 +25,6 @@ namespace WebGame.Database.Model
 
 
         public bool ShowHelmet { get; set; }
-        public bool IsDeleted { get; set; }
+        public bool BaseIsDeleted { get; set; }
     }
 }
