@@ -21,12 +21,12 @@ namespace WebGame.Core.Model.Hero
         /// <summary>
         /// Hero Head Id
         /// </summary>
-        public int HeadId { get; set; }
+        public Guid HeadId { get; set; }
 
         /// <summary>
         /// Hero Body Id
         /// </summary>
-        public int BodyId { get; set; }
+        public Guid BodyId { get; set; }
 
         /// <summary>
         /// Hero Sex 

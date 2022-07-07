@@ -9,10 +9,10 @@ namespace WebGame.Core.Services.Interfaces
 {
     public interface IHeroService
     {
-        public List<Hero> GetHeroes();
+        public Task<IEnumerable<Hero>> GetHeroes();
         public Hero GetHeroByID(Guid heroId);
-        void InsertHero(Hero hero);
-        void DeleteHero(Guid heroId);
-        void UpdateHero(Hero hero);
+        Task InsertHero(Hero hero);
+        Task DeleteHero(Guid heroId);
+        Task UpdateHero(Hero hero);
     }
 }

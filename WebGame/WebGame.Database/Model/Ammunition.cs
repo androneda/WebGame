@@ -4,25 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebGame.Core.Model.Hero
+namespace WebGame.Database.Model
 {
-    public class CreateHeroDto
+    public class Ammunition
     {
-
-        /// <summary>
-        /// Name
-        /// </summary>
+        public Guid Id { get; set; }
         public string Name { get; set; }
-
-        /// <summary>
-        /// Race
-        /// </summary>
         public string Race { get; set; }
-
-        /// <summary>
-        /// Hero Class
-        /// </summary>
         public string HeroClass { get; set; }
-
+        public string Type { get; set; }
+        public int Level { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using WebGame.Database.Model;
 using WebGame.Database.Repositories.Interfaces;
 
@@ -16,38 +15,37 @@ namespace WebGame.Database.Repositories
         {
             this.context = context;
         }
-        public async Task DeleteHeroAsync(Guid heroId)
+        public async Task DeleteAsync(Guid heroId)
         {
             Hero hero = context.Heroes.Find(heroId);
-            await Task.Run(() => context.Heroes.Remove(hero));
-            SaveAsync();
+            context.Heroes.Remove(hero);
+            await SaveAsync();
         }
-        public async Task AddHeroAsync(Hero hero)
+        public async Task InsertAsync(Hero hero)
         {
-            await  context.Heroes.AddAsync(hero);
-            SaveAsync();
+            await context.Heroes.AddAsync(hero);
+            await SaveAsync();
         }
-        public void UpdateHero(Hero hero)
+        public async Task UpdateAsync(Hero hero)
         {
             context.Entry(hero).State = EntityState.Modified;
-            SaveAsync();
+            await SaveAsync();
         }
 
-        public List<Hero> GetHeroes()
+        public async Task<IEnumerable<Hero>> GetAll()
         {
-            var result = context.Heroes.ToList();
-            return result;
+            return await context.Heroes.ToListAsync();
         }
 
-        public Hero GetHeroByID(Guid heroId)
+        public Hero GetByID(Guid heroId)
         {
             return context.Heroes.Find(heroId);
         }
 
 
-        private void SaveAsync()
+        private async Task SaveAsync()
         {
-            context.SaveChangesAsync();
+            await context.SaveChangesAsync();
         }
     }
 }

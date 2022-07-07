@@ -7,10 +7,10 @@ namespace WebGame.Database.Repositories.Interfaces
 {
     public interface IHeroRepository
     {
-            List<Hero> GetHeroes();
-            Hero GetHeroByID(Guid heroId);
-            Task AddHeroAsync(Hero hero);
-            Task DeleteHeroAsync(Guid heroId);
-            void UpdateHero(Hero hero);
+            Task DeleteAsync(Guid heroId);
+            Task InsertAsync(Hero hero);
+            Task<IEnumerable<Hero>> GetAll();
+            Hero GetByID(Guid heroId);
+            Task UpdateAsync(Hero hero);
     }
 }
