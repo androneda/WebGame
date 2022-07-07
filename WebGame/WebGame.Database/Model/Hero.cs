@@ -8,7 +8,6 @@ namespace WebGame.Database.Model
 {
     public class Hero : BaseEntity
     {
-        public Guid BaseId { get; set; }
         public string Name { get; set; }
         public string Race { get; set; }
         public string HeroClass { get; set; }
@@ -25,6 +24,5 @@ namespace WebGame.Database.Model
 
 
         public bool ShowHelmet { get; set; }
-        public bool BaseIsDeleted { get; set; }
     }
 }
