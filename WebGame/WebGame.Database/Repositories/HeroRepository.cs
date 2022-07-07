@@ -7,13 +7,13 @@ using WebGame.Database.Repositories.Interfaces;
 
 namespace WebGame.Database.Repositories
 {
-    public class HeroRepository : IHeroRepository
+    public class HeroRepository : BaseRepository<Hero>, IHeroRepository
     {
         private readonly WebGameDBContext context;
 
-        public HeroRepository(WebGameDBContext context)
+        public HeroRepository(WebGameDBContext context, BaseRepository<Hero> baseRepository)  //Ошибки как исправить?
         {
-            this.context = context;
+            context = context;
         }
         public async Task DeleteAsync(Guid heroId)
         {
