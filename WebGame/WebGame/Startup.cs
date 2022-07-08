@@ -27,7 +27,7 @@ namespace WebGame.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(); 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebGame", Version = "v1" });
@@ -37,6 +37,7 @@ namespace WebGame.Api
             //services.AddScoped<IBaseRepository<Hero>, BaseRepository<Hero>>();
             services.AddScoped<IHeroRepository, HeroRepository>();
             services.AddScoped<IHeroService, HeroService>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

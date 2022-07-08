@@ -8,11 +8,12 @@ using System.Linq;
 using WebGame.Database;
 using WebGame.Database.Model;
 using WebGame.Core.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace WebGame.Api.Controllers
 {
 
-    public class HeroController : Controller
+    public class HeroController : ControllerBase
     {
         private readonly IHeroService _heroService;
         public HeroController(IHeroService heroService) 
@@ -23,9 +24,9 @@ namespace WebGame.Api.Controllers
         // GET: HeroController
         [HttpGet]
         [Route("/[controller]")]
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return Ok(_heroService.GetAll());
+                return Ok(await _heroService.GetAll());
         }
 
         // GET: HeroController/Details/5
@@ -33,7 +34,7 @@ namespace WebGame.Api.Controllers
         [Route("/Details")]
         public ActionResult Details(Guid id)
         {
-            return View(_heroService.GetByID(id));
+            return Ok(_heroService.GetByID(id));
         }
 
         // GET: HeroController/Create

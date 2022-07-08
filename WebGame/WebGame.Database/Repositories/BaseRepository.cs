@@ -46,7 +46,16 @@ namespace WebGame.Database.Repositories
 
         public async Task<ICollection<TEntity>> GetAll()
         {
-            return await _dbSet.AsNoTracking().ToListAsync();
+            try
+            {
+                return await _dbSet.AsNoTracking().ToListAsync();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
         }
 
         public TEntity GetByID(Guid entityId)
