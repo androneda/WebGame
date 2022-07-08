@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using WebGame.Database.Model;
 
 namespace WebGame.Database.Repositories.Interfaces
 {
-    internal interface IBaseRepository<TEntity>
+    public interface IBaseRepository<TEntity>
     {
-        public Task DeleteAsync(Guid Id);
-        public Task InsertAsync(TEntity hero);
-        public Task UpdateAsync(TEntity hero);
-        public Task<IEnumerable<TEntity>> GetAll();
+        Task DeleteAsync(Guid entityId);
+        Task InsertAsync(TEntity entity);
+        Task UpdateAsync(TEntity entity);
+        Task<ICollection<TEntity>> GetAll();
+        TEntity GetByID(Guid entityId);
 
     }
 }

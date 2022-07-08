@@ -1,23 +1,17 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WebGame.Database;
-using WebGame.Database.Model;
-using WebGame.Database.Repositories.Interfaces;
-using WebGame.Database.Repositories;
-using WebGame.Core.Services.Interfaces;
 using WebGame.Core.Services;
+using WebGame.Core.Services.Interfaces;
+using WebGame.Database;
+using WebGame.Database.Repositories;
+using WebGame.Database.Repositories.Interfaces;
+using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace WebGame.Api
 {
@@ -39,6 +33,8 @@ namespace WebGame.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebGame", Version = "v1" });
             });
             services.AddEntityFrameworkNpgsql().AddDbContext<WebGameDBContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("WebGameData")));
+            //services.AddScoped<IBaseService<Hero>,BaseService<Hero>>();
+            //services.AddScoped<IBaseRepository<Hero>, BaseRepository<Hero>>();
             services.AddScoped<IHeroRepository, HeroRepository>();
             services.AddScoped<IHeroService, HeroService>();
         }

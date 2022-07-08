@@ -7,12 +7,8 @@ using WebGame.Database.Model;
 
 namespace WebGame.Core.Services.Interfaces
 {
-    public interface IHeroService
+    public interface IHeroService:IBaseService<Hero>
     {
-        public Task<IEnumerable<Hero>> GetHeroes();
-        public Hero GetHeroByID(Guid heroId);
-        Task InsertHero(Hero hero);
-        Task DeleteHero(Guid heroId);
-        Task UpdateHero(Hero hero);
+
     }
 }

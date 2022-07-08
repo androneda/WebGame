@@ -1,13 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using WebGame.Database.Model;
 using WebGame.Database.Repositories.Interfaces;
 
 namespace WebGame.Database.Repositories
 {
-    public class BaseRepository<TEntity> where TEntity : BaseEntity, new()
+    public class BaseRepository<TEntity>: IBaseRepository<TEntity> where TEntity : BaseEntity, new()
     {
         protected readonly WebGameDBContext _context;
         DbSet<TEntity> _dbSet;
@@ -17,40 +18,40 @@ namespace WebGame.Database.Repositories
             _context = context;
             _dbSet = context.Set<TEntity>();
         }
-        public async Task DeleteAsync(Guid Id)
+        public async Task DeleteAsync(Guid entityId)
         {
-            TEntity entity = _dbSet.Find(Id);
+            TEntity entity = _dbSet.Find(entityId);
             if (entity != null)
             {
                 _dbSet.Remove(entity);
                 await SaveAsync();
             }
         }
-        public async Task InsertAsync(TEntity hero)
+        public async Task InsertAsync(TEntity entity)
         {
-            if (hero != null)
+            if (entity != null)
             {
-            await _dbSet.AddAsync(hero);
+            await _dbSet.AddAsync(entity);
             await SaveAsync();
             }
         }
-        public async Task UpdateAsync(TEntity hero)
+        public async Task UpdateAsync(TEntity entity)
         {
-            if (hero != null)
+            if (entity != null)
             {
-                _context.Entry(hero).State = EntityState.Modified;
+                _context.Entry(entity).State = EntityState.Modified;
                 await SaveAsync();
             }
         }
 
-        public async Task<IEnumerable<TEntity>> GetAll()
+        public async Task<ICollection<TEntity>> GetAll()
         {
-            return await _dbSet.ToListAsync();
+            return await _dbSet.AsNoTracking().ToListAsync();
         }
 
-        public TEntity GetByID(Guid heroId)
+        public TEntity GetByID(Guid entityId)
         {
-            return _dbSet.Find(heroId); //Тут что нибудь еще надо?
+            return _dbSet.Find(entityId);
         }
 
 

@@ -11,8 +11,7 @@ using WebGame.Core.Services.Interfaces;
 
 namespace WebGame.Api.Controllers
 {
-    [ApiController]
-    [Route ("/[controller]")]
+
     public class HeroController : Controller
     {
         private readonly IHeroService _heroService;
@@ -23,17 +22,18 @@ namespace WebGame.Api.Controllers
 
         // GET: HeroController
         [HttpGet]
+        [Route("/[controller]")]
         public ActionResult Index()
         {
-            return Ok(_heroService.GetHeroes());
+            return Ok(_heroService.GetAll());
         }
 
         // GET: HeroController/Details/5
         [HttpGet]
         [Route("/Details")]
-        public ActionResult Details()
+        public ActionResult Details(Guid id)
         {
-            return View();
+            return View(_heroService.GetByID(id));
         }
 
         // GET: HeroController/Create
@@ -42,8 +42,8 @@ namespace WebGame.Api.Controllers
         public ActionResult Create(Hero hero)
         {
             hero.Id= Guid.NewGuid();
-            _heroService.InsertHero(hero);
-            return Ok(_heroService.GetHeroes());
+            _heroService.Insert(hero);
+            return Ok(_heroService.GetAll());
         }
 
         // GET: HeroController/Delete/5
@@ -51,8 +51,8 @@ namespace WebGame.Api.Controllers
         [Route ("/Delete")]
         public ActionResult Delete(Guid id)
         {
-            _heroService.DeleteHero(id);
-            return Ok(_heroService.GetHeroes());
+            _heroService.Delete(id);
+            return Ok(_heroService.GetAll());
         }
 
 
