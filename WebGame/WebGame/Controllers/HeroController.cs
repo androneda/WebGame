@@ -33,7 +33,7 @@ namespace WebGame.Api.Controllers
         // GET: HeroController/GetHero/
         [HttpGet]
         [Route("/GetByID")]
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Details([FromQuery]Guid id)
         {
             return Ok(await _heroService.GetByID(id));
         }
@@ -41,7 +41,7 @@ namespace WebGame.Api.Controllers
         // Post: HeroController/AddHero
         [HttpPost]
         [Route("/Add")]
-        public async Task<IActionResult> Add(Hero hero)
+        public async Task<IActionResult> Add([FromForm] Hero hero)
         {
             hero.Id= Guid.NewGuid();
             await _heroService.Insert(hero);
@@ -51,16 +51,16 @@ namespace WebGame.Api.Controllers
         // Delete: HeroController/Delete/
         [HttpGet]
         [Route ("/Delete")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete([FromQuery]Guid id)
         {
             await _heroService.Delete(id);
-            return Ok( await _heroService.GetAll());
+            return Ok();
         }
 
         // Put: HeroController/Put/
         [HttpPut]
         [Route("/Put")]
-        public async Task<IActionResult> Put(Hero hero)
+        public async Task<IActionResult> Put([FromForm]Hero hero)
         {
             await _heroService.UpdateHero(hero);
             return Ok(await _heroService.GetAll());
