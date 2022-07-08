@@ -27,17 +27,16 @@ namespace WebGame.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(); 
+            services.AddControllers();
+            services.AddAutoMapper(typeof(Startup));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebGame", Version = "v1" });
             });
             services.AddEntityFrameworkNpgsql().AddDbContext<WebGameDBContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("WebGameData")));
-            //services.AddScoped<IBaseService<Hero>,BaseService<Hero>>();
-            //services.AddScoped<IBaseRepository<Hero>, BaseRepository<Hero>>();
             services.AddScoped<IHeroRepository, HeroRepository>();
             services.AddScoped<IHeroService, HeroService>();
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

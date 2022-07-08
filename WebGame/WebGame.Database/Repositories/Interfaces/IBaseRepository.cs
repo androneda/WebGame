@@ -11,7 +11,7 @@ namespace WebGame.Database.Repositories.Interfaces
         Task InsertAsync(TEntity entity);
         Task UpdateAsync(TEntity entity);
         Task<ICollection<TEntity>> GetAll();
-        TEntity GetByID(Guid entityId);
+        Task<TEntity> GetByID(Guid entityId);
 
     }
 }

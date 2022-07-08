@@ -12,7 +12,8 @@ using System.Threading.Tasks;
 
 namespace WebGame.Api.Controllers
 {
-
+    [ApiController]
+    [Route("[controller]")]
     public class HeroController : ControllerBase
     {
         private readonly IHeroService _heroService;
@@ -21,39 +22,48 @@ namespace WebGame.Api.Controllers
             _heroService = heroService;
         }
 
-        // GET: HeroController
+        // GET: HeroController/GetHeroes
         [HttpGet]
-        [Route("/[controller]")]
+        [Route("/GetAll")]
         public async Task<IActionResult> Index()
         {
                 return Ok(await _heroService.GetAll());
         }
 
-        // GET: HeroController/Details/5
+        // GET: HeroController/GetHero/
         [HttpGet]
-        [Route("/Details")]
-        public ActionResult Details(Guid id)
+        [Route("/GetByID")]
+        public async Task<IActionResult> Details(Guid id)
         {
-            return Ok(_heroService.GetByID(id));
+            return Ok(await _heroService.GetByID(id));
         }
 
-        // GET: HeroController/Create
-        [HttpGet]
-        [Route("/Create")]
-        public ActionResult Create(Hero hero)
+        // Post: HeroController/AddHero
+        [HttpPost]
+        [Route("/Add")]
+        public async Task<IActionResult> Add(Hero hero)
         {
             hero.Id= Guid.NewGuid();
-            _heroService.Insert(hero);
-            return Ok(_heroService.GetAll());
+            await _heroService.Insert(hero);
+            return Ok(hero);
         }
 
-        // GET: HeroController/Delete/5
+        // Delete: HeroController/Delete/
         [HttpGet]
         [Route ("/Delete")]
-        public ActionResult Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            _heroService.Delete(id);
-            return Ok(_heroService.GetAll());
+            await _heroService.Delete(id);
+            return Ok( await _heroService.GetAll());
+        }
+
+        // Put: HeroController/Put/
+        [HttpPut]
+        [Route("/Put")]
+        public async Task<IActionResult> Put(Hero hero)
+        {
+            await _heroService.UpdateHero(hero);
+            return Ok(await _heroService.GetAll());
         }
 
 
