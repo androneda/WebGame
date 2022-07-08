@@ -49,7 +49,7 @@ namespace WebGame.Api.Controllers
         }
 
         // Delete: HeroController/Delete/
-        [HttpGet]
+        [HttpDelete]
         [Route ("/Delete")]
         public async Task<IActionResult> Delete([FromQuery]Guid id)
         {
