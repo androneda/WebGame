@@ -12,7 +12,7 @@ using WebGame.Database.Repositories;
 using WebGame.Database.Repositories.Interfaces;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
-using WebGame.Core;
+using WebGame.Api.Data;
 
 namespace WebGame.Api
 {

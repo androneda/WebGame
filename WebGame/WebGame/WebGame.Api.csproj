@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Page Include="Controllers\HeroController.cs" />
+    <Page Include="Controllers\HeroesController.cs" />
   </ItemGroup>
 
   <ItemGroup>

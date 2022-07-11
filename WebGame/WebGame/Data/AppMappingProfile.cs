@@ -7,16 +7,16 @@ using AutoMapper;
 using WebGame.Core.Model.Hero;
 using WebGame.Database.Model;
 
-namespace WebGame.Core
+namespace WebGame.Api.Data
 {
     public class AppMappingProfile : Profile
     {
         public AppMappingProfile()
         {
             CreateMap<CreateHeroDto, Hero>();
-            CreateMap<HeroViewDto, Hero>();
-            CreateMap<ShortHeroViewDto, Hero>();
             CreateMap<UpdateHeroDto, Hero>();
+            CreateMap<ICollection<Hero>, ICollection<HeroViewDto>>();
+            CreateMap<Hero, HeroViewDto>();
         }
     }
 }
