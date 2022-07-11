@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebGame.Core.Services.Interfaces;
-using WebGame.Core.Model.;
+using WebGame.Core.Model.Hero;
 using WebGame.Database;
 using WebGame.Database.Model;
 using WebGame.Database.Repositories.Interfaces;
