@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebGame.Core.Model.Hero;
 using WebGame.Database.Model;
 
 namespace WebGame.Core.Services.Interfaces
@@ -11,8 +12,8 @@ namespace WebGame.Core.Services.Interfaces
     {
         Task<ICollection<Hero>> GetAll();
         Task<Hero> GetByID(Guid heroId);
-        Task Insert(Hero hero);
+        Task Insert(CreateHeroDto heroDto);
         Task Delete(Guid heroId);
-        Task UpdateHero(Hero hero);
+        Task Update(UpdateHeroDto heroDto);
     }
 }

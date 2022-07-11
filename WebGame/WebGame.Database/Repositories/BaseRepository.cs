@@ -20,7 +20,8 @@ namespace WebGame.Database.Repositories
         public async Task DeleteAsync(Guid entityId)
         {
             TEntity entity = _dbSet.Find(entityId);
-            _dbSet.Remove(entity);
+            if (entity != null)
+                _dbSet.Remove(entity);
             await SaveAsync();
         }
         public async Task InsertAsync(TEntity entity)

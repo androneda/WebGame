@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using WebGame.Common.Exeptions;
+using WebGame.Core.Model.Hero;
 using WebGame.Core.Services.Interfaces;
 using WebGame.Database.Model;
 
@@ -33,9 +34,8 @@ namespace WebGame.Api.Controllers
 
         // Post: HeroController/AddHero
         [HttpPost("/Add")]
-        public async Task<IActionResult> Add([FromForm] Hero hero)
+        public async Task<IActionResult> Add([FromForm] CreateHeroDto hero)
         {
-            hero.Id = Guid.NewGuid();
             await _heroService.Insert(hero);
             return Ok(hero);
         }
@@ -50,19 +50,18 @@ namespace WebGame.Api.Controllers
 
         // Put: HeroController/Put/
         [HttpPut("/Put")]
-        public async Task<IActionResult> Update([FromForm] Hero hero)
+        public async Task<IActionResult> Update([FromForm] UpdateHeroDto hero)
         {
             try
             {
                 if (hero is null)
                     throw new HeroNotFoundExeption("Герой с указанным идентификатором не найден");
             }
-            catch (Exception ex)
+            catch 
             {
-                //return ex.Message;
+                return null;
             }
-
-            await _heroService.UpdateHero(hero);
+            await _heroService.Update(hero);
             return Ok(await _heroService.GetAll());
         }
 

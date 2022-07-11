@@ -12,6 +12,7 @@ using WebGame.Database.Repositories;
 using WebGame.Database.Repositories.Interfaces;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
+using WebGame.Core;
 
 namespace WebGame.Api
 {
@@ -36,6 +37,7 @@ namespace WebGame.Api
             services.AddEntityFrameworkNpgsql().AddDbContext<WebGameDBContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("WebGameData")));
             services.AddScoped<IHeroRepository, HeroRepository>();
             services.AddScoped<IHeroService, HeroService>();
+            services.AddAutoMapper(typeof(AppMappingProfile));
 
         }
 
