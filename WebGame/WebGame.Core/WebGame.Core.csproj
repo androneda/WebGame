@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WebGame.Common\WebGame.Common.csproj" />
     <ProjectReference Include="..\WebGame.Database\WebGame.Database.csproj" />
   </ItemGroup>
 

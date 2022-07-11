@@ -10,7 +10,7 @@ namespace WebGame.Database.Repositories
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity, new()
     {
         protected readonly WebGameDBContext _context;
-        DbSet<TEntity> _dbSet;
+        protected readonly DbSet<TEntity> _dbSet;
 
         public BaseRepository(WebGameDBContext context)
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebGame.Core.Services.Interfaces;
+using WebGame.Core.Model.;
 using WebGame.Database;
 using WebGame.Database.Model;
 using WebGame.Database.Repositories.Interfaces;
@@ -26,11 +27,7 @@ namespace WebGame.Core.Services
 
         public async Task Delete(Guid heroId)
         {
-
-            if (_heroRepo.GetByID(heroId) != null)
-            {
-                await _heroRepo.DeleteAsync(heroId);
-            }
+            await _heroRepo.DeleteAsync(heroId);
         }
 
         public async Task UpdateHero(Hero hero)
@@ -42,12 +39,7 @@ namespace WebGame.Core.Services
         }
         public async Task<Hero> GetByID(Guid heroId)
         {
-            if (_heroRepo.GetByID(heroId) != null)
-            {
-               return await _heroRepo.GetByID(heroId);
-            }
-            return new Hero();
+            return await _heroRepo.GetByID(heroId);
         }
-
     }
 }

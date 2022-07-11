@@ -1,14 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Configuration;
-using System.Linq;
-using WebGame.Database;
-using WebGame.Database.Model;
-using WebGame.Core.Services.Interfaces;
 using System.Threading.Tasks;
+using WebGame.Common.Exeptions;
+using WebGame.Core.Services.Interfaces;
+using WebGame.Database.Model;
 
 namespace WebGame.Api.Controllers
 {
@@ -17,51 +12,56 @@ namespace WebGame.Api.Controllers
     public class HeroController : ControllerBase
     {
         private readonly IHeroService _heroService;
-        public HeroController(IHeroService heroService) 
+        public HeroController(IHeroService heroService)
         {
             _heroService = heroService;
         }
 
         // GET: HeroController/GetHeroes
-        [HttpGet]
-        [Route("/GetAll")]
+        [HttpGet("/GetAll")]
         public async Task<IActionResult> Index()
         {
-                return Ok(await _heroService.GetAll());
+            return Ok(await _heroService.GetAll());
         }
 
         // GET: HeroController/GetHero/
-        [HttpGet]
-        [Route("/GetByID")]
-        public async Task<IActionResult> Details([FromQuery]Guid id)
+        [HttpGet("/GetByID")]
+        public async Task<IActionResult> Details([FromQuery] Guid id)
         {
             return Ok(await _heroService.GetByID(id));
         }
 
         // Post: HeroController/AddHero
-        [HttpPost]
-        [Route("/Add")]
+        [HttpPost("/Add")]
         public async Task<IActionResult> Add([FromForm] Hero hero)
         {
-            hero.Id= Guid.NewGuid();
+            hero.Id = Guid.NewGuid();
             await _heroService.Insert(hero);
             return Ok(hero);
         }
 
         // Delete: HeroController/Delete/
-        [HttpDelete]
-        [Route ("/Delete")]
-        public async Task<IActionResult> Delete([FromQuery]Guid id)
+        [HttpDelete("/Delete")]
+        public async Task<IActionResult> Delete([FromQuery] Guid id)
         {
             await _heroService.Delete(id);
             return Ok();
         }
 
         // Put: HeroController/Put/
-        [HttpPut]
-        [Route("/Put")]
-        public async Task<IActionResult> Put([FromForm]Hero hero)
+        [HttpPut("/Put")]
+        public async Task<IActionResult> Update([FromForm] Hero hero)
         {
+            try
+            {
+                if (hero is null)
+                    throw new HeroNotFoundExeption("Герой с указанным идентификатором не найден");
+            }
+            catch (Exception ex)
+            {
+                //return ex.Message;
+            }
+
             await _heroService.UpdateHero(hero);
             return Ok(await _heroService.GetAll());
         }
