@@ -25,18 +25,17 @@ namespace WebGame.Core.Services
             var temp = await _heroRepo.GetAll();
 
             if (temp.Any())
-            {
-                ICollection<HeroViewDto> heroesViewDto = _mapper.Map<ICollection<HeroViewDto>>(temp);
-
-                return heroesViewDto;
-            }
-            return null;
+                return _mapper.Map<ICollection<HeroViewDto>>(temp);
+            else
+                return (ICollection<HeroViewDto>)Enumerable.Empty<HeroViewDto>();
 
         }
-        public async Task Insert(CreateHeroDto heroDto)
+        public async Task Add(CreateHeroDto heroDto)
         {
+            if (heroDto is null)
+                throw new HeroNotFoundExeption("Герой с указанным идентификатором не найден");
             var hero = _mapper.Map<Hero>(heroDto);
-            await _heroRepo.InsertAsync(hero);
+            await _heroRepo.AddAsync(hero);
         }
 
         public async Task Delete(Guid heroId)
@@ -56,11 +55,9 @@ namespace WebGame.Core.Services
         public async Task<HeroViewDto> GetByID(Guid heroId)
         {
             var temp = await _heroRepo.GetByID(heroId);
-            if (temp is not null)
-            {
-                return _mapper.Map<HeroViewDto>(temp);
-            }
-            throw new HeroNotFoundExeption("Герой с указанным идентификатором не найден");
+            if (temp is null)
+                throw new HeroNotFoundExeption("Герой с указанным идентификатором не найден");
+            return _mapper.Map<HeroViewDto>(temp);
         }
     }
 }

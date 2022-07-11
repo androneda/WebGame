@@ -10,8 +10,8 @@ using WebGame.Database;
 namespace WebGame.Database.Migrations
 {
     [DbContext(typeof(WebGameDBContext))]
-    [Migration("20220708082640_initAgain")]
-    partial class initAgain
+    [Migration("20220711205911_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

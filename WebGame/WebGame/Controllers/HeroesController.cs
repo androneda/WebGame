@@ -34,7 +34,7 @@ namespace WebGame.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromForm] CreateHeroDto hero)
         {
-            await _heroService.Insert(hero);
+            await _heroService.Add(hero);
             return NoContent();
         }
 

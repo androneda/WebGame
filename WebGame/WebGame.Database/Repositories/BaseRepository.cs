@@ -21,13 +21,12 @@ namespace WebGame.Database.Repositories
         public async Task DeleteAsync(Guid entityId)
         {
             TEntity entity = _dbSet.Find(entityId);
-            if (entity is not null)
-                _dbSet.Remove(entity);
-            else
+            if (entity is null)
                 throw new HeroNotFoundExeption("Герой с указанным идентификатором не найден");
+            _dbSet.Remove(entity);
             await SaveAsync();
         }
-        public async Task InsertAsync(TEntity entity)
+        public async Task AddAsync(TEntity entity)
         {
 
             await _dbSet.AddAsync(entity);

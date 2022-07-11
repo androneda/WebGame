@@ -12,7 +12,7 @@ namespace WebGame.Core.Services.Interfaces
     {
         Task<ICollection<HeroViewDto>> GetAll();
         Task<HeroViewDto> GetByID(Guid heroId);
-        Task Insert(CreateHeroDto heroDto);
+        Task Add(CreateHeroDto heroDto);
         Task Delete(Guid heroId);
         Task Update(UpdateHeroDto heroDto);
     }
