@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,6 @@ namespace WebGame.Api.Data
         {
             CreateMap<CreateHeroDto, Hero>();
             CreateMap<UpdateHeroDto, Hero>();
-            CreateMap<ICollection<Hero>, ICollection<HeroViewDto>>();
             CreateMap<Hero, HeroViewDto>();
         }
     }

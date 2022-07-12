@@ -9,11 +9,6 @@ namespace WebGame.Core.Model.Hero
     public class HeroViewDto
     {
         /// <summary>
-        /// Id
-        /// </summary>
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// Name
         /// </summary>
         public string Name { get; set; }
@@ -38,19 +33,5 @@ namespace WebGame.Core.Model.Hero
         /// </summary>
         public bool ShowHelmet { get; set; }
 
-        /// <summary>
-        /// Name
-        /// </summary>
-        public string Stats { get; set; }
-
-        /// <summary>
-        /// Name
-        /// </summary>
-        public string History { get; set; }
-
-        /// <summary>
-        /// Name
-        /// </summary>
-        public string Armor { get; set; }
     }
 }

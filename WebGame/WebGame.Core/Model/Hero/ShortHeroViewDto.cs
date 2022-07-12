@@ -17,7 +17,7 @@ namespace WebGame.Core.Model.Hero
         /// <summary>
         /// Level
         /// </summary>
-        public string Level { get; set; }
+        public int Level { get; set; }
 
 
         /// <summary>

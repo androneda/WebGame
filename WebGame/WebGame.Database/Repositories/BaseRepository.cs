@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using WebGame.Database.Model;
 using WebGame.Database.Repositories.Interfaces;
-using WebGame.Common.Exeptions;
 
 namespace WebGame.Database.Repositories
 {
@@ -21,10 +20,11 @@ namespace WebGame.Database.Repositories
         public async Task DeleteAsync(Guid entityId)
         {
             TEntity entity = _dbSet.Find(entityId);
-            if (entity is null)
-                throw new HeroNotFoundExeption("Герой с указанным идентификатором не найден");
-            _dbSet.Remove(entity);
-            await SaveAsync();
+            if (entity is not null)
+            {
+                _dbSet.Remove(entity);
+                await SaveAsync();
+            }
         }
         public async Task AddAsync(TEntity entity)
         {
