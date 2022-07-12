@@ -20,14 +20,14 @@ namespace WebGame.Core.Services
             _heroRepo = heroRepo;
             _mapper = mapper;
         }
-        public async Task<ICollection<HeroViewDto>> GetAll()
+        public async Task<IEnumerable<HeroViewDto>> GetAll()
         {
             var temp = await _heroRepo.GetAll();
 
             if (temp.Any())
                 return _mapper.Map<ICollection<HeroViewDto>>(temp);
             else
-                return (ICollection<HeroViewDto>)Enumerable.Empty<HeroViewDto>();
+                return Enumerable.Empty<HeroViewDto>();
 
         }
         public async Task Add(CreateHeroDto heroDto)

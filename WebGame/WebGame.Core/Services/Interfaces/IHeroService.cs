@@ -10,7 +10,7 @@ namespace WebGame.Core.Services.Interfaces
 {
     public interface IHeroService
     {
-        Task<ICollection<HeroViewDto>> GetAll();
+        Task<IEnumerable<HeroViewDto>> GetAll();
         Task<HeroViewDto> GetByID(Guid heroId);
         Task Add(CreateHeroDto heroDto);
         Task Delete(Guid heroId);
