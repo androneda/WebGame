@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace WebGame.Database.Model
 {
-    public class BaseEntity
+    public class Event : BaseEntity
     {
-        public Guid Id { get; set; } 
-        public string Name { get; set; } 
-        public bool IsDeleted { get; set; }
+        //событие с особой наградой. раз в n дней
     }
 }

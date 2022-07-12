@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace WebGame.Database.Model
 {
-    public class BaseEntity
+    public class Stat 
     {
-        public Guid Id { get; set; } 
-        public string Name { get; set; } 
-        public bool IsDeleted { get; set; }
+        public string Name { get; set; }
+        public int Value { get; set; }
     }
 }

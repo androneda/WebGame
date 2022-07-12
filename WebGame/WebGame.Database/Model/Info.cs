@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace WebGame.Database.Model
 {
-    public class BaseEntity
+    public class Info 
     {
-        public Guid Id { get; set; } 
-        public string Name { get; set; } 
-        public bool IsDeleted { get; set; }
+        //Новости, обновления.
     }
 }
