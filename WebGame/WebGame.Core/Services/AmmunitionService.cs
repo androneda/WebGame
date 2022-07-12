@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using WebGame.Common.Exeptions;
 using WebGame.Core.Model.Ammunition;
-using WebGame.Core.Model.Hero;
 using WebGame.Core.Services.Interfaces;
 using WebGame.Database.Model;
 using WebGame.Database.Repositories.Interfaces;
@@ -27,8 +26,7 @@ namespace WebGame.Core.Services
 
             if (temp.Any())
                 return _mapper.Map<ICollection<AmmunitionViewDto>>(temp);
-            else
-                return Enumerable.Empty<AmmunitionViewDto>();
+            return Enumerable.Empty<AmmunitionViewDto>();
 
         }
         public async Task Add(CreateAmmunitionDto heroDto)

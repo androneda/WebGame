@@ -17,15 +17,15 @@ namespace WebGame.Api.Controllers
         }
 
         // GET: HeroController/GetHeroes
-        [HttpGet("GetAll")]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _heroService.GetAll());
         }
 
         // GET: HeroController/GetHero/
-        [HttpGet("GetByID")]
-        public async Task<IActionResult> Details([FromQuery] Guid id)
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> Details([FromRoute] Guid id)
         {
             return Ok(await _heroService.GetByID(id));
         }

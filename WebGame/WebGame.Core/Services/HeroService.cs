@@ -26,8 +26,7 @@ namespace WebGame.Core.Services
 
             if (temp.Any())
                 return _mapper.Map<ICollection<HeroViewDto>>(temp);
-            else
-                return Enumerable.Empty<HeroViewDto>();
+            return Enumerable.Empty<HeroViewDto>();
 
         }
         public async Task Add(CreateHeroDto heroDto)
