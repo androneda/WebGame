@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebGame.Common.Exeptions;
-using WebGame.Core.Model.Skill;
+using WebGame.Core.Model.Skills;
 using WebGame.Core.Services.Interfaces;
 using WebGame.Database.Model;
 using WebGame.Database.Repositories.Interfaces;

@@ -1,41 +1,40 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using WebGame.Core.Model.Hero;
-using WebGame.Core.Model.Skills;
+using WebGame.Core.Model.Specialization;
 using WebGame.Core.Services.Interfaces;
 
 namespace WebGame.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class SkillsController : ControllerBase
+    public class SpecializationsController : ControllerBase
     {
-        private readonly ISkillService _skillService;
-        public SkillsController(ISkillService skillService)
+        private readonly ISpecializationService _specializationService;
+        public SpecializationsController(ISpecializationService specialization)
         {
-            _skillService = skillService;
+            _specializationService = specialization;
         }
 
         // GET: HeroController/GetHeroes
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _skillService.GetAll());
+            return Ok(await _specializationService.GetAll());
         }
 
         // GET: HeroController/GetHero/
         [HttpGet("{id:Guid}")]
         public async Task<IActionResult> Details([FromRoute] Guid id)
         {
-            return Ok(await _skillService.GetByID(id));
+            return Ok(await _specializationService.GetByID(id));
         }
 
         // Post: HeroController/AddHero
         [HttpPost]
-        public async Task<IActionResult> Add([FromForm] CreateSkillDto skill)
+        public async Task<IActionResult> Add([FromForm] CreateSpecializationDto spec)
         {
-            await _skillService.Add(skill);
+            await _specializationService.Add(spec);
             return NoContent();
         }
 
@@ -43,15 +42,15 @@ namespace WebGame.Api.Controllers
         [HttpDelete]
         public async Task<IActionResult> Delete([FromQuery] Guid id)
         {
-            await _skillService.Delete(id);
+            await _specializationService.Delete(id);
             return NoContent();
         }
 
         // Put: HeroController/Put/
         [HttpPut]
-        public async Task<IActionResult> Update([FromForm] UpdateSkillDto skill)
+        public async Task<IActionResult> Update([FromForm] UpdateSpecializationDto spec)
         {
-            await _skillService.Update(skill);
+            await _specializationService.Update(spec);
             return NoContent();
         }
 

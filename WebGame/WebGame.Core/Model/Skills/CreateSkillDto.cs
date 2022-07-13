@@ -3,53 +3,60 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebGame.Common.Enums;
 
-namespace WebGame.Core.Model.Skill
+namespace WebGame.Core.Model.Skills
 {
-    public class SkillViewDto
+    public class CreateSkillDto
     {
+
         /// <summary>
-        /// Name
+        /// Skil Name
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Skill Race
+        /// Skil Race
         /// </summary>
-        public Guid RaceId { get; set; }
+        public Guid? RaceId { get; set; }
 
         /// <summary>
-        /// Skill Specialization
+        /// Skil Class
         /// </summary>
-        public Guid SpecializationId { get; set; }
+        public Guid? SpecializationId { get; set; }
 
         /// <summary>
-        /// Skill Range
+        /// Skil BaseStat
         /// </summary>
-        public int Range { get; set; }
+        public string BaseStat { get; set; }
 
         /// <summary>
-        /// Skill Recharge Time
+        /// Skil Range
+        /// </summary>
+        public int? Range { get; set; }
+
+        /// <summary>
+        /// Skil RechargeTime
         /// </summary>
         public int RechargeTime { get; set; }
 
         /// <summary>
-        /// Skill Hero Cost Action Points 
+        /// Skil CostActionPoints
         /// </summary>
         public int CostActionPoints { get; set; }
 
         /// <summary>
-        /// Skill Damage Radius
+        /// Skil DamageRadius
         /// </summary>
         public int? DamageRadius { get; set; }
 
         /// <summary>
-        /// Skill Bonus Action Points
+        /// Skil BonusActionPoints
         /// </summary>
         public int? BonusActionPoints { get; set; }
 
         /// <summary>
-        /// Skill Is On Ally
+        /// Skil IsOnAlly
         /// </summary>
         public bool? IsOnAlly { get; set; }
 

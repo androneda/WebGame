@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebGame.Core.Model.Skill
+namespace WebGame.Core.Model.Skills
 {
     public class UpdateSkillDto
     {
