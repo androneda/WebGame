@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,12 +10,13 @@ namespace WebGame.Database.Model
 {
     public class Hero : Character
     {
-        public RaceEnum Race { get; set; }
-        public SpecializationEnum Specialization { get; set; }
+        public string Name { get; set; }
+        public Guid RaceId { get; set; }
+        public Guid SpecializationId { get; set; }
         public int Level { get; set; }
         public int ActionPoints { get; set; }
 
-        //public List<Skill> Skills { get; set; }
+        //public List<Skill> Skills { get; set; }   
         //public List<Stat> Stats { get; set; }
 
         public Guid HeadId { get; set; }

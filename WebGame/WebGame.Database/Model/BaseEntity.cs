@@ -9,7 +9,6 @@ namespace WebGame.Database.Model
     public class BaseEntity
     {
         public Guid Id { get; set; } 
-        public string Name { get; set; } 
         public bool IsDeleted { get; set; }
     }
 }

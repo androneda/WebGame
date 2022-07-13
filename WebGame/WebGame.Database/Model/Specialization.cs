@@ -8,6 +8,8 @@ namespace WebGame.Database.Model
 {
     public class Specialization : BaseEntity
     {
-        public List<Skill> Skills { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public ICollection<Skill> Skills { get; set; }
     }
 }

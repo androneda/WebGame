@@ -15,7 +15,11 @@ namespace WebGame.Database.Model
         public Guid TargetId { get; set; }
         public int RechargeTime { get; set; }
         public int CostActionPoints { get; set; }
-        public int DamageRadius { get; set; }
-        public int BonusActionPoints { get; set; }
+        public int? DamageRadius { get; set; }
+        public int? BonusActionPoints { get; set; }
+        public bool IsOnAlly { get; set; }
+
+        public Guid? RaceId { get; set; }
+        public Guid? SpecializationId { get; set; }
     }
 }

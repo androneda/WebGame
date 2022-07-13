@@ -8,6 +8,7 @@ namespace WebGame.Database.Model
 {
     public class Enemy : Character
     {
+        public string Name { get; set; }
         public string ImagePng { get; set; }
         public bool IsRanged { get; set; }
         public List<Skill> Skills { get; set; }

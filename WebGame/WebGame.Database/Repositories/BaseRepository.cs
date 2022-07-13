@@ -39,7 +39,6 @@ namespace WebGame.Database.Repositories
             await SaveAsync();
         }
 
-
         public async Task<ICollection<TEntity>> GetAll()
         {
             return await _dbSet.AsNoTracking().ToListAsync();

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebGame.Common.Enums;
 
 namespace WebGame.Database.Model
 {
@@ -10,7 +11,9 @@ namespace WebGame.Database.Model
     {
         //public List<Stat> BonusStats { get; set; }
 
-        public new Enum Name { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public ICollection<Skill> Skills { get; set; }
 
     }
 }
