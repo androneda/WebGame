@@ -11,7 +11,7 @@ namespace WebGame.Database.Model
         public string Name { get; set; }
         public string ImagePng { get; set; }
         public bool IsRanged { get; set; }
-        public List<Skill> Skills { get; set; }
-
+        public Guid RaceId { get; set; }
+        public Guid SpecializationId { get; set; }
     }
 }

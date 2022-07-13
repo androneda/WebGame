@@ -8,6 +8,7 @@ using AutoMapper;
 using WebGame.Core.Model.Hero;
 using WebGame.Core.Model.Ammunition;
 using WebGame.Database.Model;
+using WebGame.Core.Model.Skill;
 
 namespace WebGame.Api.Data
 {
@@ -22,6 +23,10 @@ namespace WebGame.Api.Data
             CreateMap<CreateAmmunitionDto, Ammunition>();
             CreateMap<UpdateAmmunitionDto, Ammunition>();
             CreateMap<Ammunition, AmmunitionViewDto>();
+
+            CreateMap<CreateSkillDto, Skill>();
+            CreateMap<UpdateSkillDto, Skill>();
+            CreateMap<Skill, SkillViewDto>();
         }
     }
 }

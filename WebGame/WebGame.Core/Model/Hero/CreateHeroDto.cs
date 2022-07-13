@@ -18,12 +18,12 @@ namespace WebGame.Core.Model.Hero
         /// <summary>
         /// Race
         /// </summary>
-        public RaceEnum Race { get; set; }
+        public Guid Race { get; set; }
 
         /// <summary>
         /// Hero Class
         /// </summary>
-        public SpecializationEnum Specialization { get; set; }
+        public Guid Specialization { get; set; }
 
     }
 }

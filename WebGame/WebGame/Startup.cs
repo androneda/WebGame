@@ -39,6 +39,8 @@ namespace WebGame.Api
             services.AddScoped<IHeroService, HeroService>();
             services.AddScoped<IAmmunitionRepository, AmmunitionRepository>();
             services.AddScoped<IAmmunitionService, AmmunitionService>();
+            services.AddScoped<ISkillRepository, SkillRepository>();
+            services.AddScoped<ISkillService, SkillService>();
             services.AddAutoMapper(typeof(AppMappingProfile));
 
         }
