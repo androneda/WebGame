@@ -66,6 +66,9 @@ namespace WebGame.Database.Migrations
                     b.Property<Guid>("HelmetId")
                         .HasColumnType("uuid");
 
+                    b.Property<bool>("IsDead")
+                        .HasColumnType("boolean");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
@@ -73,9 +76,6 @@ namespace WebGame.Database.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Race")
                         .HasColumnType("text");
 
                     b.Property<Guid>("SecondWeaponId")
@@ -86,12 +86,6 @@ namespace WebGame.Database.Migrations
 
                     b.Property<bool>("ShowHelmet")
                         .HasColumnType("boolean");
-
-                    b.Property<string>("Skills")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Specialization")
-                        .HasColumnType("text");
 
                     b.Property<Guid>("WeaponId")
                         .HasColumnType("uuid");

@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 
 namespace WebGame.Database.Model
 {
-    public class Race : BaseEntity
+    public class RaceSkills
     {
-        //public List<Stat> BonusStats { get; set; }
-
-        public new Enum Name { get; set; }
-
+        public Guid RaceId { get; set; }
+        public Guid SkillId { get; set; }
     }
 }
