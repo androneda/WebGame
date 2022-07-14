@@ -17,6 +17,7 @@ namespace WebGame.Database.Repositories
             _context = context;
             _dbSet = context.Set<TEntity>();
         }
+
         public async Task DeleteAsync(Guid entityId)
         {
             TEntity entity = _dbSet.Find(entityId);
@@ -26,12 +27,11 @@ namespace WebGame.Database.Repositories
                 await SaveAsync();
             }
         }
+
         public async Task AddAsync(TEntity entity)
         {
-
             await _dbSet.AddAsync(entity);
             await SaveAsync();
-
         }
         public async Task UpdateAsync(TEntity entity)
         {
@@ -48,7 +48,6 @@ namespace WebGame.Database.Repositories
         {
             return await _dbSet.FindAsync(entityId);
         }
-
 
         private async Task SaveAsync()
         {

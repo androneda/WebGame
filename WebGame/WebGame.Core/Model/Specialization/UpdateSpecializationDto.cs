@@ -9,18 +9,22 @@ namespace WebGame.Core.Model.Specialization
 {
     public class UpdateSpecializationDto
     {
+        /// <summary>
+        /// Specialization Id
+        /// </summary>
+        public Guid Id { get; set; }
 
         /// <summary>
-        /// Name
+        /// Specialization Name
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Name
+        /// Specialization Description
         /// </summary>
         public string Description { get; set; }
         /// <summary>
-        /// Name
+        /// Specialization Skills
         /// </summary>
         public ICollection<Skill> Skills { get; set; }
     }

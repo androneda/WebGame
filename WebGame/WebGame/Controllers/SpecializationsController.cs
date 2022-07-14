@@ -53,7 +53,5 @@ namespace WebGame.Api.Controllers
             await _specializationService.Update(spec);
             return NoContent();
         }
-
-
     }
 }

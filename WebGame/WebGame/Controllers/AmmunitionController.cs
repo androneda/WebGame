@@ -54,7 +54,5 @@ namespace WebGame.Api.Controllers
             await _ammunitionService.Update(ammunitionDto);
             return NoContent();
         }
-
-
     }
 }

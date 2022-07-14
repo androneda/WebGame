@@ -14,21 +14,30 @@ namespace WebGame.Core.Services
     public class SpecializationService : ISpecializationService
     {
         private readonly ISpecializationRepository _specializationRepo;
+        private readonly ISkillService _skillService;
         private readonly IMapper _mapper;
-        public SpecializationService(ISpecializationRepository heroRepo, IMapper mapper)
+        public SpecializationService(ISpecializationRepository specializationRepo, ISkillService skillService, IMapper mapper)
         {
-            _specializationRepo = heroRepo;
+            _specializationRepo = specializationRepo;
+            _skillService = skillService;
             _mapper = mapper;
         }
+
         public async Task<IEnumerable<SpecializationViewDto>> GetAll()
         {
             var temp = await _specializationRepo.GetAll();
 
             if (temp.Any())
+            {
+                foreach (var item in temp)
+                {
+                    item.Skills = await _skillService.GetBySpecId(item.Id);
+                }
                 return _mapper.Map<ICollection<SpecializationViewDto>>(temp);
+            }
             return Enumerable.Empty<SpecializationViewDto>();
-
         }
+
         public async Task Add(CreateSpecializationDto specDto)
         {
             if (specDto is null)
@@ -49,11 +58,12 @@ namespace WebGame.Core.Services
 
             var spec = _mapper.Map<Specialization>(specDto);
             await _specializationRepo.UpdateAsync(spec);
-
         }
-        public async Task<SpecializationViewDto> GetByID(Guid heroId)
+
+        public async Task<SpecializationViewDto> GetByID(Guid specId)
         {
-            var temp = await _specializationRepo.GetByID(heroId);
+            var temp = await _specializationRepo.GetByID(specId);
+            temp.Skills = await _skillService.GetBySpecId(specId);
             if (temp is null)
                 throw new SpecializationNotFoundExeption("Специализация с указанным идентификатором не найдена");
             return _mapper.Map<SpecializationViewDto>(temp);

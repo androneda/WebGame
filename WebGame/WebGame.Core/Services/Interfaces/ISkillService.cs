@@ -15,5 +15,8 @@ namespace WebGame.Core.Services.Interfaces
         Task Add(CreateSkillDto skillDto);
         Task Delete(Guid skillId);
         Task Update(UpdateSkillDto skillId);
+
+        Task<ICollection<Skill>> GetBySpecId(Guid specializationId);
+        Task<ICollection<Skill>> GetByRaceId(Guid raceId);
     }
 }

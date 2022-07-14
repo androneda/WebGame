@@ -49,8 +49,8 @@ namespace WebGame.Core.Services
 
             var hero = _mapper.Map<Hero>(heroDto);
             await _heroRepo.UpdateAsync(hero);
-
         }
+
         public async Task<HeroViewDto> GetByID(Guid heroId)
         {
             var temp = await _heroRepo.GetByID(heroId);

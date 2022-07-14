@@ -54,7 +54,5 @@ namespace WebGame.Api.Controllers
             await _skillService.Update(skill);
             return NoContent();
         }
-
-
     }
 }

@@ -12,6 +12,5 @@ namespace WebGame.Database.Repositories.Interfaces
         Task UpdateAsync(TEntity entity);
         Task<ICollection<TEntity>> GetAll();
         Task<TEntity> GetByID(Guid entityId);
-
     }
 }

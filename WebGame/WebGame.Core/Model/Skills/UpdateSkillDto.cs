@@ -9,6 +9,11 @@ namespace WebGame.Core.Model.Skills
     public class UpdateSkillDto
     {
         /// <summary>
+        /// Skill Id
+        /// </summary>
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// Skill Name
         /// </summary>
         public string Name { get; set; }

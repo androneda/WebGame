@@ -53,7 +53,5 @@ namespace WebGame.Api.Controllers
             await _heroService.Update(hero);
             return NoContent();
         }
-
-
     }
 }
