@@ -104,6 +104,10 @@ namespace WebGame.Database.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("RaceId");
+
+                    b.HasIndex("SpecializationId");
+
                     b.ToTable("Heroes");
                 });
 
@@ -201,6 +205,25 @@ namespace WebGame.Database.Migrations
                     b.ToTable("Specializations");
                 });
 
+            modelBuilder.Entity("WebGame.Database.Model.Hero", b =>
+                {
+                    b.HasOne("WebGame.Database.Model.Race", "Race")
+                        .WithMany("Hero")
+                        .HasForeignKey("RaceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebGame.Database.Model.Specialization", "Specialization")
+                        .WithMany("Hero")
+                        .HasForeignKey("SpecializationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Race");
+
+                    b.Navigation("Specialization");
+                });
+
             modelBuilder.Entity("WebGame.Database.Model.Skill", b =>
                 {
                     b.HasOne("WebGame.Database.Model.Race", null)
@@ -214,11 +237,15 @@ namespace WebGame.Database.Migrations
 
             modelBuilder.Entity("WebGame.Database.Model.Race", b =>
                 {
+                    b.Navigation("Hero");
+
                     b.Navigation("Skills");
                 });
 
             modelBuilder.Entity("WebGame.Database.Model.Specialization", b =>
                 {
+                    b.Navigation("Hero");
+
                     b.Navigation("Skills");
                 });
 #pragma warning restore 612, 618

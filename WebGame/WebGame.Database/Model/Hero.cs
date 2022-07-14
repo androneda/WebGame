@@ -11,8 +11,11 @@ namespace WebGame.Database.Model
     public class Hero : Character
     {
         public string Name { get; set; }
+
         public Guid RaceId { get; set; }
         public Guid SpecializationId { get; set; }
+        public Race Race { get; set; }
+        public Specialization Specialization { get; set; }
         public int Level { get; set; }
         public int ActionPoints { get; set; }
 

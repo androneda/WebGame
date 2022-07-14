@@ -1,6 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 using WebGame.Database.Model;
-using Microsoft.EntityFrameworkCore;
 
 namespace WebGame.Database
 {
@@ -12,9 +12,27 @@ namespace WebGame.Database
         public DbSet<Race> Races { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
 
-        public WebGameDBContext([NotNull] DbContextOptions options) : base(options) 
+        public WebGameDBContext([NotNull] DbContextOptions options) : base(options)
         {
-            Database.EnsureCreated();
+     
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Hero>(b =>
+            {
+                b.HasOne(p => p.Race);
+                b.HasOne(p => p.Specialization);
+            });
+            //modelBuilder.Entity<Hero>()
+            //.HasOne(s => s.RaceId)
+            //.WithOne(ad => ad.Hero)
+            //.HasForeignKey<Race>(ad => ad.Id);
+
+            //modelBuilder.Entity<Hero>()
+            //.HasOne(s => s.SpecializationId)
+            //.WithOne(ad => ad.Hero)
+            //.HasForeignKey<Specialization>(ad => ad.Id);
         }
 
     }

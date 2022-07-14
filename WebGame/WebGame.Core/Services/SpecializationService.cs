@@ -27,16 +27,14 @@ namespace WebGame.Core.Services
         {
             var temp = await _specializationRepo.GetAll();
 
-            if (temp.Any())
+            if (!temp.Any())
             {
-                foreach (var item in temp)
-                {
-                    item.Skills = await _skillService.GetBySpecId(item.Id);
-                }
-                return _mapper.Map<ICollection<SpecializationViewDto>>(temp);
+                return Enumerable.Empty<SpecializationViewDto>();
             }
 
-            return Enumerable.Empty<SpecializationViewDto>();
+            foreach (var item in temp)
+                item.Skills = await _skillService.GetBySpecId(item.Id);
+            return _mapper.Map<IEnumerable<SpecializationViewDto>>(temp);
         }
 
         public async Task Add(CreateSpecializationDto specDto)

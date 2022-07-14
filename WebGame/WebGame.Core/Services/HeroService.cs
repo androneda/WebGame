@@ -25,11 +25,11 @@ namespace WebGame.Core.Services
             var temp = await _heroRepo.GetAll();
 
             if (temp.Any())
-                return _mapper.Map<ICollection<HeroViewDto>>(temp);
+                return _mapper.Map<IEnumerable<HeroViewDto>>(temp);
 
             return Enumerable.Empty<HeroViewDto>();
-
         }
+
         public async Task Add(CreateHeroDto heroDto)
         {
             if (heroDto is null)

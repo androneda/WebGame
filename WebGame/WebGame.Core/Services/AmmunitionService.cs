@@ -25,11 +25,11 @@ namespace WebGame.Core.Services
             var temp = await _ammunitionRepo.GetAll();
 
             if (temp.Any())
-                return _mapper.Map<ICollection<AmmunitionViewDto>>(temp);
+                return _mapper.Map<IEnumerable<AmmunitionViewDto>>(temp);
 
             return Enumerable.Empty<AmmunitionViewDto>();
-
         }
+
         public async Task Add(CreateAmmunitionDto heroDto)
         {
             if (heroDto is null)

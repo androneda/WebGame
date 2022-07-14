@@ -16,12 +16,12 @@ namespace WebGame.Core.Model.Hero
         /// <summary>
         /// Name
         /// </summary>
-        public string Race { get; set; }
+        public Guid RaceId { get; set; }
 
         /// <summary>
         /// Name
         /// </summary>
-        public string Specialization { get; set; }
+        public Guid SpecializationId { get; set; }
 
         /// <summary>
         /// Hero Head Id

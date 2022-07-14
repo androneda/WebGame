@@ -12,6 +12,11 @@ namespace WebGame.Core.Model.Specialization
         /// <summary>
         /// Name
         /// </summary>
+        public Guid Id { get; set; }
+
+        /// <summary>
+        /// Name
+        /// </summary>
         public string Name { get; set; }
 
         /// <summary>
