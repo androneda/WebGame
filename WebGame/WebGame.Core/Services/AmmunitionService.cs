@@ -26,6 +26,7 @@ namespace WebGame.Core.Services
 
             if (temp.Any())
                 return _mapper.Map<ICollection<AmmunitionViewDto>>(temp);
+
             return Enumerable.Empty<AmmunitionViewDto>();
 
         }
@@ -33,6 +34,7 @@ namespace WebGame.Core.Services
         {
             if (heroDto is null)
                 throw new AmmunitionNotFoundExeption("Предмет с указанным идентификатором не найден");
+
             var hero = _mapper.Map<Ammunition>(heroDto);
             await _ammunitionRepo.AddAsync(hero);
         }
@@ -56,6 +58,7 @@ namespace WebGame.Core.Services
             var temp = await _ammunitionRepo.GetByID(heroId);
             if (temp is null)
                 throw new AmmunitionNotFoundExeption("Предмет с указанным идентификатором не найден");
+
             return _mapper.Map<AmmunitionViewDto>(temp);
         }
     }

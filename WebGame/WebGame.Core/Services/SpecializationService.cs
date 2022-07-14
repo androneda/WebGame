@@ -35,6 +35,7 @@ namespace WebGame.Core.Services
                 }
                 return _mapper.Map<ICollection<SpecializationViewDto>>(temp);
             }
+
             return Enumerable.Empty<SpecializationViewDto>();
         }
 
@@ -42,6 +43,7 @@ namespace WebGame.Core.Services
         {
             if (specDto is null)
                 throw new SpecializationNotFoundExeption("Специализация с указанным идентификатором не найдена");
+
             var hero = _mapper.Map<Specialization>(specDto);
             await _specializationRepo.AddAsync(hero);
         }
@@ -63,9 +65,10 @@ namespace WebGame.Core.Services
         public async Task<SpecializationViewDto> GetByID(Guid specId)
         {
             var temp = await _specializationRepo.GetByID(specId);
-            temp.Skills = await _skillService.GetBySpecId(specId);
             if (temp is null)
                 throw new SpecializationNotFoundExeption("Специализация с указанным идентификатором не найдена");
+
+            temp.Skills = await _skillService.GetBySpecId(specId);
             return _mapper.Map<SpecializationViewDto>(temp);
         }
     }

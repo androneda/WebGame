@@ -26,6 +26,7 @@ namespace WebGame.Core.Services
 
             if (temp.Any())
                 return _mapper.Map<ICollection<HeroViewDto>>(temp);
+
             return Enumerable.Empty<HeroViewDto>();
 
         }
@@ -33,6 +34,7 @@ namespace WebGame.Core.Services
         {
             if (heroDto is null)
                 throw new HeroNotFoundExeption("Герой с указанным идентификатором не найден");
+
             var hero = _mapper.Map<Hero>(heroDto);
             await _heroRepo.AddAsync(hero);
         }
@@ -56,6 +58,7 @@ namespace WebGame.Core.Services
             var temp = await _heroRepo.GetByID(heroId);
             if (temp is null)
                 throw new HeroNotFoundExeption("Герой с указанным идентификатором не найден");
+
             return _mapper.Map<HeroViewDto>(temp);
         }
     }

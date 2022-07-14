@@ -26,6 +26,7 @@ namespace WebGame.Core.Services
 
             if (temp.Any())
                 return _mapper.Map<ICollection<SkillViewDto>>(temp);
+
             return Enumerable.Empty<SkillViewDto>();
         }
 
@@ -33,6 +34,7 @@ namespace WebGame.Core.Services
         {
             if (skillDto is null)
                 throw new SkillNotFoundExeption("Способность с указанным идентификатором не найдена");
+
             var skill = _mapper.Map<Skill>(skillDto);
             await _skillRepo.AddAsync(skill);
         }
@@ -47,6 +49,7 @@ namespace WebGame.Core.Services
             if (skillDto is null)
                 throw new SkillNotFoundExeption("Способность с указанным идентификатором не найдена");
 
+
             var skill = _mapper.Map<Skill>(skillDto);
             await _skillRepo.UpdateAsync(skill);
         }
@@ -56,6 +59,7 @@ namespace WebGame.Core.Services
             var temp = await _skillRepo.GetByID(skillId);
             if (temp is null)
                 throw new SkillNotFoundExeption("Способность с указанным идентификатором не найдена");
+
             return _mapper.Map<SkillViewDto>(temp);
         }
 
