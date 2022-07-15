@@ -7,7 +7,7 @@ namespace WebGame.Database.Repositories.Interfaces
 {
     public interface ISkillRepository : IBaseRepository<Skill>
     {
-        Task<ICollection<Skill>> GetByRaceAsync(Guid raceId);
-        Task<ICollection<Skill>> GetBySpecAsync(Guid specId);
+        Task<IEnumerable<Skill>> GetByRaceAsync(Guid raceId);
+        Task<IEnumerable<Skill>> GetBySpecAsync(Guid specId);
     }
 }

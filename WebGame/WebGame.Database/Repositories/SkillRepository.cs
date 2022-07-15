@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using WebGame.Database.Model;
@@ -15,14 +17,20 @@ namespace WebGame.Database.Repositories
         {
         }
 
-        public async Task<ICollection<Skill>> GetByRaceAsync(Guid raceId)
+        public async Task<IEnumerable<Skill>> GetByRaceAsync(Guid raceId)
         {
-            return await _dbSet.Where(x=>x.RaceId==raceId).ToListAsync();
+            var temp = await _dbSet.Where(x=>x.RaceId==raceId).ToListAsync();
+            if (!temp.Any())
+                return  Enumerable.Empty<Skill>();
+            return temp;
         }
 
-        public async Task<ICollection<Skill>> GetBySpecAsync(Guid specId)
+        public async Task<IEnumerable<Skill>> GetBySpecAsync(Guid specId)
         {
-            return await _dbSet.Where(x => x.SpecializationId == specId).ToListAsync();
+            var temp = await _dbSet.Where(x => x.SpecializationId == specId).ToListAsync();
+            if (!temp.Any())
+                return Enumerable.Empty<Skill>();
+            return temp;
         }
     }
 }

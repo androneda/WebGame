@@ -12,9 +12,9 @@ namespace WebGame.Core.Services.Interfaces
     public interface IAmmunitionService
     {
         Task<IEnumerable<AmmunitionViewDto>> GetAll();
-        Task<AmmunitionViewDto> GetByID(Guid AmmunitionId);
-        Task Add(CreateAmmunitionDto AmmunitionDto);
-        Task Delete(Guid AmmunitionId);
-        Task Update(UpdateAmmunitionDto AmmunitionDto);
+        Task<AmmunitionViewDto> GetByID(Guid ammunitionId);
+        Task Add(CreateAmmunitionDto ammunitionDto);
+        Task Delete(Guid ammunitionId);
+        Task Update(UpdateAmmunitionDto ammunitionDto);
     }
 }

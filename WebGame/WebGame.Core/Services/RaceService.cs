@@ -24,6 +24,7 @@ namespace WebGame.Core.Services
             _skillService = skillService;
             _mapper = mapper;
         }
+
         public async Task Add(CreateRaceDto raceDto)
         {
             if (raceDto is null)

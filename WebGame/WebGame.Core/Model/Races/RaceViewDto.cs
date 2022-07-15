@@ -9,6 +9,9 @@ namespace WebGame.Core.Model.Races
 {
     public class RaceViewDto
     {
+        /// <summary>
+        /// Name
+        /// </summary>
         public Guid Id { get; set; }
         /// <summary>
         /// Name
