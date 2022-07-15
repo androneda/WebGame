@@ -8,36 +8,34 @@ namespace WebGame.Core.Model.Skills
 {
     public class ShortSkillViewDto
     {
-
         /// <summary>
         /// Name
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Name
+        /// Base Stat
         /// </summary>
         public string BaseStat { get; set; }
 
         /// <summary>
-        /// Race
+        /// Recharge Time
         /// </summary>
         public int? RechargeTime { get; set; }
 
         /// <summary>
-        /// Hero Class
+        /// Cost Action Points
         /// </summary>
         public int? CostActionPoints { get; set; }
 
         /// <summary>
-        /// Hero Show Helmet
+        /// Bonus Action Points
         /// </summary>
         public int? BonusActionPoints { get; set; }
 
         /// <summary>
-        /// Hero Show Helmet
+        /// Is On Ally
         /// </summary>
         public bool? IsOnAlly { get; set; }
-
     }
 }

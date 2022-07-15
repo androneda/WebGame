@@ -49,7 +49,7 @@ namespace WebGame.Api.Controllers
 
         // Put: HeroController/Put/
         [HttpPut]
-        public async Task<IActionResult> Update([FromForm] UpdateSkillDto skill)
+        public async Task<IActionResult> Update([FromBody] UpdateSkillDto skill)
         {
             await _skillService.Update(skill);
             return NoContent();

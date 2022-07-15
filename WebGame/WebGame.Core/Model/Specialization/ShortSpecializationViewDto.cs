@@ -8,14 +8,13 @@ namespace WebGame.Core.Model.Specialization
 {
     public class ShortSpecializationViewDto
     {
-
         /// <summary>
         /// Name
         /// </summary>
         public string Name { get; set; }
-        
+
         /// <summary>
-        /// Name
+        /// Description
         /// </summary>
         public string Description { get; set; }
     }

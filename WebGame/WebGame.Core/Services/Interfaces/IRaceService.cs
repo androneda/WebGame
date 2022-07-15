@@ -16,7 +16,5 @@ namespace WebGame.Core.Services.Interfaces
         Task Add(CreateRaceDto raceDto);
         Task Delete(Guid raceId);
         Task Update(UpdateRaceDto raceDto);
-
-        
     }
 }

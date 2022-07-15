@@ -18,7 +18,9 @@ namespace WebGame.Core.Services
         private readonly ISkillService _skillService;
         private readonly IMapper _mapper;
 
-        public RaceService(IRaceRepository raceRepo, ISkillService skillService, IMapper mapper)
+        public RaceService(IRaceRepository raceRepo,
+                           ISkillService skillService,
+                           IMapper mapper)
         {
             _raceRepo = raceRepo;
             _skillService = skillService;
@@ -46,11 +48,12 @@ namespace WebGame.Core.Services
             if (!temp.Any())
                 return Enumerable.Empty<RaceViewDto>();
 
-            foreach (var item in temp)
+            var temp2 = _mapper.Map<IEnumerable<RaceViewDto>>(temp);
+
+            foreach (var item in temp2)
                 item.Skills = await _skillService.GetByRaceId(item.Id);
 
-            return _mapper.Map<IEnumerable<RaceViewDto>>(temp);
-
+            return _mapper.Map<IEnumerable<RaceViewDto>>(temp2);
         }
 
         public async Task<RaceViewDto> GetById(Guid raceId)
@@ -59,8 +62,10 @@ namespace WebGame.Core.Services
 
             if (temp is null)
                 throw new RaceNotFoundExeption("Расса не найдена");
-            temp.Skills = await _skillService.GetBySpecId(raceId);
-            return _mapper.Map<RaceViewDto>(temp);
+
+            var temp2 = _mapper.Map<RaceViewDto>(temp);
+            temp2.Skills = await _skillService.GetBySpecId(raceId);
+            return temp2;
         }
 
         public async Task Update(UpdateRaceDto raceDto)

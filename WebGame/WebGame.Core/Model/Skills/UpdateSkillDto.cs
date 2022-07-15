@@ -9,70 +9,68 @@ namespace WebGame.Core.Model.Skills
     public class UpdateSkillDto
     {
         /// <summary>
-        /// Skill Id
+        /// Id
         /// </summary>
         public Guid Id { get; set; }
 
         /// <summary>
-        /// Skill Name
+        /// Name
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Skill BaseStat
+        /// Base Stat
         /// </summary>
         public string BaseStat { get; set; }
 
         /// <summary>
-        /// Skill Status
+        /// Status
         /// </summary>
         public int? Status { get; set; }
 
         /// <summary>
-        /// Skill Range
+        /// Range
         /// </summary>
         public int? Range { get; set; }
 
         /// <summary>
-        /// Skill TargetId
+        /// TargetId
         /// </summary>
         public Guid? TargetId { get; set; }
 
         /// <summary>
-        /// Skill RechargeTime
+        /// RechargeTime
         /// </summary>
         public int? RechargeTime { get; set; }
 
         /// <summary>
-        /// Skill CostActionPoints
+        /// Cost Action Points
         /// </summary>
         public int? CostActionPoints { get; set; }
 
         /// <summary>
-        /// Skill DamageRadius
+        /// DamageRadius
         /// </summary>
         public int? DamageRadius { get; set; }
 
         /// <summary>
-        /// Skill BonusActionPoints
+        /// Bonus Action Points
         /// </summary>
         public int? BonusActionPoints { get; set; }
 
         /// <summary>
-        /// Skill IsOnAlly
+        /// Is On Ally
         /// </summary>
         public bool? IsOnAlly { get; set; }
 
-
         /// <summary>
-        /// Skill RaceId
+        /// Race Id
         /// </summary>
         public Guid? RaceId { get; set; }
 
         /// <summary>
-        /// Skill SpecializationId
+        /// Specialization Id
         /// </summary>
         public Guid? SpecializationId { get; set; }
-
     }
 }

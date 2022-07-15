@@ -49,7 +49,7 @@ namespace WebGame.Api.Controllers
 
         // Put: HeroController/Put/
         [HttpPut]
-        public async Task<IActionResult> Update([FromForm] UpdateAmmunitionDto ammunitionDto)
+        public async Task<IActionResult> Update([FromBody] UpdateAmmunitionDto ammunitionDto)
         {
             await _ammunitionService.Update(ammunitionDto);
             return NoContent();

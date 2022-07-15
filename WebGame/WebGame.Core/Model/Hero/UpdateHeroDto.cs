@@ -19,22 +19,22 @@ namespace WebGame.Core.Model.Hero
         public string Name { get; set; }
 
         /// <summary>
-        /// Hero Head Id
+        /// Head Id
         /// </summary>
         public Guid HeadId { get; set; }
 
         /// <summary>
-        /// Hero Body Id
+        /// Body Id
         /// </summary>
         public Guid BodyId { get; set; }
 
         /// <summary>
-        /// Hero Sex 
+        /// Sex 
         /// </summary>
         public bool Sex { get; set; }
 
         /// <summary>
-        /// Hero Show Helmet
+        /// Show Helmet
         /// </summary>
         public bool ShowHelmet { get; set; }
     }

@@ -14,44 +14,43 @@ namespace WebGame.Core.Model.Skills
         public string Name { get; set; }
 
         /// <summary>
-        /// Skill Race
+        /// Race Id
         /// </summary>
         public Guid RaceId { get; set; }
 
         /// <summary>
-        /// Skill Specialization
+        /// Specialization Id
         /// </summary>
         public Guid SpecializationId { get; set; }
 
         /// <summary>
-        /// Skill Range
+        /// Range
         /// </summary>
         public int Range { get; set; }
 
         /// <summary>
-        /// Skill Recharge Time
+        /// Recharge Time
         /// </summary>
         public int RechargeTime { get; set; }
 
         /// <summary>
-        /// Skill Hero Cost Action Points 
+        /// Cost Action Points
         /// </summary>
         public int CostActionPoints { get; set; }
 
         /// <summary>
-        /// Skill Damage Radius
+        /// Damage Radius
         /// </summary>
         public int? DamageRadius { get; set; }
 
         /// <summary>
-        /// Skill Bonus Action Points
+        /// Bonus Action Points
         /// </summary>
         public int? BonusActionPoints { get; set; }
 
         /// <summary>
-        /// Skill Is On Ally
+        ///  Is On Ally
         /// </summary>
         public bool? IsOnAlly { get; set; }
-
     }
 }

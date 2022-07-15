@@ -9,7 +9,6 @@ namespace WebGame.Core.Model.Hero
 {
     public class CreateHeroDto
     {
-
         /// <summary>
         /// Name
         /// </summary>
@@ -24,6 +23,5 @@ namespace WebGame.Core.Model.Hero
         /// Hero Class
         /// </summary>
         public Guid SpecializationId { get; set; }
-
     }
 }

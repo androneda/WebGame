@@ -9,56 +9,54 @@ namespace WebGame.Core.Model.Skills
 {
     public class CreateSkillDto
     {
-
         /// <summary>
-        /// Skil Name
+        /// Name
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Skil Race
+        /// Race Id
         /// </summary>
         public Guid? RaceId { get; set; }
 
         /// <summary>
-        /// Skil Class
+        /// Specialization Id
         /// </summary>
         public Guid? SpecializationId { get; set; }
 
         /// <summary>
-        /// Skil BaseStat
+        /// Base Stat
         /// </summary>
         public string BaseStat { get; set; }
 
         /// <summary>
-        /// Skil Range
+        /// Range
         /// </summary>
         public int? Range { get; set; }
 
         /// <summary>
-        /// Skil RechargeTime
+        /// Recharge Time
         /// </summary>
         public int RechargeTime { get; set; }
 
         /// <summary>
-        /// Skil CostActionPoints
+        /// Cost Action Points
         /// </summary>
         public int CostActionPoints { get; set; }
 
         /// <summary>
-        /// Skil DamageRadius
+        /// Damage Radius
         /// </summary>
         public int? DamageRadius { get; set; }
 
         /// <summary>
-        /// Skil BonusActionPoints
+        /// Bonus Action Points
         /// </summary>
         public int? BonusActionPoints { get; set; }
 
         /// <summary>
-        /// Skil IsOnAlly
+        /// Is On Ally
         /// </summary>
         public bool? IsOnAlly { get; set; }
-
     }
 }

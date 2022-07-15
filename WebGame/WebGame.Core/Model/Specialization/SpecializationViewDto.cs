@@ -11,7 +11,7 @@ namespace WebGame.Core.Model.Specialization
     public class SpecializationViewDto
     {
         /// <summary>
-        /// Name
+        /// Id
         /// </summary>
         public Guid Id { get; set; }
 
@@ -21,14 +21,13 @@ namespace WebGame.Core.Model.Specialization
         public string Name { get; set; }
 
         /// <summary>
-        /// Name
+        /// Description
         /// </summary>
         public string Description { get; set; }
 
         /// <summary>
-        /// Name
+        /// Skills
         /// </summary>
-        public ICollection<SkillViewDto> Skills { get; set; }
-
+        public IEnumerable<SkillViewDto> Skills { get; set; }
     }
 }

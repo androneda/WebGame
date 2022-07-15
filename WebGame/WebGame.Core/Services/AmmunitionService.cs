@@ -15,7 +15,9 @@ namespace WebGame.Core.Services
     {
         private readonly IAmmunitionRepository _ammunitionRepo;
         private readonly IMapper _mapper;
-        public AmmunitionService(IAmmunitionRepository ammunitionRepo, IMapper mapper)
+
+        public AmmunitionService(IAmmunitionRepository ammunitionRepo,
+                                 IMapper mapper)
         {
             _ammunitionRepo = ammunitionRepo;
             _mapper = mapper;
@@ -24,10 +26,10 @@ namespace WebGame.Core.Services
         {
             var temp = await _ammunitionRepo.GetAll();
 
-            if (temp.Any())
-                return _mapper.Map<IEnumerable<AmmunitionViewDto>>(temp);
+            if (!temp.Any())
+                return Enumerable.Empty<AmmunitionViewDto>();
 
-            return Enumerable.Empty<AmmunitionViewDto>();
+            return _mapper.Map<IEnumerable<AmmunitionViewDto>>(temp);
         }
 
         public async Task Add(CreateAmmunitionDto ammunitionDto)

@@ -15,7 +15,9 @@ namespace WebGame.Core.Services
     {
         private readonly ISkillRepository _skillRepo;
         private readonly IMapper _mapper;
-        public SkillService(ISkillRepository skillRepo, IMapper mapper)
+
+        public SkillService(ISkillRepository skillRepo,
+                            IMapper mapper)
         {
             _skillRepo = skillRepo;
             _mapper = mapper;
@@ -63,14 +65,14 @@ namespace WebGame.Core.Services
             return _mapper.Map<SkillViewDto>(temp);
         }
 
-        public async Task<IEnumerable<Skill>> GetBySpecId(Guid specializationId)
+        public async Task<IEnumerable<SkillViewDto>> GetBySpecId(Guid specializationId)
         {
-           return await _skillRepo.GetBySpecAsync(specializationId);
+           return _mapper.Map<IEnumerable<SkillViewDto>>(await _skillRepo.GetBySpecAsync(specializationId));
         }
 
-        public async Task<IEnumerable<Skill>> GetByRaceId(Guid raceId)
+        public async Task<IEnumerable<SkillViewDto>> GetByRaceId(Guid raceId)
         {
-            return await _skillRepo.GetByRaceAsync(raceId);
+            return  _mapper.Map<IEnumerable<SkillViewDto>>(await _skillRepo.GetByRaceAsync(raceId));
         }
     }
 }

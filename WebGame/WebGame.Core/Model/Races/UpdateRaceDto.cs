@@ -9,7 +9,7 @@ namespace WebGame.Core.Model.Races
     public class UpdateRaceDto
     {
         /// <summary>
-        /// Name
+        /// Id
         /// </summary>
         public Guid Id { get; set; }
 
@@ -19,7 +19,7 @@ namespace WebGame.Core.Model.Races
         public string Name { get; set; }
 
         /// <summary>
-        /// Name
+        /// Description
         /// </summary>
         public string Description { get; set; }
     }

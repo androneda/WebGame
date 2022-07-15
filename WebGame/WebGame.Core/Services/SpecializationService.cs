@@ -16,7 +16,10 @@ namespace WebGame.Core.Services
         private readonly ISpecializationRepository _specializationRepo;
         private readonly ISkillService _skillService;
         private readonly IMapper _mapper;
-        public SpecializationService(ISpecializationRepository specializationRepo, ISkillService skillService, IMapper mapper)
+
+        public SpecializationService(ISpecializationRepository specializationRepo,
+                                     ISkillService skillService, 
+                                     IMapper mapper)
         {
             _specializationRepo = specializationRepo;
             _skillService = skillService;
@@ -28,13 +31,14 @@ namespace WebGame.Core.Services
             var temp = await _specializationRepo.GetAll();
 
             if (!temp.Any())
-            {
                 return Enumerable.Empty<SpecializationViewDto>();
-            }
 
-            foreach (var item in temp)
+            var temp2 = _mapper.Map<IEnumerable<SpecializationViewDto>>(temp);
+
+            foreach (var item in temp2)
                 item.Skills = await _skillService.GetBySpecId(item.Id);
-            return _mapper.Map<IEnumerable<SpecializationViewDto>>(temp);
+
+            return _mapper.Map<IEnumerable<SpecializationViewDto>>(temp2);
         }
 
         public async Task Add(CreateSpecializationDto specDto)
@@ -66,8 +70,9 @@ namespace WebGame.Core.Services
             if (temp is null)
                 throw new SpecializationNotFoundExeption("Специализация с указанным идентификатором не найдена");
 
-            temp.Skills = await _skillService.GetBySpecId(specId);
-            return _mapper.Map<SpecializationViewDto>(temp);
+            var temp2 =  _mapper.Map<SpecializationViewDto>(temp);
+            temp2.Skills = await _skillService.GetBySpecId(specId);
+            return temp2;
         }
     }
 }

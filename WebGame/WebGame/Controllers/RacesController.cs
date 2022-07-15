@@ -49,7 +49,7 @@ namespace WebGame.Api.Controllers
 
         // Put: RacesController/Put/
         [HttpPut]
-        public async Task<IActionResult> Update([FromForm] UpdateRaceDto race)
+        public async Task<IActionResult> Update([FromBody] UpdateRaceDto race)
         {
             await _raceService.Update(race);
             return NoContent();

@@ -10,7 +10,7 @@ namespace WebGame.Core.Model.Races
     public class RaceViewDto
     {
         /// <summary>
-        /// Name
+        /// Id
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
@@ -19,13 +19,13 @@ namespace WebGame.Core.Model.Races
         public string Name { get; set; }
 
         /// <summary>
-        /// Name
+        /// Description
         /// </summary>
         public string Description{ get; set; }
 
         /// <summary>
-        /// Name
+        /// Skills
         /// </summary>
-        public ICollection<SkillViewDto> Skills { get; set; }
+        public IEnumerable<SkillViewDto> Skills { get; set; }
     }
 }

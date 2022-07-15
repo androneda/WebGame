@@ -14,12 +14,12 @@ namespace WebGame.Core.Model.Hero
         public string Name { get; set; }
 
         /// <summary>
-        /// Name
+        /// Hero Race Id
         /// </summary>
         public Guid RaceId { get; set; }
 
         /// <summary>
-        /// Name
+        /// Hero Specialization Id
         /// </summary>
         public Guid SpecializationId { get; set; }
 
@@ -42,6 +42,5 @@ namespace WebGame.Core.Model.Hero
         /// Hero Show Helmet
         /// </summary>
         public bool ShowHelmet { get; set; }
-
     }
 }
