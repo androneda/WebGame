@@ -23,9 +23,6 @@ namespace WebGame.Core.Model.Specialization
         /// Specialization Description
         /// </summary>
         public string Description { get; set; }
-        /// <summary>
-        /// Specialization Skills
-        /// </summary>
-        public ICollection<Skill> Skills { get; set; }
+
     }
 }

@@ -43,6 +43,8 @@ namespace WebGame.Api
             services.AddScoped<ISkillService, SkillService>();
             services.AddScoped<ISpecializationRepository, SpecializationRepository>();
             services.AddScoped<ISpecializationService, SpecializationService>();
+            services.AddScoped<IRaceRepository, RaceRepository>();
+            services.AddScoped<IRaceService, RaceService>();
             services.AddAutoMapper(typeof(AppMappingProfile));
 
         }

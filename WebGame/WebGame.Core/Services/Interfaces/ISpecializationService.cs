@@ -11,9 +11,9 @@ namespace WebGame.Core.Services.Interfaces
     public interface ISpecializationService
     {
         Task<IEnumerable<SpecializationViewDto>> GetAll();
-        Task<SpecializationViewDto> GetByID(Guid heroId);
-        Task Add(CreateSpecializationDto heroDto);
-        Task Delete(Guid heroId);
-        Task Update(UpdateSpecializationDto heroDto);
+        Task<SpecializationViewDto> GetByID(Guid specializationId);
+        Task Add(CreateSpecializationDto specializationDto);
+        Task Delete(Guid specializationId);
+        Task Update(UpdateSpecializationDto specializationDto);
     }
 }

@@ -18,30 +18,30 @@ namespace WebGame.Api.Controllers
         }
 
         // GET: HeroController/GetHeroes
-        [HttpGet("GetAll")]
+        [HttpGet]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _ammunitionService.GetAll());
         }
 
         // GET: HeroController/GetHero/
-        [HttpGet("GetByID")]
-        public async Task<IActionResult> Details([FromQuery] Guid id)
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> Details([FromRoute] Guid id)
         {
             return Ok(await _ammunitionService.GetByID(id));
         }
 
         // Post: HeroController/AddHero
         [HttpPost]
-        public async Task<IActionResult> Add([FromForm] CreateAmmunitionDto ammunitionDto)
+        public async Task<IActionResult> Add([FromBody] CreateAmmunitionDto ammunitionDto)
         {
             await _ammunitionService.Add(ammunitionDto);
             return NoContent();
         }
 
         // Delete: HeroController/Delete/
-        [HttpDelete]
-        public async Task<IActionResult> Delete([FromQuery] Guid id)
+        [HttpDelete("{id:Guid}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             await _ammunitionService.Delete(id);
             return NoContent();

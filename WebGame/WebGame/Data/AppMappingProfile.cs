@@ -10,6 +10,7 @@ using WebGame.Core.Model.Ammunition;
 using WebGame.Database.Model;
 using WebGame.Core.Model.Skills;
 using WebGame.Core.Model.Specialization;
+using WebGame.Core.Model.Races;
 
 namespace WebGame.Api.Data
 {
@@ -32,6 +33,10 @@ namespace WebGame.Api.Data
             CreateMap<CreateSpecializationDto, Specialization>();
             CreateMap<UpdateSpecializationDto, Specialization>();
             CreateMap<Specialization, SpecializationViewDto>();
+
+            CreateMap<CreateRaceDto, Race>();
+            CreateMap<UpdateRaceDto, Race>();
+            CreateMap<Race, RaceViewDto>();
         }
     }
 }

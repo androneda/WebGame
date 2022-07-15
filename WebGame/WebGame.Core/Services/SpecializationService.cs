@@ -42,8 +42,8 @@ namespace WebGame.Core.Services
             if (specDto is null)
                 throw new SpecializationNotFoundExeption("Специализация с указанным идентификатором не найдена");
 
-            var hero = _mapper.Map<Specialization>(specDto);
-            await _specializationRepo.AddAsync(hero);
+            var spec = _mapper.Map<Specialization>(specDto);
+            await _specializationRepo.AddAsync(spec);
         }
 
         public async Task Delete(Guid specId)

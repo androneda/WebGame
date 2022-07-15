@@ -4,17 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebGame.Core.Model.Skills;
-using WebGame.Database.Model;
 
-namespace WebGame.Core.Model.Specialization
+namespace WebGame.Core.Model.Races
 {
-    public class SpecializationViewDto
+    public class RaceViewDto
     {
-        /// <summary>
-        /// Name
-        /// </summary>
         public Guid Id { get; set; }
-
         /// <summary>
         /// Name
         /// </summary>
@@ -23,12 +18,11 @@ namespace WebGame.Core.Model.Specialization
         /// <summary>
         /// Name
         /// </summary>
-        public string Description { get; set; }
+        public string Description{ get; set; }
 
         /// <summary>
         /// Name
         /// </summary>
         public ICollection<SkillViewDto> Skills { get; set; }
-
     }
 }

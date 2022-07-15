@@ -32,15 +32,15 @@ namespace WebGame.Api.Controllers
 
         // Post: HeroController/AddHero
         [HttpPost]
-        public async Task<IActionResult> Add([FromForm] CreateHeroDto hero)
+        public async Task<IActionResult> Add([FromBody] CreateHeroDto hero)
         {
             await _heroService.Add(hero);
             return NoContent();
         }
 
         // Delete: HeroController/Delete/
-        [HttpDelete]
-        public async Task<IActionResult> Delete([FromQuery] Guid id)
+        [HttpDelete("{id:Guid}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
             await _heroService.Delete(id);
             return NoContent();

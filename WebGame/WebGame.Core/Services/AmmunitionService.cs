@@ -30,32 +30,32 @@ namespace WebGame.Core.Services
             return Enumerable.Empty<AmmunitionViewDto>();
         }
 
-        public async Task Add(CreateAmmunitionDto heroDto)
+        public async Task Add(CreateAmmunitionDto ammunitionDto)
         {
-            if (heroDto is null)
+            if (ammunitionDto is null)
                 throw new AmmunitionNotFoundExeption("Предмет с указанным идентификатором не найден");
 
-            var hero = _mapper.Map<Ammunition>(heroDto);
-            await _ammunitionRepo.AddAsync(hero);
+            var ammunition = _mapper.Map<Ammunition>(ammunitionDto);
+            await _ammunitionRepo.AddAsync(ammunition);
         }
 
-        public async Task Delete(Guid heroId)
+        public async Task Delete(Guid ammunitionId)
         {
-            await _ammunitionRepo.DeleteAsync(heroId);
+            await _ammunitionRepo.DeleteAsync(ammunitionId);
         }
 
-        public async Task Update(UpdateAmmunitionDto heroDto)
+        public async Task Update(UpdateAmmunitionDto ammunitionDto)
         {
-            if (heroDto is null)
+            if (ammunitionDto is null)
                 throw new AmmunitionNotFoundExeption("Предмет с указанным идентификатором не найден");
 
-            var hero = _mapper.Map<Ammunition>(heroDto);
-            await _ammunitionRepo.UpdateAsync(hero);
+            var ammunition = _mapper.Map<Ammunition>(ammunitionDto);
+            await _ammunitionRepo.UpdateAsync(ammunition);
         }
 
-        public async Task<AmmunitionViewDto> GetByID(Guid heroId)
+        public async Task<AmmunitionViewDto> GetByID(Guid ammunitionId)
         {
-            var temp = await _ammunitionRepo.GetByID(heroId);
+            var temp = await _ammunitionRepo.GetByID(ammunitionId);
             if (temp is null)
                 throw new AmmunitionNotFoundExeption("Предмет с указанным идентификатором не найден");
 
