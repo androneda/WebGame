@@ -22,6 +22,7 @@ namespace WebGame.Core.Services
             _ammunitionRepo = ammunitionRepo;
             _mapper = mapper;
         }
+
         public async Task<IEnumerable<AmmunitionViewDto>> GetAll()
         {
             var temp = await _ammunitionRepo.GetAll();

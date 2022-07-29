@@ -8,7 +8,6 @@ namespace WebGame.Core.Model.Ammunition
 {
     public class CreateAmmunitionDto
     {
-
         /// <summary>
         /// Name
         /// </summary>
@@ -23,6 +22,5 @@ namespace WebGame.Core.Model.Ammunition
         /// Hero Class
         /// </summary>
         public string HeroClass { get; set; }
-
     }
 }

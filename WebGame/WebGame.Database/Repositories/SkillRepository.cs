@@ -19,18 +19,12 @@ namespace WebGame.Database.Repositories
 
         public async Task<IEnumerable<Skill>> GetByRaceAsync(Guid raceId)
         {
-            var temp = await _dbSet.Where(x=>x.RaceId==raceId).ToListAsync();
-            if (!temp.Any())
-                return  Enumerable.Empty<Skill>();
-            return temp;
+            return await _dbSet.Where(x=>x.RaceId==raceId).ToListAsync();
         }
 
         public async Task<IEnumerable<Skill>> GetBySpecAsync(Guid specId)
         {
-            var temp = await _dbSet.Where(x => x.SpecializationId == specId).ToListAsync();
-            if (!temp.Any())
-                return Enumerable.Empty<Skill>();
-            return temp;
+            return await _dbSet.Where(x => x.SpecializationId == specId).ToListAsync();
         }
     }
 }

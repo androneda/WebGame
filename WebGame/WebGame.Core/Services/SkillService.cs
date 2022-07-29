@@ -67,12 +67,22 @@ namespace WebGame.Core.Services
 
         public async Task<IEnumerable<SkillViewDto>> GetBySpecId(Guid specializationId)
         {
-           return _mapper.Map<IEnumerable<SkillViewDto>>(await _skillRepo.GetBySpecAsync(specializationId));
+            var temp = await _skillRepo.GetBySpecAsync(specializationId);
+
+            if (!temp.Any())
+                return Enumerable.Empty<SkillViewDto>();
+
+            return _mapper.Map<IEnumerable<SkillViewDto>>(temp);
         }
 
         public async Task<IEnumerable<SkillViewDto>> GetByRaceId(Guid raceId)
         {
-            return  _mapper.Map<IEnumerable<SkillViewDto>>(await _skillRepo.GetByRaceAsync(raceId));
+            var temp = await _skillRepo.GetByRaceAsync(raceId);
+
+            if (!temp.Any())
+                return Enumerable.Empty<SkillViewDto>();
+
+            return _mapper.Map<IEnumerable<SkillViewDto>>(temp);
         }
     }
 }

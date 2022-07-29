@@ -15,7 +15,6 @@ namespace WebGame.Core.Services
     {
         private readonly IHeroRepository _heroRepo;
         private readonly IMapper _mapper;
-
         public HeroService(IHeroRepository heroRepo,
                            IMapper mapper)
         {

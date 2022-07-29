@@ -13,6 +13,8 @@ using WebGame.Database.Repositories.Interfaces;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 using WebGame.Api.Data;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace WebGame.Api
 {
@@ -59,6 +61,15 @@ namespace WebGame.Api
             }
 
             app.UseHttpsRedirection();
+
+            app.UseExceptionHandler(c => c.Run(async context =>
+            {
+                var exception = context.Features
+                    .Get<IExceptionHandlerPathFeature>()
+                    .Error;
+                var response = new { error = exception.Message };
+                await context.Response.WriteAsJsonAsync(response);
+            }));
 
             app.UseRouting();
 
