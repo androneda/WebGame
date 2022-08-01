@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace WebGame.Common.Exeptions
 {
-    public class AmmunitionNotFoundExeption : Exception
+    public class AmmunitionNotFoundExeption : BaseException
     {
         public AmmunitionNotFoundExeption() { }
 
-        public AmmunitionNotFoundExeption(string message)
-            : base(message) { }
+        public AmmunitionNotFoundExeption(string message): base(message) { }
     }
 }

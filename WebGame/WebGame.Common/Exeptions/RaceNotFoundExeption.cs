@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace WebGame.Common.Exeptions
 {
-    public class RaceNotFoundExeption : Exception
+    public class RaceNotFoundExeption : BaseException
     {
         public RaceNotFoundExeption() { }
 
-        public RaceNotFoundExeption(string message)
-            : base(message) { }
+        public RaceNotFoundExeption(string message): base(message) { }
     }
 }

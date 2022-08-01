@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace WebGame.Common.Exeptions
 {
-    public class HeroNotFoundExeption : BaseException
+    public class BaseException : Exception
     {
-        public HeroNotFoundExeption() { }
-
-        public HeroNotFoundExeption(string message): base(message) { }
+        public BaseException() { }
+        public BaseException(string message) : base(message)
+        {
+        }
     }
 }
