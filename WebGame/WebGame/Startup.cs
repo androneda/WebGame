@@ -13,8 +13,9 @@ using WebGame.Database.Repositories.Interfaces;
 using Newtonsoft.Json;
 using System.Text.Json.Serialization;
 using WebGame.Api.Data;
-using Microsoft.AspNetCore.Diagnostics;
+using WebGame.Api.Middlewares;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace WebGame.Api
 {
@@ -46,6 +47,7 @@ namespace WebGame.Api
             services.AddScoped<ISpecializationService, SpecializationService>();
             services.AddScoped<IRaceRepository, RaceRepository>();
             services.AddScoped<IRaceService, RaceService>();
+            //services.AddScoped<CustomExceptionHandlerMiddleware>();
             services.AddAutoMapper(typeof(AppMappingProfile));
 
         }
@@ -62,14 +64,7 @@ namespace WebGame.Api
 
             app.UseHttpsRedirection();
 
-            //app.UseExceptionHandler(c => c.Run(async context =>
-            //{
-            //    var exception = context.Features
-            //        .Get<IExceptionHandlerPathFeature>()
-            //        .Error;
-            //    var response = new { error = exception.Message };
-            //    await context.Response.WriteAsJsonAsync(response);
-            //}));
+            app.UseMiddleware<CustomExceptionHandlerMiddleware>();
 
             app.UseRouting();
 

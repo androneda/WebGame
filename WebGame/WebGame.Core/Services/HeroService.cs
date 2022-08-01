@@ -70,11 +70,11 @@ namespace WebGame.Core.Services
             return _mapper.Map<HeroViewDto>(temp);
         }
 
-        //public async Task<IEnumerable<SkillViewDto>> GetSkillsByHeroId(Guid heroId)
-        //{
-        //    IEnumerable<SkillViewDto> skills = await _skillService.GetByRaceId(heroId);
-        //    skills = await _skillService.GetBySpecId(heroId) ;
-        //    return skills;
-        //}
+        public async Task<IEnumerable<SkillViewDto>> GetSkillsByHeroId(Guid heroId)
+        {
+            IEnumerable<SkillViewDto> skills = await _skillService.GetByRaceId(heroId);
+            skills = await _skillService.GetBySpecId(heroId);
+            return skills;
+        }
     }
 }
