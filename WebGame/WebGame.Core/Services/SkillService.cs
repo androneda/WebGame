@@ -84,5 +84,7 @@ namespace WebGame.Core.Services
 
             return _mapper.Map<IEnumerable<SkillViewDto>>(temp);
         }
+
+
     }
 }

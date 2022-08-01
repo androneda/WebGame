@@ -9,6 +9,11 @@ namespace WebGame.Core.Model.Hero
     public class HeroViewDto
     {
         /// <summary>
+        /// Id
+        /// </summary>
+        public Guid Id { get; set; }
+
+        /// <summary>
         /// Name
         /// </summary>
         public string Name { get; set; }
