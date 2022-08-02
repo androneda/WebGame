@@ -9,18 +9,18 @@ namespace Chat.ViewModels
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Год рождения")]
+        [Display(Name = "Year of birth")]
         public int Year { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Пароль")]
+        [Display(Name = "Password")]
         public string Password { get; set; }
 
         [Required]
-        [Compare("Password", ErrorMessage ="Пароли не совпадают")]
+        [Compare("Password", ErrorMessage ="Passwords do not match")]
         [DataType(DataType.Password)]
-        [Display(Name = "Повторите пароль")]
+        [Display(Name = "Repeat Password")]
         public string PasswordConfirm { get; set; }
 
     }

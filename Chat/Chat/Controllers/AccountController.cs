@@ -3,47 +3,68 @@ using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using Chat.Data;
 using Chat.Models;
-using Chat.ViewModels;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using System;
+using System.IdentityModel.Tokens.Jwt;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Chat.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        private readonly ApplicationContext _context;
+        public AccountController(ApplicationContext context)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            _context = context;
         }
 
-        [HttpGet]
-        public IActionResult Register()
+        [HttpPost("/token")]
+        public async Task<IActionResult> Token(string username, string password)
         {
-            return View();
-        }
+            var identity = await GetIdentity(username, password);
+            if (identity is null)
+                return BadRequest("Invalid username or password.");
 
-        [HttpPost]
-        public async Task<IActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
+            var now = DateTime.Now;
+
+            var jwt = new JwtSecurityToken(
+                    issuer: AuthOptions.ISSUER,
+                    audience: AuthOptions.AUDIENCE,
+                    notBefore: now,
+                    claims: identity.Claims,
+                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            var response = new
             {
-                User user = new() { Email = model.Email, UserName = model.Email, Year = model.Year };
-
-                var result = await _userManager.CreateAsync(user, model.Password);
-
-                if (result.Succeeded)
-                {
-                    await _signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                    foreach (var error in result.Errors)
-                        ModelState.AddModelError(string.Empty, error.Description);
-            }
-
-            return View(model);
+                access_token = encodedJwt,
+                username = identity.Name
+            };
+            return Json(response);
         }
+
+        private async Task<ClaimsIdentity> GetIdentity(string username, string password)
+        {
+            User person = await _context.Users.Include(r => r.Role).FirstOrDefaultAsync(x => x.Email == username && x.Password == password);
+            if (person is not null)
+            {
+                var claims = new List<Claim>
+                {
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.Email),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role.Name)
+                };
+                ClaimsIdentity claimsIdentity =
+                    new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+                    ClaimsIdentity.DefaultRoleClaimType);
+                return claimsIdentity;
+            }
+            //если пользователь не найден
+            return null;
+        }
+
+
     }
 }

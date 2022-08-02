@@ -1,8 +1,44 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>SignalR Chat</title>
+</head>
+<body>
+    <div id="loginBlock">
+        Введите логин:<br />
+        <input id="userName" type="text" />
+        <p>логин:  tom@mail.com</p>
+        <input id="userPassword" type="text" />
+        <p>Пароль: 123456</p>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+        <input id="loginBtn" type="button" value="Войти" />
+    </div><br />
+    <div id="header"></div><br />
+    <div id="responseJSON"></div>
+    <script>
+
+        // аутентификация
+        document.getElementById("loginBtn").addEventListener("click", function (e) {
+             
+            var request = new XMLHttpRequest();
+            // посылаем запрос на адрес "/token", в ответ получим токен и имя пользователя
+            request.open("POST", "/token", true);   
+            request.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            request.addEventListener("load", function () {
+                if (request.status < 400) { // если запрос успешный
+ 
+                    let data = JSON.parse(request.response);   // парсим ответ  
+                    token = data.access_token;
+                    username = data.username;
+                    
+                }
+                responseJSON.append('Токен:',token, '\r\n Логин:',username)
+            });
+            // отправляем запрос на аутентификацию
+            request.send("username=" + document.getElementById("userName").value +
+                "&password=" + document.getElementById("userPassword").value);
+        });
+    </script>
+</body>
+</html>

@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Chat.Data;
 using Chat.Models;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Chat
 {
@@ -30,9 +32,43 @@ namespace Chat
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>();
+            //services.AddIdentity<User, IdentityRole>()
+            //    .AddEntityFrameworkStores<ApplicationContext>();
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidIssuer = AuthOptions.ISSUER,
+                            ValidateAudience = true,
+                            ValidAudience = AuthOptions.AUDIENCE,
+                            ValidateLifetime = true,
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            ValidateIssuerSigningKey = true,
+                        };
+                        options.Events = new JwtBearerEvents
+                        {
+                            OnMessageReceived = context =>
+                            {
+                                var accessToken = context.Request.Query["access_token"];
+
+                                // если запрос направлен хабу
+                                var path = context.HttpContext.Request.Path;
+                                if (!string.IsNullOrEmpty(accessToken) &&
+                                    (path.StartsWithSegments("/chat")))
+                                {
+                                    // получаем токен из строки запроса
+                                    context.Token = accessToken;
+                                }
+                                return Task.CompletedTask;
+                            }
+                        };
+                    });
+            //services.AddSignalR();
+            services.AddMvc();
 
             services.AddControllersWithViews();
         }
@@ -67,4 +103,5 @@ namespace Chat
             });
         }
     }
+
 }
