@@ -39,15 +39,22 @@ namespace WebGame.Api
             services.AddEntityFrameworkNpgsql().AddDbContext<WebGameDBContext>(opt => opt.UseNpgsql(Configuration.GetConnectionString("WebGameData")));
             services.AddScoped<IHeroRepository, HeroRepository>();
             services.AddScoped<IHeroService, HeroService>();
+
             services.AddScoped<IAmmunitionRepository, AmmunitionRepository>();
             services.AddScoped<IAmmunitionService, AmmunitionService>();
+
             services.AddScoped<ISkillRepository, SkillRepository>();
             services.AddScoped<ISkillService, SkillService>();
+
             services.AddScoped<ISpecializationRepository, SpecializationRepository>();
             services.AddScoped<ISpecializationService, SpecializationService>();
+
             services.AddScoped<IRaceRepository, RaceRepository>();
             services.AddScoped<IRaceService, RaceService>();
-            //services.AddScoped<CustomExceptionHandlerMiddleware>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+
             services.AddAutoMapper(typeof(AppMappingProfile));
 
         }

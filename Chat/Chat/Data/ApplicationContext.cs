@@ -29,6 +29,11 @@ namespace Chat.Data
 
             modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
             modelBuilder.Entity<User>().HasData(new User[] { adminUser1, adminUser2, simpleUser1, simpleUser2 });
+
+            modelBuilder.Entity<User>(b =>
+            {
+                b.HasOne(p => p.Role);
+            });
             base.OnModelCreating(modelBuilder);
         }
     }

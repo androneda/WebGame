@@ -11,6 +11,8 @@ namespace WebGame.Database
         public DbSet<Skill> Skills { get; set; }
         public DbSet<Race> Races { get; set; }
         public DbSet<Specialization> Specializations { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         public WebGameDBContext([NotNull] DbContextOptions options) : base(options)
         {
@@ -24,15 +26,12 @@ namespace WebGame.Database
                 b.HasOne(p => p.Race);
                 b.HasOne(p => p.Specialization);
             });
-            //modelBuilder.Entity<Hero>()
-            //.HasOne(s => s.RaceId)
-            //.WithOne(ad => ad.Hero)
-            //.HasForeignKey<Race>(ad => ad.Id);
 
-            //modelBuilder.Entity<Hero>()
-            //.HasOne(s => s.SpecializationId)
-            //.WithOne(ad => ad.Hero)
-            //.HasForeignKey<Specialization>(ad => ad.Id);
+            modelBuilder.Entity<User>(b =>
+            {
+                b.HasOne(p => p.Role);
+            });
+
         }
 
     }

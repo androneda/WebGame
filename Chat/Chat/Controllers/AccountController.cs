@@ -20,7 +20,7 @@ namespace Chat.Controllers
             _context = context;
         }
 
-        [HttpPost("/token")]
+        [HttpPost("/tokens")]
         public async Task<IActionResult> Token(string username, string password)
         {
             var identity = await GetIdentity(username, password);
@@ -63,6 +63,20 @@ namespace Chat.Controllers
             }
             //если пользователь не найден
             return null;
+        }
+
+        [HttpGet("/get")]
+        public async Task<IActionResult> GetUsers()
+        {
+            ICollection<User> result = await _context.Users.ToListAsync();
+            return Json(result);
+        }
+
+        [HttpGet("/get2")]
+        public async Task<IActionResult> GetRoles()
+        {
+            ICollection<Role> result = await _context.Roles.ToListAsync();
+            return Json(result);
         }
 
 
