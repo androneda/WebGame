@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebGame.Common.Exeptions
 {
-    public class SpecializationNotFoundExeption : BaseException
+    public class SpecializationNotFoundExeption : BuisnessException
     {
         public SpecializationNotFoundExeption() { }
 

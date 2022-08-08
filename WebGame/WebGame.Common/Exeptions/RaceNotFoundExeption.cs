@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebGame.Common.Exeptions
 {
-    public class RaceNotFoundExeption : BaseException
+    public class RaceNotFoundExeption : BuisnessException
     {
         public RaceNotFoundExeption() { }
 

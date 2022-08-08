@@ -23,7 +23,7 @@ namespace WebGame.Api.Middlewares
             {
                 await _next(context);
             }
-            catch (BaseException exception)
+            catch (BuisnessException exception)
             {
                 await HandleCustomExceptionAsync(context, exception);
             }
@@ -34,7 +34,7 @@ namespace WebGame.Api.Middlewares
 
         }
 
-        private static Task HandleCustomExceptionAsync(HttpContext context, Exception exception)
+        private static Task HandleCustomExceptionAsync(HttpContext context, BuisnessException exception)
         {
             var response = new { error = exception.Message , code = context.Response.StatusCode = (int)HttpStatusCode.BadRequest };
             return context.Response.WriteAsJsonAsync(response);

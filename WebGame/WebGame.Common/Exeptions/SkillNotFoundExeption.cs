@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebGame.Common.Exeptions
 {
-    public class SkillNotFoundExeption : BaseException
+    public class SkillNotFoundExeption : BuisnessException
     {
         public SkillNotFoundExeption() { }
 

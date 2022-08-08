@@ -55,6 +55,8 @@ namespace WebGame.Api
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 
+            services.AddScoped<JwtTokenHelper>();
+
             services.AddAutoMapper(typeof(AppMappingProfile));
 
         }

@@ -2,16 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WebGame.Common.Exeptions;
 using WebGame.Core.Model.User;
-using WebGame.Core.Model.Skills;
 using WebGame.Core.Services.Interfaces;
 using WebGame.Database.Model;
 using WebGame.Database.Repositories.Interfaces;
-using System.IdentityModel.Tokens.Jwt;
-using WebGame.Common;
-using Microsoft.IdentityModel.Tokens;
 
 namespace WebGame.Core.Services
 {
@@ -19,11 +16,14 @@ namespace WebGame.Core.Services
     {
         private readonly IUserRepository _userRepo;
         private readonly IMapper _mapper;
+        private readonly JwtTokenHelper _jwtTokenHelper;
         public UserService(IUserRepository userRepo,
-                           IMapper mapper)
+                           IMapper mapper,
+                           JwtTokenHelper jwtTokenHelper)
         {
             _userRepo = userRepo;
             _mapper = mapper;
+            _jwtTokenHelper = jwtTokenHelper;
         }
 
         public async Task<IEnumerable<UserViewDto>> GetAll()
@@ -66,30 +66,6 @@ namespace WebGame.Core.Services
             return _mapper.Map<UserViewDto>(temp);
         }
 
-        public async Task<string> Token(string username, string password)
-        {
-            var identity = await _userRepo.GetIdentity(username, password);
-            if (identity is null)
-                throw new UserNotFoundExeption("Invalid username or password.");
 
-            var now = DateTime.Now;
-
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    notBefore: now,
-                    claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-            //var response = new
-            //{
-            //    access_token = encodedJwt,
-            //    username = identity.Name
-            //};
-
-            return encodedJwt;
-        }
     }
 }

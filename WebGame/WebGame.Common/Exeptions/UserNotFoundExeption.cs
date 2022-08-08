@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WebGame.Common.Exeptions
 {
-    public class UserNotFoundExeption : BaseException
+    public class UserNotFoundExeption : BuisnessException
     {
         public UserNotFoundExeption() { }
 

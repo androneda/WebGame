@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace WebGame.Common.Exeptions
 {
-    public class BaseException : Exception
+    public class BuisnessException : Exception
     {
-        public BaseException() { }
-        public BaseException(string message) : base(message)
+        public BuisnessException() { }
+        public BuisnessException(string message) : base(message)
         {
         }
     }

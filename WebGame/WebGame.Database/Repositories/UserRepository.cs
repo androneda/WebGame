@@ -15,23 +15,10 @@ namespace WebGame.Database.Repositories
 
         }
 
-        public async Task<ClaimsIdentity> GetIdentity(string username, string password)
+        public async Task<User> GetIdentity(string username, string password)
         {
             User person = await _dbSet.Include(r => r.Role).FirstOrDefaultAsync(x => x.Login == username && x.Password == password);
-            if (person is not null)
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role.Name)
-                };
-                ClaimsIdentity claimsIdentity =
-                    new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                    ClaimsIdentity.DefaultRoleClaimType);
-                return claimsIdentity;
-            }
-            //если пользователь не найден
-            return null;
+            return person;
         }
     }
 }
