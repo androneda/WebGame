@@ -34,7 +34,6 @@ namespace WebGame.Core.Services
                 new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
 
-
             var encodedJwt = _jwtTokenHelper.Create(claimsIdentity);
 
             return encodedJwt;

@@ -16,6 +16,5 @@ namespace WebGame.Core.Services.Interfaces
         Task Add(CreateUserDto userDto);
         Task Delete(Guid userId);
         Task Update(UpdateUserDto userDto);
-        Task<string> Token(string username, string password);
     }
 }

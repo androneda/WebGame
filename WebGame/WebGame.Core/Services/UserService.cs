@@ -16,14 +16,12 @@ namespace WebGame.Core.Services
     {
         private readonly IUserRepository _userRepo;
         private readonly IMapper _mapper;
-        private readonly JwtTokenHelper _jwtTokenHelper;
         public UserService(IUserRepository userRepo,
                            IMapper mapper,
                            JwtTokenHelper jwtTokenHelper)
         {
             _userRepo = userRepo;
             _mapper = mapper;
-            _jwtTokenHelper = jwtTokenHelper;
         }
 
         public async Task<IEnumerable<UserViewDto>> GetAll()

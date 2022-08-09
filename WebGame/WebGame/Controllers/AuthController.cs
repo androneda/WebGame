@@ -27,6 +27,8 @@ namespace WebGame.Api.Controllers
             return Ok();
         }
 
+
+
         [HttpPost]
         public IActionResult Registration([FromBody] string username, string password)
         {
