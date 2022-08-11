@@ -27,7 +27,7 @@ namespace WebGame.Core.Services
 
             var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name)
                 };
             ClaimsIdentity claimsIdentity =

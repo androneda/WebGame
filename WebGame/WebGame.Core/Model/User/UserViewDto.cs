@@ -16,7 +16,7 @@ namespace WebGame.Core.Model.User
         /// <summary>
         /// Name
         /// </summary>
-        public string Login { get; set; }
+        public string Username { get; set; }
 
         /// <summary>
         /// User Password

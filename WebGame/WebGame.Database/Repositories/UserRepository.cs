@@ -17,7 +17,7 @@ namespace WebGame.Database.Repositories
 
         public async Task<User> GetIdentity(string username, string password)
         {
-            return await _dbSet.Include(r => r.Role).FirstOrDefaultAsync(x => x.Login == username && x.Password == password);
+            return await _dbSet.Include(r => r.Role).FirstOrDefaultAsync(x => x.Username == username && x.Password == password);
         }
     }
 }

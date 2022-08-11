@@ -10,14 +10,18 @@ using WebGame.Core.Services.Interfaces;
 using WebGame.Database;
 using WebGame.Database.Repositories;
 using WebGame.Database.Repositories.Interfaces;
-using Newtonsoft.Json;
-using System.Text.Json.Serialization;
 using WebGame.Api.Data;
 using WebGame.Api.Middlewares;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using WebGame.Common;
+using Microsoft.AspNetCore.Identity;
+using WebGame.Database.Model;
+
+
+
 
 namespace WebGame.Api
 {
@@ -34,30 +38,50 @@ namespace WebGame.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddOptions();
+            services.AddLogging();
+
+
+            services.AddSingleton<IAccountService, AccountService>();
+            services.AddTransient<IJwtTokenHelper, JwtTokenHelper>();
+            services.AddSingleton<IPasswordHasher<User>, PasswordHasher<User>>();
+            services.AddTransient<TokenManagerMiddleware>();
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddDistributedSqlServerCache(r => { r.ConnectionString = Configuration["redis:connectionString"]; });
+
+            var jwtSection = Configuration.GetSection("jwt");
+            var jwtOptions = new JwtOptions();
+            jwtSection.Bind(jwtOptions);
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
                         options.RequireHttpsMetadata = false;
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
-                            // укзывает, будет ли валидироваться издатель при валидации токена
+                             //укзывает, будет ли валидироваться издатель при валидации токена
                             ValidateIssuer = true,
-                            // строка, представляющая издателя
-                            ValidIssuer = AuthOptions.ISSUER,
+                             //строка, представляющая издателя
+                            ValidIssuer = jwtOptions.ISSUER,
 
                             // будет ли валидироваться потребитель токена
                             ValidateAudience = true,
                             // установка потребителя токена
-                            ValidAudience = AuthOptions.AUDIENCE,
+                            ValidAudience = jwtOptions.AUDIENCE,
                             // будет ли валидироваться время существования
                             ValidateLifetime = true,
 
                             // установка ключа безопасности
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                            // валидация ключа безопасности
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtOptions.KEY)),
+                             //валидация ключа безопасности
                             ValidateIssuerSigningKey = true,
                         };
                     });
+
+            services.Configure<JwtOptions>(jwtSection);
+
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "WebGame", Version = "v1" });
@@ -104,9 +128,7 @@ namespace WebGame.Api
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 
-            services.AddScoped<IAuthService, AuthService>();
 
-            services.AddScoped<JwtTokenHelper>();
 
             services.AddAutoMapper(typeof(AppMappingProfile));
 
@@ -129,7 +151,8 @@ namespace WebGame.Api
             app.UseRouting();
 
             app.UseAuthentication();
-            app.UseAuthorization();
+
+            app.UseMiddleware<TokenManagerMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {

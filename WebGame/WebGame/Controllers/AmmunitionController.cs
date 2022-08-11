@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using WebGame.Core.Model.Ammunition;
@@ -8,6 +9,7 @@ using WebGame.Core.Services.Interfaces;
 namespace WebGame.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class AmmunitionController : ControllerBase
     {
