@@ -37,13 +37,25 @@ namespace WebGame.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddSingleton<AuthOptions>();
 
             RegisterConfig<AuthOptions>(services);
 
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer();
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true,
+                            ValidIssuer = "MyAuthServer",
+                            ValidateAudience = true,
+                            ValidAudience = "MyAuthClient",
+                            ValidateLifetime = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("MySuperSecret_SecretKey123")),
+                            ValidateIssuerSigningKey = true,
+                        };
+                    });
 
             services.AddSwaggerGen(swagger =>
             {
