@@ -34,7 +34,6 @@ namespace WebGame.Api.Middlewares
                 await ValidateToken(token);
                 context.Request.Headers["Authorization"] = "Bearer " + token;
             }
-            
 
             await _next(context);
         }

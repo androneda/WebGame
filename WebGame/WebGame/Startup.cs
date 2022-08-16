@@ -126,7 +126,7 @@ namespace WebGame.Api
             app.UseRouting();
 
             app.UseMiddleware<AuthenticationMiddleware>();
-            //app.UseAuthentication();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
