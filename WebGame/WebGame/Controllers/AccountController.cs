@@ -36,8 +36,8 @@ namespace WebGame.Api.Controllers
         [HttpPost("/register")]
         public async Task<IActionResult> RegisterAsync([FromBody] CreateUserDto userDto)
         {
-            var encodedJwt = await _userService.Add(userDto);
-            return Ok(encodedJwt);
+            await _userService.Add(userDto);
+            return Ok();
         }
 
         [Authorize]
