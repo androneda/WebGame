@@ -31,14 +31,15 @@ namespace WebGame.Api.Middlewares
             var token = context.Request.Headers["Authorization"].FirstOrDefault();
             if (token is not null)
             {
+                await ValidateToken(token);
                 context.Request.Headers["Authorization"] = "Bearer " + token;
-                await attachAccountToContext(token);
             }
+            
 
             await _next(context);
         }
 
-        private Task attachAccountToContext(string token)
+        private Task ValidateToken(string token)
         {
             try
             {

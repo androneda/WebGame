@@ -47,13 +47,11 @@ namespace WebGame.Api
                         options.RequireHttpsMetadata = false;
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
-                            ValidateIssuer = true,
-                            ValidIssuer = "MyAuthServer",
-                            ValidateAudience = true,
-                            ValidAudience = "MyAuthClient",
+                            ValidateIssuer = false,
+                            ValidateAudience = false,
                             ValidateLifetime = true,
                             IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("MySuperSecret_SecretKey123")),
-                            ValidateIssuerSigningKey = true,
+                            ValidateIssuerSigningKey = true
                         };
                     });
 
@@ -128,7 +126,7 @@ namespace WebGame.Api
             app.UseRouting();
 
             app.UseMiddleware<AuthenticationMiddleware>();
-            app.UseAuthentication();
+            //app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
