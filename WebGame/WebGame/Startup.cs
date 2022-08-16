@@ -16,8 +16,11 @@ using WebGame.Api.Data;
 using WebGame.Api.Middlewares;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using WebGame.Common;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
 
 namespace WebGame.Api
 {
@@ -34,30 +37,14 @@ namespace WebGame.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton<AuthOptions>();
+
+            RegisterConfig<AuthOptions>(services);
+
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                    .AddJwtBearer(options =>
-                    {
-                        options.RequireHttpsMetadata = false;
-                        options.TokenValidationParameters = new TokenValidationParameters
-                        {
-                            // укзывает, будет ли валидироваться издатель при валидации токена
-                            ValidateIssuer = true,
-                            // строка, представляющая издателя
-                            ValidIssuer = AuthOptions.ISSUER,
+                    .AddJwtBearer();
 
-                            // будет ли валидироваться потребитель токена
-                            ValidateAudience = true,
-                            // установка потребителя токена
-                            ValidAudience = AuthOptions.AUDIENCE,
-                            // будет ли валидироваться время существования
-                            ValidateLifetime = true,
-
-                            // установка ключа безопасности
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
-                            // валидация ключа безопасности
-                            ValidateIssuerSigningKey = true,
-                        };
-                    });
             services.AddSwaggerGen(swagger =>
             {
                 swagger.SwaggerDoc("v1", new OpenApiInfo { Title = "WebGame", Version = "v1" });
@@ -128,6 +115,7 @@ namespace WebGame.Api
 
             app.UseRouting();
 
+            app.UseMiddleware<AuthenticationMiddleware>();
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -135,6 +123,11 @@ namespace WebGame.Api
             {
                 endpoints.MapControllers();
             });
+        }
+
+        private void RegisterConfig<T>(IServiceCollection services) where T: class
+        {
+            services.Configure<T>(Configuration.GetSection(typeof(T).Name));
         }
     }
 }
