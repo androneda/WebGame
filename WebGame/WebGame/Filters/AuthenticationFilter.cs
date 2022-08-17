@@ -22,12 +22,11 @@ namespace WebGame.Api.Filters
             else
             {
                 var token = filterContext.HttpContext.Request.Headers["Authorization"].FirstOrDefault();
-                if (ValidateToken(token).Exception is not null)
+                if (ValidateToken(token).IsFaulted)
                 {
                     filterContext.Result = new StatusCodeResult(402);
                 }
             }
-
         }
 
         private Task ValidateToken(string token)
