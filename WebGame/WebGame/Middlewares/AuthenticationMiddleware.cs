@@ -14,9 +14,6 @@ namespace WebGame.Api.Middlewares
     public class AuthenticationMiddleware
     {
         private readonly RequestDelegate _next;
-        private AuthOptions _authOptions;
-        private IUserService _userService;
-
         public AuthenticationMiddleware(RequestDelegate next)
         {
             _next = next;
@@ -24,10 +21,6 @@ namespace WebGame.Api.Middlewares
 
         public async Task Invoke(HttpContext context ,IOptions<AuthOptions> authOptions, IUserService userService)
         {
-
-            _authOptions = authOptions.Value;
-            _userService = userService;
-
             var token = context.Request.Headers["Authorization"].FirstOrDefault();
             if (token is not null)
             {

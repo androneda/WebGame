@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using WebGame.Api.Filters;
 using WebGame.Core.Model.User;
 using WebGame.Core.Services.Interfaces;
 using WebGame.Database.Model;
@@ -40,7 +41,7 @@ namespace WebGame.Api.Controllers
             return Ok();
         }
 
-        [Authorize]
+        [AuntificationFilter]
         [HttpGet("getlogin")]
         public IActionResult GetLogin()
         {
