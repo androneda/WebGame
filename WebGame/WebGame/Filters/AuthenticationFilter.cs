@@ -16,7 +16,6 @@ namespace WebGame.Api.Filters
         {
             if (!filterContext.HttpContext.Request.Headers.ContainsKey("Authorization"))
             {
-                filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
                 filterContext.Result = new UnauthorizedResult();
             }
             else
