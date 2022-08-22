@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebGame.Core.Services;
 using WebGame.Core.Services.Interfaces;
 
 namespace WebGame.Api.Attributes
@@ -17,7 +19,7 @@ namespace WebGame.Api.Attributes
     {
         private readonly string _role;
         private readonly bool isRoleRequiered;
-        private readonly IJwtTokenHelper _jwtHelper;
+        private IJwtTokenHelper _jwtHelper;
         public CustomAuthorizeAttribute()
         {
 
@@ -37,7 +39,7 @@ namespace WebGame.Api.Attributes
 
             // authorization
             var token = context.HttpContext.Request.Headers["Authorization"].FirstOrDefault();
-
+             _jwtHelper = context.HttpContext.RequestServices.GetService<IJwtTokenHelper>();
             if (ValidateToken(token).IsFaulted || token is null)
             {
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized};
@@ -45,7 +47,7 @@ namespace WebGame.Api.Attributes
             if (isRoleRequiered)
             {
                 var claims = _jwtHelper.ReadClaims(context.HttpContext.Request.Headers["Authorization"]);
-                var role = claims.FirstOrDefault().Value.ToString();
+                var role = claims.Single(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role").Value.ToString();
 
                 if (_role != role)
                     context.Result = new JsonResult(new { message = "Forbidden" }) { StatusCode = StatusCodes.Status403Forbidden};
