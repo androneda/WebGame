@@ -40,7 +40,7 @@ namespace WebGame.Api.Controllers
         public IActionResult GetLogin()
         {
             var claims = _jwtHelper.ReadClaims(HttpContext.Request.Headers["Authorization"]);
-            var role = claims.Where(x => x.Type == "name").ToString();
+            var role = claims.FirstOrDefault().Value.ToString();
             return Ok($"Ваш логин: {role}");
         }
 

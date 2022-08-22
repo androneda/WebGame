@@ -9,21 +9,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebGame.Core.Services.Interfaces;
-using WebGame.Database.Model;
 
 namespace WebGame.Api.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class CustomAuthorizeAttribute : Attribute, IAuthorizationFilter
     {
+        private readonly string _role;
+        private readonly bool isRoleRequiered;
+        private readonly IJwtTokenHelper _jwtHelper;
         public CustomAuthorizeAttribute()
         {
 
         }
 
-        public CustomAuthorizeAttribute(string role)
+        public CustomAuthorizeAttribute(string role, bool roleRequired = true)
         {
-            
+            _role = role;
+            isRoleRequiered = roleRequired;
         }
         public void OnAuthorization(AuthorizationFilterContext context)
         {
@@ -37,7 +40,15 @@ namespace WebGame.Api.Attributes
 
             if (ValidateToken(token).IsFaulted || token is null)
             {
-                context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
+                context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized};
+            }
+            if (isRoleRequiered)
+            {
+                var claims = _jwtHelper.ReadClaims(context.HttpContext.Request.Headers["Authorization"]);
+                var role = claims.FirstOrDefault().Value.ToString();
+
+                if (_role != role)
+                    context.Result = new JsonResult(new { message = "Forbidden" }) { StatusCode = StatusCodes.Status403Forbidden};
             }
         }
 

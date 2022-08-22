@@ -25,16 +25,7 @@ namespace WebGame.Core.Services
             if (user is null)
                 throw new UserNotFoundExeption("Invalid username or password.");
 
-            var claims = new List<Claim>
-                {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name)
-                };
-            ClaimsIdentity claimsIdentity =
-                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
-                ClaimsIdentity.DefaultRoleClaimType);
-
-            var encodedJwt = _jwtTokenHelper.Create(claimsIdentity);
+            var encodedJwt = _jwtTokenHelper.Create(user);
 
             return encodedJwt;
         }

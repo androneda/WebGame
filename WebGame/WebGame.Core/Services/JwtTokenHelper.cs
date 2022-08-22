@@ -11,6 +11,7 @@ using System.Net.Http;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using WebGame.Core.Services.Interfaces;
+using WebGame.Database.Model;
 
 namespace WebGame.Core.Services
 {
@@ -21,9 +22,11 @@ namespace WebGame.Core.Services
         {
             _authOptions = authOptions.Value;
         }
-        public string Create(ClaimsIdentity identity)
+        public string Create(User user)
         {
             var now = DateTime.UtcNow;
+
+            var identity = SetClaim(user);
 
             var jwt = new JwtSecurityToken(
                 issuer: _authOptions.ISSUER,
@@ -37,13 +40,23 @@ namespace WebGame.Core.Services
         }
         public IEnumerable<Claim> ReadClaims(string jwt)
         {
-            var stream = jwt;
             var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(stream);
+            var jsonToken = handler.ReadToken(jwt);
             var tokenS = jsonToken as JwtSecurityToken;
-            var Claims = tokenS.Claims;
+            return tokenS.Claims;
+        }
 
-            return Claims;
+        private ClaimsIdentity SetClaim(User user)
+        {
+            var claims = new List<Claim>
+                {
+                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name)
+                };
+            ClaimsIdentity claimsIdentity =
+                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+                ClaimsIdentity.DefaultRoleClaimType);
+            return claimsIdentity;
         }
     }
 }
