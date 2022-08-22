@@ -35,12 +35,12 @@ namespace WebGame.Api.Controllers
             return Ok();
         }
 
-        [CustomAuthorize("Admin")]
+        [CustomAuthorize("admin")]
         [HttpGet("getlogin")]
         public IActionResult GetLogin()
         {
             var claims = _jwtHelper.ReadClaims(HttpContext.Request.Headers["Authorization"]);
-            var role = claims.Where(x => x.Type == "Name").ToString();
+            var role = claims.Where(x => x.Type == "name").ToString();
             return Ok($"Ваш логин: {role}");
         }
 
