@@ -13,8 +13,8 @@ namespace WebGame.Core.Services
     public class AuthService : IAuthService
     {
         private readonly IUserRepository _userRepo;
-        private readonly JwtTokenHelper _jwtTokenHelper;
-        public AuthService(IUserRepository userRepo, JwtTokenHelper jwtTokenHelper)
+        private readonly IJwtTokenHelper _jwtTokenHelper;
+        public AuthService(IUserRepository userRepo, IJwtTokenHelper jwtTokenHelper)
         {
             _userRepo = userRepo;
             _jwtTokenHelper = jwtTokenHelper;

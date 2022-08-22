@@ -1,20 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.Tokens;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using WebGame.Api.Attributes;
-using WebGame.Api.Filters;
 using WebGame.Core.Model.User;
+using WebGame.Core.Services;
 using WebGame.Core.Services.Interfaces;
-using WebGame.Database.Model;
 
 namespace WebGame.Api.Controllers
 {
@@ -22,10 +13,12 @@ namespace WebGame.Api.Controllers
     {
         private readonly IAuthService _authservice;
         private readonly IUserService _userService;
-        public AccountController(IAuthService authservice, IUserService userservice)
+        private readonly IJwtTokenHelper _jwtHelper;
+        public AccountController(IAuthService authservice, IUserService userservice, IJwtTokenHelper jwtHelper)
         {
             _authservice = authservice;
             _userService = userservice;
+            _jwtHelper = jwtHelper;
         }
 
         [HttpPost("/login")]
@@ -42,11 +35,13 @@ namespace WebGame.Api.Controllers
             return Ok();
         }
 
-        [CustomAuthorize]
+        [CustomAuthorize("Admin")]
         [HttpGet("getlogin")]
         public IActionResult GetLogin()
         {
-            return Ok($"Ваш логин: {User.Identity.Name}");
+            var claims = _jwtHelper.ReadClaims(HttpContext.Request.Headers["Authorization"]);
+            var role = claims.Where(x => x.Type == "Name").ToString();
+            return Ok($"Ваш логин: {role}");
         }
 
 

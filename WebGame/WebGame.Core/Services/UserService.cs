@@ -17,8 +17,7 @@ namespace WebGame.Core.Services
         private readonly IUserRepository _userRepo;
         private readonly IMapper _mapper;
         public UserService(IUserRepository userRepo,
-                           IMapper mapper,
-                           JwtTokenHelper jwtTokenHelper)
+                           IMapper mapper)
         {
             _userRepo = userRepo;
             _mapper = mapper;

@@ -103,7 +103,7 @@ namespace WebGame.Api
 
             services.AddScoped<IAuthService, AuthService>();
 
-            services.AddScoped<JwtTokenHelper>();
+            services.AddScoped<IJwtTokenHelper, JwtTokenHelper>();
 
             services.AddAutoMapper(typeof(AppMappingProfile));
 

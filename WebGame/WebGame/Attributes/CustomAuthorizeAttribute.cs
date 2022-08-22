@@ -8,6 +8,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebGame.Core.Services.Interfaces;
 using WebGame.Database.Model;
 
 namespace WebGame.Api.Attributes
@@ -15,6 +16,15 @@ namespace WebGame.Api.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class CustomAuthorizeAttribute : Attribute, IAuthorizationFilter
     {
+        public CustomAuthorizeAttribute()
+        {
+
+        }
+
+        public CustomAuthorizeAttribute(string role)
+        {
+            
+        }
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             // skip authorization if action is decorated with [AllowAnonymous] attribute
@@ -25,7 +35,7 @@ namespace WebGame.Api.Attributes
             // authorization
             var token = context.HttpContext.Request.Headers["Authorization"].FirstOrDefault();
 
-            if (ValidateToken(token).IsFaulted || token == null)
+            if (ValidateToken(token).IsFaulted || token is null)
             {
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }
