@@ -53,7 +53,7 @@ namespace WebGame.Api.Attributes
                 foreach (var neededRole in _roles)
                     if (neededRole == userRole)
                     {
-                        context.Result = new JsonResult(new { message = "Forbidden" }) { StatusCode = StatusCodes.Status403Forbidden };
+                        context.Result = null;
                         return;
                     }
                     else
