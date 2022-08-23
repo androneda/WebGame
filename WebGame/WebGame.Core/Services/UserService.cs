@@ -63,6 +63,15 @@ namespace WebGame.Core.Services
             return _mapper.Map<UserViewDto>(temp);
         }
 
+        public async Task<User> GetModelByID(Guid userId)
+        {
+            var user = await _userRepo.GetIdentity(userId);
+            if (user is null)
+                throw new UserNotFoundExeption("Пользователь с указанным идентификатором не найден");
+
+            return user;
+        }
+
 
     }
 }

@@ -50,17 +50,15 @@ namespace WebGame.Core.Services
 
         private ClaimsIdentity SetClaim(User user)
         {
-
-
             var session = new UserSession(user.Id,user.RoleId);
             _sessionService.Add(session);
 
             var claims = new List<Claim>
                 {
-                    new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                    new Claim("Role", user.Role.Name),
+                    new Claim("UserId", user.Id.ToString()),
                     new Claim("Session", session.Id.ToString())
                 };
+
             ClaimsIdentity claimsIdentity =
                 new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);

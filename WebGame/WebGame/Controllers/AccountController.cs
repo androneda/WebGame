@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using WebGame.Api.Attributes;
@@ -40,7 +41,11 @@ namespace WebGame.Api.Controllers
         public IActionResult GetLogin()
         {
             var claims = _jwtHelper.ReadClaims(HttpContext.Request.Headers["Authorization"]);
-            var role = claims.FirstOrDefault().Value.ToString();
+
+            var userId = claims.FirstOrDefault().Value;
+            var temp = Guid.TryParse(userId, out var user);
+            var role = _userService.GetModelByID(user).Result.Role.Name;
+
             return Ok($"Ваш логин: {role}");
         }
 

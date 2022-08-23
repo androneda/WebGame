@@ -9,5 +9,6 @@ namespace WebGame.Database.Repositories.Interfaces
     public interface IUserRepository : IBaseRepository<User>
     {
         Task<User> GetIdentity(string username, string password);
+        Task<User> GetIdentity(Guid id);
     }
 }

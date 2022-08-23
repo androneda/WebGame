@@ -17,5 +17,10 @@ namespace WebGame.Core.Model.UserSession
         /// Name
         /// </summary>
         public Guid UserId { get; set; }
+
+        /// <summary>
+        /// Name
+        /// </summary>
+        public bool IsActive { get; set; }
     }
 }
