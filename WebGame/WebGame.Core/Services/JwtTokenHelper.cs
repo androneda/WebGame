@@ -46,7 +46,7 @@ namespace WebGame.Core.Services
             return tokenS.Claims;
         }
 
-        private ClaimsIdentity SetClaim(User user)
+        private static ClaimsIdentity SetClaim(User user)
         {
             var claims = new List<Claim>
                 {

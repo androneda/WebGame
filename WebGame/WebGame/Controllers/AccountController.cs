@@ -35,7 +35,7 @@ namespace WebGame.Api.Controllers
             return Ok();
         }
 
-        [CustomAuthorize("admin")]
+        [CustomAuthorize("admin","user")]
         [HttpGet("getlogin")]
         public IActionResult GetLogin()
         {

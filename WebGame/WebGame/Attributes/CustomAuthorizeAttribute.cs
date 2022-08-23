@@ -9,7 +9,6 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using WebGame.Core.Services;
 using WebGame.Core.Services.Interfaces;
 
 namespace WebGame.Api.Attributes
@@ -17,7 +16,7 @@ namespace WebGame.Api.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class CustomAuthorizeAttribute : Attribute, IAuthorizationFilter
     {
-        private readonly string _role;
+        private readonly string[] _roles;
         private readonly bool isRoleRequiered;
         private IJwtTokenHelper _jwtHelper;
         public CustomAuthorizeAttribute()
@@ -25,9 +24,10 @@ namespace WebGame.Api.Attributes
 
         }
 
-        public CustomAuthorizeAttribute(string role, bool roleRequired = true)
+        public CustomAuthorizeAttribute(params string[] roles)
         {
-            _role = role;
+            bool roleRequired = true;
+            _roles = roles;
             isRoleRequiered = roleRequired;
         }
         public void OnAuthorization(AuthorizationFilterContext context)
@@ -38,23 +38,31 @@ namespace WebGame.Api.Attributes
                 return;
 
             // authorization
-            var token = context.HttpContext.Request.Headers["Authorization"].FirstOrDefault();
-             _jwtHelper = context.HttpContext.RequestServices.GetService<IJwtTokenHelper>();
+            string token = context.HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+            _jwtHelper = context.HttpContext.RequestServices.GetService<IJwtTokenHelper>();
             if (ValidateToken(token).IsFaulted || token is null)
             {
-                context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized};
+                context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
             }
+            else
             if (isRoleRequiered)
             {
-                var claims = _jwtHelper.ReadClaims(context.HttpContext.Request.Headers["Authorization"]);
-                var role = claims.Single(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role").Value.ToString();
+                var claims = _jwtHelper.ReadClaims(token);
+                string userRole = claims.Single(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role").Value.ToString();
 
-                if (_role != role)
-                    context.Result = new JsonResult(new { message = "Forbidden" }) { StatusCode = StatusCodes.Status403Forbidden};
+                foreach (var neededRole in _roles)
+                    if (neededRole == userRole)
+                    {
+                        context.Result = new JsonResult(new { message = "Forbidden" }) { StatusCode = StatusCodes.Status403Forbidden };
+                        return;
+                    }
+                    else
+                        context.Result = new JsonResult(new { message = "Forbidden" }) { StatusCode = StatusCodes.Status403Forbidden };
+
             }
         }
 
-        private Task ValidateToken(string token)
+        private static Task ValidateToken(string token)
         {
             try
             {
