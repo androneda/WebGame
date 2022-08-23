@@ -12,6 +12,7 @@ using WebGame.Core.Model.Skills;
 using WebGame.Core.Model.Specialization;
 using WebGame.Core.Model.Races;
 using WebGame.Core.Model.User;
+using WebGame.Core.Model.UserSession;
 
 namespace WebGame.Api.Data
 {
@@ -42,6 +43,8 @@ namespace WebGame.Api.Data
             CreateMap<CreateUserDto, User>();
             CreateMap<UpdateUserDto, User>();
             CreateMap<User, UserViewDto>();
+
+            CreateMap<UserSession, UserSessionViewDto>();
         }
     }
 }

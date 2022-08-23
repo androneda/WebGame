@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WebGame.Database;
@@ -9,9 +10,10 @@ using WebGame.Database;
 namespace WebGame.Database.Migrations
 {
     [DbContext(typeof(WebGameDBContext))]
-    partial class WebGameDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220823075126_SessionAdd")]
+    partial class SessionAdd
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -259,7 +261,7 @@ namespace WebGame.Database.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
-                    b.Property<Guid>("UserRoleId")
+                    b.Property<Guid?>("UserRoleId")
                         .HasColumnType("uuid");
 
                     b.HasKey("Id");
@@ -322,9 +324,7 @@ namespace WebGame.Database.Migrations
 
                     b.HasOne("WebGame.Database.Model.Role", "UserRole")
                         .WithMany()
-                        .HasForeignKey("UserRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserRoleId");
 
                     b.Navigation("User");
 

@@ -48,7 +48,7 @@ namespace WebGame.Api.Attributes
             if (isRoleRequiered)
             {
                 var claims = _jwtHelper.ReadClaims(token);
-                string userRole = claims.Single(x => x.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role").Value.ToString();
+                string userRole = claims.Single(x => x.Type == "Role").Value.ToString();
 
                 foreach (var neededRole in _roles)
                     if (neededRole == userRole)

@@ -18,9 +18,11 @@ namespace WebGame.Core.Services
     public class JwtTokenHelper : IJwtTokenHelper
 {
         private readonly AuthOptions _authOptions;
-        public JwtTokenHelper(IOptions<AuthOptions> authOptions)
+        private readonly IUserSessionService _sessionService;
+        public JwtTokenHelper(IOptions<AuthOptions> authOptions, IUserSessionService sessionService)
         {
             _authOptions = authOptions.Value;
+            _sessionService = sessionService;
         }
         public string Create(User user)
         {
@@ -46,12 +48,18 @@ namespace WebGame.Core.Services
             return tokenS.Claims;
         }
 
-        private static ClaimsIdentity SetClaim(User user)
+        private ClaimsIdentity SetClaim(User user)
         {
+
+
+            var session = new UserSession(user.Id,user.RoleId);
+            _sessionService.Add(session);
+
             var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name)
+                    new Claim("Role", user.Role.Name),
+                    new Claim("Session", session.Id.ToString())
                 };
             ClaimsIdentity claimsIdentity =
                 new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,

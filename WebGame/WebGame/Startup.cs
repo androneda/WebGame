@@ -101,6 +101,9 @@ namespace WebGame.Api
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 
+            services.AddScoped<IUserSessionRepository, UserSessionRepository>();
+            services.AddScoped<IUserSessionService, UserSessionSercvice>();
+
             services.AddScoped<IAuthService, AuthService>();
 
             services.AddScoped<IJwtTokenHelper, JwtTokenHelper>();
