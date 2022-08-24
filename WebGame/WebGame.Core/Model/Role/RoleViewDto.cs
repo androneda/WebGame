@@ -17,6 +17,6 @@ namespace WebGame.Core.Model.Role
         /// <summary>
         /// Name
         /// </summary>
-        public bool Name { get; set; }
+        public string Name { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using WebGame.Common.Exeptions;
+using WebGame.Core.Model.Role;
 using WebGame.Core.Model.User;
 using WebGame.Core.Services.Interfaces;
 using WebGame.Database.Model;
@@ -56,23 +57,13 @@ namespace WebGame.Core.Services
 
         public async Task<UserViewDto> GetByID(Guid userId)
         {
-            var temp = await _userRepo.GetByID(userId);
-            if (temp is null)
-                throw new UserNotFoundExeption("Пользователь с указанным идентификатором не найден");
-
-            return _mapper.Map<UserViewDto>(temp);
-        }
-
-        public async Task<UserViewDto> GetModelByID(Guid userId)
-        {
             var userModel = await _userRepo.GetIdentity(userId);
             if (userModel is null)
                 throw new UserNotFoundExeption("Пользователь с указанным идентификатором не найден");
 
             var user = _mapper.Map<UserViewDto>(userModel);
+            user.Role = _mapper.Map<RoleViewDto>(userModel.Role);
             return user;
         }
-
-
     }
 }

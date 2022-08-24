@@ -29,7 +29,7 @@ namespace WebGame.Api.Attributes
         {
             _roles = roles;
         }
-        public void OnAuthorization(AuthorizationFilterContext context)
+        public async void OnAuthorization(AuthorizationFilterContext context)
         {
             // skip authorization if action is decorated with [AllowAnonymous] attribute
             var allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any();
@@ -54,7 +54,7 @@ namespace WebGame.Api.Attributes
             Guid.TryParse(userSessionId, out var guidSession);
             var session = _userSesionService.GetByID(guidSession);
 
-            if (session.Result.IsActive)
+            if (!session.Result.IsActive)
             {
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
                 return;
@@ -64,7 +64,7 @@ namespace WebGame.Api.Attributes
             {
                 string userId = claims.Single(x => x.Type == "UserId").Value;
                 Guid.TryParse(userId, out var guidUser);
-                var userRole = _userService.GetModelByID(guidUser).Result.Role.Name;
+                var userRole = _userService.GetByID(guidUser).Result.Role.Name;
 
                 if (_roles.Contains(userRole))
                 {

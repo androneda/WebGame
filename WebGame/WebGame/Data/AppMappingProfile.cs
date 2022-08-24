@@ -13,6 +13,7 @@ using WebGame.Core.Model.Specialization;
 using WebGame.Core.Model.Races;
 using WebGame.Core.Model.User;
 using WebGame.Core.Model.UserSession;
+using WebGame.Core.Model.Role;
 
 namespace WebGame.Api.Data
 {
@@ -45,6 +46,8 @@ namespace WebGame.Api.Data
             CreateMap<User, UserViewDto>();
 
             CreateMap<Session, UserSessionViewDto>();
+
+            CreateMap<Role, RoleViewDto>().ReverseMap();
         }
     }
 }

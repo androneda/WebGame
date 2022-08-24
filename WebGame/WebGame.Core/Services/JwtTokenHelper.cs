@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using WebGame.Core.Services.Interfaces;
 using WebGame.Database.Model;
+using WebGame.Core.Model.Role;
 
 namespace WebGame.Core.Services
 {
@@ -74,8 +75,7 @@ namespace WebGame.Core.Services
             var userId = claims.FirstOrDefault().Value;
             Guid.TryParse(userId, out var userGuid);
             var user = await _userService.GetByID(userGuid);
-            var role = user.RoleId.ToString();
-            return role;
+            return user.Role.Name;
         }
     }
 }

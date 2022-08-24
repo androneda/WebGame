@@ -40,13 +40,9 @@ namespace WebGame.Api.Controllers
         [HttpGet("getlogin")]
         public IActionResult GetLogin()
         {
-            var claims = _jwtHelper.ReadClaims(HttpContext.Request.Headers["Authorization"]);
+            var role =  _jwtHelper.GetRole(HttpContext.Request.Headers["Authorization"]).Result;
 
-            var userId = claims.FirstOrDefault().Value;
-            Guid.TryParse(userId, out var user);
-            var role = _userService.GetModelByID(user).Result.Role.Name;
-
-            return Ok($"Ваш логин: {role}");
+            return Ok($"Ваша роль: {role}");
         }
 
 
