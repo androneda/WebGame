@@ -36,9 +36,6 @@ namespace WebGame.Core.Services
 
         public async Task Add(CreateUserDto userDto)
         {
-            if (userDto is null)
-                throw new UserNotFoundExeption("Неудалось добавить пользователя");
-
             var user = _mapper.Map<User>(userDto);
             await _userRepo.AddAsync(user);
         }

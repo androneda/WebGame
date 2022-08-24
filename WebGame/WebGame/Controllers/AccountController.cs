@@ -38,9 +38,9 @@ namespace WebGame.Api.Controllers
 
         [CustomAuthorize("admin","user")]
         [HttpGet("getlogin")]
-        public IActionResult GetLogin()
+        public async Task<IActionResult> GetLogin()
         {
-            var role =  _jwtHelper.GetRole(HttpContext.Request.Headers["Authorization"]).Result;
+            var role = await  _jwtHelper.GetRole(HttpContext.Request.Headers["Authorization"]);
 
             return Ok($"Ваша роль: {role}");
         }

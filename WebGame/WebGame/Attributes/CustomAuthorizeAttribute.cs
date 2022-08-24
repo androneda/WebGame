@@ -52,9 +52,9 @@ namespace WebGame.Api.Attributes
             var claims = _jwtHelper.ReadClaims(token);
             string userSessionId = claims.Single(x => x.Type == "Session").Value;
             Guid.TryParse(userSessionId, out var guidSession);
-            var session = _userSesionService.GetByID(guidSession);
+            var session = await _userSesionService.GetByID(guidSession);
 
-            if (!session.Result.IsActive)
+            if (!session.IsActive)
             {
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
                 return;
@@ -64,9 +64,10 @@ namespace WebGame.Api.Attributes
             {
                 string userId = claims.Single(x => x.Type == "UserId").Value;
                 Guid.TryParse(userId, out var guidUser);
-                var userRole = _userService.GetByID(guidUser).Result.Role.Name;
 
-                if (_roles.Contains(userRole))
+                var role = await _jwtHelper.GetRole(token);
+
+                if (_roles.Contains(role))
                 {
                     context.Result = null;
                     return;

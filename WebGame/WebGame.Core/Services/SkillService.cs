@@ -35,9 +35,6 @@ namespace WebGame.Core.Services
 
         public async Task Add(CreateSkillDto skillDto)
         {
-            if (skillDto is null)
-                throw new SkillNotFoundExeption("Способность с указанным идентификатором не найдена");
-
             var skill = _mapper.Map<Skill>(skillDto);
             await _skillRepo.AddAsync(skill);
         }

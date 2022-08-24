@@ -13,11 +13,11 @@ using WebGame.Database.Repositories.Interfaces;
 
 namespace WebGame.Core.Services
 {
-    public class SessionSercvice : ISessionService
+    public class SessionService : ISessionService
     {
         private readonly ISessionRepository _sessionRepo;
         private readonly IMapper _mapper;
-        public SessionSercvice(ISessionRepository sessionRepo,
+        public SessionService(ISessionRepository sessionRepo,
                            IMapper mapper)
         {
             _sessionRepo = sessionRepo;

@@ -43,9 +43,6 @@ namespace WebGame.Core.Services
 
         public async Task Add(CreateSpecializationDto specDto)
         {
-            if (specDto is null)
-                throw new SpecializationNotFoundExeption("Специализация с указанным идентификатором не найдена");
-
             var spec = _mapper.Map<Specialization>(specDto);
             await _specializationRepo.AddAsync(spec);
         }
