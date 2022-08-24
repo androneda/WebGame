@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebGame.Core.Model.Role;
 
 namespace WebGame.Core.Model.User
 {
@@ -27,6 +28,7 @@ namespace WebGame.Core.Model.User
         /// User Role Id
         /// </summary>
         public Guid RoleId { get; set; }
+        public RoleViewDto Role { get; set; }
 
 
     }

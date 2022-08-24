@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace WebGame.Database.Model
 {
-    public class UserSession:BaseEntity
+    public class Session:BaseEntity
     {
-        public UserSession()
+        public Session()
         {
 
         }
-        public UserSession(Guid userId, Guid roleId)
+        public Session(Guid userId, Guid roleId)
         {
             IsActive = true;
             UserId = userId;

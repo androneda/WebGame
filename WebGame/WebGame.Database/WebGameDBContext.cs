@@ -13,7 +13,7 @@ namespace WebGame.Database
         public DbSet<Specialization> Specializations { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
-        public DbSet<UserSession> UserSessions { get; set; }
+        public DbSet<Session> UserSessions { get; set; }
 
         public WebGameDBContext([NotNull] DbContextOptions options) : base(options)
         {
@@ -33,7 +33,7 @@ namespace WebGame.Database
                 b.HasOne(p => p.Role);
             });
 
-            modelBuilder.Entity<UserSession>(b =>
+            modelBuilder.Entity<Session>(b =>
             {
                 b.HasOne(p => p.User);
             });

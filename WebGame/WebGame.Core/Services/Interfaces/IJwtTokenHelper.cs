@@ -12,5 +12,6 @@ namespace WebGame.Core.Services.Interfaces
     {
         string Create(User user);
         IEnumerable<Claim> ReadClaims(string jwt);
+        Task<string> GetRole(string jwt);
     }
 }

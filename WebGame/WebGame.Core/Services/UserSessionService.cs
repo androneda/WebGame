@@ -13,11 +13,11 @@ using WebGame.Database.Repositories.Interfaces;
 
 namespace WebGame.Core.Services
 {
-    public class UserSessionSercvice : IUserSessionService
+    public class SessionSercvice : ISessionService
     {
-        private readonly IUserSessionRepository _sessionRepo;
+        private readonly ISessionRepository _sessionRepo;
         private readonly IMapper _mapper;
-        public UserSessionSercvice(IUserSessionRepository sessionRepo,
+        public SessionSercvice(ISessionRepository sessionRepo,
                            IMapper mapper)
         {
             _sessionRepo = sessionRepo;
@@ -34,7 +34,7 @@ namespace WebGame.Core.Services
             return _mapper.Map<IEnumerable<UserSessionViewDto>>(temp);
         }
 
-        public async Task Add(UserSession session)
+        public async Task Add(Session session)
         {
             await _sessionRepo.AddAsync(session);
         }

@@ -6,10 +6,10 @@ using WebGame.Database.Model;
 
 namespace WebGame.Core.Services.Interfaces
 {
-    public interface IUserSessionService
+    public interface ISessionService
     {
         Task<IEnumerable<UserSessionViewDto>> GetAll();
-        Task Add(UserSession session);
+        Task Add(Session session);
         Task Delete(Guid sessionId);
         Task<UserSessionViewDto> GetByID(Guid sessionId);
     }

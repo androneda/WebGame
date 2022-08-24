@@ -5,7 +5,7 @@ using WebGame.Database.Model;
 
 namespace WebGame.Database.Repositories.Interfaces
 {
-    public interface IUserSessionRepository : IBaseRepository<UserSession>
+    public interface ISessionRepository : IBaseRepository<Session>
     {
 
     }

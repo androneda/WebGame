@@ -17,9 +17,8 @@ namespace WebGame.Api.Attributes
     public class CustomAuthorizeAttribute : Attribute, IAuthorizationFilter
     {
         private readonly string[] _roles;
-        private readonly bool isRoleRequiered;
         private IJwtTokenHelper _jwtHelper;
-        private IUserSessionService _userSesionService;
+        private ISessionService _userSesionService;
         private IUserService _userService;
         public CustomAuthorizeAttribute()
         {
@@ -28,9 +27,7 @@ namespace WebGame.Api.Attributes
 
         public CustomAuthorizeAttribute(params string[] roles)
         {
-            bool roleRequired = true;
             _roles = roles;
-            isRoleRequiered = roleRequired;
         }
         public void OnAuthorization(AuthorizationFilterContext context)
         {
@@ -39,45 +36,43 @@ namespace WebGame.Api.Attributes
             if (allowAnonymous)
                 return;
 
-            _userSesionService = context.HttpContext.RequestServices.GetService<IUserSessionService>();
+            _userSesionService = context.HttpContext.RequestServices.GetService<ISessionService>();
             _userService = context.HttpContext.RequestServices.GetService<IUserService>();
             _jwtHelper = context.HttpContext.RequestServices.GetService<IJwtTokenHelper>();
 
             // authorization
             string token = context.HttpContext.Request.Headers["Authorization"].FirstOrDefault();
 
-
-
             if (ValidateToken(token).IsFaulted || token is null)
             {
                 context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
+                return;
             }
-            else
-            if (isRoleRequiered)
+
+            var claims = _jwtHelper.ReadClaims(token);
+            string userSessionId = claims.Single(x => x.Type == "Session").Value;
+            Guid.TryParse(userSessionId, out var guidSession);
+            var session = _userSesionService.GetByID(guidSession);
+
+            if (session.Result.IsActive)
             {
-                var claims = _jwtHelper.ReadClaims(token);
+                context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
+                return;
+            }
 
+            if (_roles.Any())
+            {
                 string userId = claims.Single(x => x.Type == "UserId").Value;
-
-                var temp = Guid.TryParse(userId, out var guidUser);
-
+                Guid.TryParse(userId, out var guidUser);
                 var userRole = _userService.GetModelByID(guidUser).Result.Role.Name;
 
-                string userSessionId = claims.Single(x => x.Type == "Session").Value;
-
-                temp = Guid.TryParse(userSessionId, out var guidSession);
-
-                var session = _userSesionService.GetByID(guidSession);
-
-                if (session.Result.IsActive is true)
-                foreach (var neededRole in _roles)
-                    if (neededRole == userRole)
-                    {
-                        context.Result = null;
-                        return;
-                    }
-                    else
-                        context.Result = new JsonResult(new { message = "Forbidden" }) { StatusCode = StatusCodes.Status403Forbidden };
+                if (_roles.Contains(userRole))
+                {
+                    context.Result = null;
+                    return;
+                }
+                else
+                    context.Result = new JsonResult(new { message = "Forbidden" }) { StatusCode = StatusCodes.Status403Forbidden };
             }
         }
 

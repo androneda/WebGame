@@ -44,7 +44,7 @@ namespace WebGame.Api.Data
             CreateMap<UpdateUserDto, User>();
             CreateMap<User, UserViewDto>();
 
-            CreateMap<UserSession, UserSessionViewDto>();
+            CreateMap<Session, UserSessionViewDto>();
         }
     }
 }

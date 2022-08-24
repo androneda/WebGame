@@ -18,11 +18,13 @@ namespace WebGame.Core.Services
     public class JwtTokenHelper : IJwtTokenHelper
 {
         private readonly AuthOptions _authOptions;
-        private readonly IUserSessionService _sessionService;
-        public JwtTokenHelper(IOptions<AuthOptions> authOptions, IUserSessionService sessionService)
+        private readonly ISessionService _sessionService;
+        private readonly IUserService _userService;
+        public JwtTokenHelper(IOptions<AuthOptions> authOptions, ISessionService sessionService, IUserService userService)
         {
             _authOptions = authOptions.Value;
             _sessionService = sessionService;
+            _userService = userService;
         }
         public string Create(User user)
         {
@@ -40,6 +42,8 @@ namespace WebGame.Core.Services
 
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
+
+
         public IEnumerable<Claim> ReadClaims(string jwt)
         {
             var handler = new JwtSecurityTokenHandler();
@@ -50,7 +54,7 @@ namespace WebGame.Core.Services
 
         private ClaimsIdentity SetClaim(User user)
         {
-            var session = new UserSession(user.Id,user.RoleId);
+            var session = new Session(user.Id,user.RoleId);
             _sessionService.Add(session);
 
             var claims = new List<Claim>
@@ -60,9 +64,18 @@ namespace WebGame.Core.Services
                 };
 
             ClaimsIdentity claimsIdentity =
-                new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
+                new(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
             return claimsIdentity;
+        }
+        public async Task<string> GetRole(string jwt)
+        {
+            var claims = ReadClaims(jwt);
+            var userId = claims.FirstOrDefault().Value;
+            Guid.TryParse(userId, out var userGuid);
+            var user = await _userService.GetByID(userGuid);
+            var role = user.RoleId.ToString();
+            return role;
         }
     }
 }

@@ -43,7 +43,7 @@ namespace WebGame.Api.Controllers
             var claims = _jwtHelper.ReadClaims(HttpContext.Request.Headers["Authorization"]);
 
             var userId = claims.FirstOrDefault().Value;
-            var temp = Guid.TryParse(userId, out var user);
+            Guid.TryParse(userId, out var user);
             var role = _userService.GetModelByID(user).Result.Role.Name;
 
             return Ok($"Ваш логин: {role}");

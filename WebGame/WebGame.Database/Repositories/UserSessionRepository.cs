@@ -7,7 +7,7 @@ using WebGame.Database.Repositories.Interfaces;
 
 namespace WebGame.Database.Repositories
 {
-    public class UserSessionRepository : BaseRepository<UserSession>, IUserSessionRepository
+    public class UserSessionRepository : BaseRepository<Session>, ISessionRepository
     {
         public UserSessionRepository(WebGameDBContext context) : base (context)  
         {
