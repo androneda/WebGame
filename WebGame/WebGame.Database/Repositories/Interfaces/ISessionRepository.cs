@@ -7,6 +7,6 @@ namespace WebGame.Database.Repositories.Interfaces
 {
     public interface ISessionRepository : IBaseRepository<Session>
     {
-
+        IEnumerable<Session> GetSessionByUser(Guid id);
     }
 }

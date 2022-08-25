@@ -40,17 +40,17 @@ namespace WebGame.Api.Controllers
 
         // Delete: HeroController/Delete/
         [HttpDelete("{id:Guid}")]
-        public async Task<IActionResult> Delete([FromRoute] Guid userid)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            await _userService.Delete(userid);
+            await _userService.Delete(id);
             return NoContent();
         }
 
         // Put: HeroController/Put/
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateUserDto hero)
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> Update([FromRoute]Guid id, UpdateUserDto hero)
         {
-            await _userService.Update(hero);
+            await _userService.Update(id,hero);
             return NoContent();
         }
     }

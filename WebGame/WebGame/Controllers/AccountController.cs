@@ -14,12 +14,15 @@ namespace WebGame.Api.Controllers
     {
         private readonly IAuthService _authservice;
         private readonly IUserService _userService;
+        private readonly ISessionService _sessionService;
         private readonly IJwtTokenHelper _jwtHelper;
-        public AccountController(IAuthService authservice, IUserService userservice, IJwtTokenHelper jwtHelper)
+        public AccountController(IAuthService authservice, IUserService userservice,
+            IJwtTokenHelper jwtHelper, ISessionService sessionService)
         {
             _authservice = authservice;
             _userService = userservice;
             _jwtHelper = jwtHelper;
+            _sessionService = sessionService;
         }
 
         [HttpPost("/login")]
@@ -36,13 +39,21 @@ namespace WebGame.Api.Controllers
             return Ok();
         }
 
-        [CustomAuthorize("admin","user")]
+        [CustomAuthorize("admin", "user")]
         [HttpGet("getlogin")]
         public async Task<IActionResult> GetLogin()
         {
-            var role = await  _jwtHelper.GetRole(HttpContext.Request.Headers["Authorization"]);
+            var role = await _jwtHelper.GetRole(HttpContext.Request.Headers["Authorization"]);
 
             return Ok($"Ваша роль: {role}");
+        }
+
+        [HttpGet("{id:Guid}")]
+        public async Task<IActionResult> test(Guid id)
+        {
+            await _sessionService.DeactivateSessionAsync(id);
+
+            return Ok();
         }
 
 

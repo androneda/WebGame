@@ -15,6 +15,6 @@ namespace WebGame.Core.Services.Interfaces
         Task<UserViewDto> GetByID(Guid userId);
         Task Add(CreateUserDto userDto);
         Task Delete(Guid userId);
-        Task Update(UpdateUserDto userDto);
+        Task Update(Guid id, UpdateUserDto userDto);
     }
 }

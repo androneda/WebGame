@@ -14,7 +14,7 @@ using WebGame.Core.Services.Interfaces;
 namespace WebGame.Api.Attributes
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
-    public class CustomAuthorizeAttribute : Attribute, IAuthorizationFilter
+    public class CustomAuthorizeAttribute : Attribute, IAsyncAuthorizationFilter
     {
         private readonly string[] _roles;
         private IJwtTokenHelper _jwtHelper;
@@ -29,7 +29,7 @@ namespace WebGame.Api.Attributes
         {
             _roles = roles;
         }
-        public async void OnAuthorization(AuthorizationFilterContext context)
+        public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
         {
             // skip authorization if action is decorated with [AllowAnonymous] attribute
             var allowAnonymous = context.ActionDescriptor.EndpointMetadata.OfType<AllowAnonymousAttribute>().Any();

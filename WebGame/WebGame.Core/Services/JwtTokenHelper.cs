@@ -72,7 +72,10 @@ namespace WebGame.Core.Services
         public async Task<string> GetRole(string jwt)
         {
             var claims = ReadClaims(jwt);
-            var userId = claims.FirstOrDefault().Value;
+
+            var kek = claims.FirstOrDefault();
+
+            var userId = kek.Value;
             Guid.TryParse(userId, out var userGuid);
             var user = await _userService.GetByID(userGuid);
             return user.Role.Name;

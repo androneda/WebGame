@@ -30,7 +30,7 @@ namespace WebGame.Core.Services
         public async Task Add(CreateRaceDto raceDto)
         {
             if (raceDto is null)
-                throw new RaceNotFoundExeption("Расса не найдена");
+                throw new ArgumentException("Расса не найдена");
 
             var race = _mapper.Map<Race>(raceDto);
             await _raceRepo.AddAsync(race);

@@ -10,11 +10,6 @@ namespace WebGame.Core.Model.User
     public class UserViewDto
     {
         /// <summary>
-        /// Id
-        /// </summary>
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// Name
         /// </summary>
         public string Login { get; set; }

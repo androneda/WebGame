@@ -10,7 +10,9 @@ namespace WebGame.Core.Services.Interfaces
     {
         Task<IEnumerable<UserSessionViewDto>> GetAll();
         Task Add(Session session);
+        Task Update(Guid id, bool isActive);
         Task Delete(Guid sessionId);
         Task<UserSessionViewDto> GetByID(Guid sessionId);
+        Task DeactivateSessionAsync(Guid userId);
     }
 }

@@ -101,8 +101,8 @@ namespace WebGame.Api
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 
-            services.AddScoped<ISessionRepository, UserSessionRepository>();
-            services.AddScoped<ISessionService, SessionService>();
+            services.AddScoped<ISessionRepository, SessionRepository>();
+            services.AddScoped<ISessionService, SessionSercvice>();
 
             services.AddScoped<IAuthService, AuthService>();
 

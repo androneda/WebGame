@@ -9,11 +9,6 @@ namespace WebGame.Core.Model.User
     public class UpdateUserDto
     {
         /// <summary>
-        /// Id
-        /// </summary>
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// Name
         /// </summary>
         public string Login { get; set; }

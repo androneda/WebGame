@@ -13,11 +13,11 @@ using WebGame.Database.Repositories.Interfaces;
 
 namespace WebGame.Core.Services
 {
-    public class SessionService : ISessionService
+    public class SessionSercvice : ISessionService
     {
         private readonly ISessionRepository _sessionRepo;
         private readonly IMapper _mapper;
-        public SessionService(ISessionRepository sessionRepo,
+        public SessionSercvice(ISessionRepository sessionRepo,
                            IMapper mapper)
         {
             _sessionRepo = sessionRepo;
@@ -34,8 +34,20 @@ namespace WebGame.Core.Services
             return _mapper.Map<IEnumerable<UserSessionViewDto>>(temp);
         }
 
+        public async Task Update(Guid id, bool isActive)
+        {
+            var user = await _sessionRepo.GetByID(id);
+
+            user.IsActive = isActive;
+
+            await _sessionRepo.UpdateAsync(user);
+        }
+
         public async Task Add(Session session)
         {
+            if (session is null)
+                throw new ArgumentException("Сессия с указанным идентификатором не найдена");
+
             await _sessionRepo.AddAsync(session);
         }
 
@@ -48,9 +60,20 @@ namespace WebGame.Core.Services
         {
             var temp = await _sessionRepo.GetByID(sessionId);
             if (temp is null)
-                throw new UserSessionNotFoundExeption("Сессия с указанным идентификатором не найдена");
+                throw new SessionNotFoundExeption("Сессия с указанным идентификатором не найдена");
 
             return _mapper.Map<UserSessionViewDto>(temp);
+        }
+
+        public async Task DeactivateSessionAsync(Guid userId)
+        {
+           var sessions = _sessionRepo.GetSessionByUser(userId);
+
+            if (sessions is null)
+                throw new SessionNotFoundExeption("Сессии не найдены");
+
+            foreach (var session in sessions)
+                await Update(session.Id, false);
         }
     }
 }
