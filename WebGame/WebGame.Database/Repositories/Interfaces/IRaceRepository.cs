@@ -1,4 +1,5 @@
-﻿using WebGame.Database.Model;
+﻿using System.Collections.Generic;
+using WebGame.Database.Model;
 
 namespace WebGame.Database.Repositories.Interfaces
 {

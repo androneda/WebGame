@@ -39,7 +39,7 @@ namespace WebGame.Core.Services
         public async Task Add(CreateHeroDto heroDto)
         {
             if (heroDto is null)
-                throw new ArgumentException("Герой с указанным идентификатором не найден");
+                throw new ArgumentException("Введите данные");
 
             var hero = _mapper.Map<Hero>(heroDto);
             await _heroRepo.AddAsync(hero);

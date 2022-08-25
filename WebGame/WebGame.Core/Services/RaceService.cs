@@ -30,7 +30,7 @@ namespace WebGame.Core.Services
         public async Task Add(CreateRaceDto raceDto)
         {
             if (raceDto is null)
-                throw new ArgumentException("Расса не найдена");
+                throw new ArgumentException("Введите данные");
 
             var race = _mapper.Map<Race>(raceDto);
             await _raceRepo.AddAsync(race);
@@ -41,19 +41,15 @@ namespace WebGame.Core.Services
             await _raceRepo.DeleteAsync(raceId);
         }
 
-        public async Task<IEnumerable<RaceViewDto>> GetAll()
+        public async Task<IEnumerable<RaceViewDto>> GetAllAsync()
         {
-            var temp = await _raceRepo.GetAll();
+            var races = await _raceRepo.GetAll();
 
-            if (!temp.Any())
+            if (!races.Any())
                 return Enumerable.Empty<RaceViewDto>();
 
-            var temp2 = _mapper.Map<IEnumerable<RaceViewDto>>(temp);
 
-            foreach (var item in temp2)
-                item.Skills = await _skillService.GetByRaceId(item.Id);
-
-            return _mapper.Map<IEnumerable<RaceViewDto>>(temp2);
+            return _mapper.Map<IEnumerable<RaceViewDto>>(races);
         }
 
         public async Task<RaceViewDto> GetById(Guid raceId)

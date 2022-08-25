@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WebGame.Core.Model.UserSession
+namespace WebGame.Core.Model.Session
 {
-    public class UserSessionViewDto
+    public class SessionViewDto
     {
         /// <summary>
         /// Id

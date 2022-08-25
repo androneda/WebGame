@@ -27,6 +27,7 @@ namespace WebGame.Core.Services
             _sessionService = sessionService;
             _userService = userService;
         }
+
         public string Create(User user)
         {
             var now = DateTime.UtcNow;
@@ -43,7 +44,6 @@ namespace WebGame.Core.Services
 
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
-
 
         public IEnumerable<Claim> ReadClaims(string jwt)
         {
@@ -69,13 +69,12 @@ namespace WebGame.Core.Services
                 ClaimsIdentity.DefaultRoleClaimType);
             return claimsIdentity;
         }
+
         public async Task<string> GetRole(string jwt)
         {
             var claims = ReadClaims(jwt);
 
-            var kek = claims.FirstOrDefault();
-
-            var userId = kek.Value;
+            var userId = claims.FirstOrDefault().Value;
             Guid.TryParse(userId, out var userGuid);
             var user = await _userService.GetByID(userGuid);
             return user.Role.Name;

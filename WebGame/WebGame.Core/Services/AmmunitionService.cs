@@ -36,7 +36,7 @@ namespace WebGame.Core.Services
         public async Task Add(CreateAmmunitionDto ammunitionDto)
         {
             if (ammunitionDto is null)
-                throw new ArgumentException("Предмет с указанным идентификатором не найден");
+                throw new ArgumentException("Введите данные");
 
             var ammunition = _mapper.Map<Ammunition>(ammunitionDto);
             await _ammunitionRepo.AddAsync(ammunition);

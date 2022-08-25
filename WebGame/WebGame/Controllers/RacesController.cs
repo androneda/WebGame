@@ -21,7 +21,7 @@ namespace WebGame.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await _raceService.GetAll());
+            return Ok(_raceService.GetAllAsync());
         }
 
         // GET: RacesController/GetRace/

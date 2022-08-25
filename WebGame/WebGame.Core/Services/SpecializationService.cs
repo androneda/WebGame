@@ -28,23 +28,23 @@ namespace WebGame.Core.Services
 
         public async Task<IEnumerable<SpecializationViewDto>> GetAll()
         {
-            var temp = await _specializationRepo.GetAll();
+            var specializations = await _specializationRepo.GetAll();
 
-            if (!temp.Any())
+            if (!specializations.Any())
                 return Enumerable.Empty<SpecializationViewDto>();
 
-            var temp2 = _mapper.Map<IEnumerable<SpecializationViewDto>>(temp);
+            var specializationsDto = _mapper.Map<IEnumerable<SpecializationViewDto>>(specializations);
 
-            foreach (var item in temp2)
-                item.Skills = await _skillService.GetBySpecId(item.Id);
+            foreach (var spec in specializationsDto)
+                spec.Skills = await _skillService.GetBySpecId(spec.Id);
 
-            return _mapper.Map<IEnumerable<SpecializationViewDto>>(temp2);
+            return _mapper.Map<IEnumerable<SpecializationViewDto>>(specializationsDto);
         }
 
         public async Task Add(CreateSpecializationDto specDto)
         {
             if (specDto is null)
-                throw new ArgumentException("Специализация с указанным идентификатором не найдена");
+                throw new ArgumentException("Введите данные");
 
             var spec = _mapper.Map<Specialization>(specDto);
             await _specializationRepo.AddAsync(spec);

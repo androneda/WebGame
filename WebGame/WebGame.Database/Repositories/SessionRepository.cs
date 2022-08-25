@@ -14,9 +14,9 @@ namespace WebGame.Database.Repositories
         {
 
         }
-        public  IEnumerable<Session> GetSessionByUser(Guid id)
+        public async Task<IEnumerable<Session>> GetSessionByUser(Guid id)
         {
-            return _dbSet.Where(x => x.UserId == id).ToList();
+            return await _dbSet.Where(x => x.UserId == id).ToListAsync();
         }
     }
 }

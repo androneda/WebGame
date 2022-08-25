@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using WebGame.Common.Exeptions;
 using WebGame.Core.Model.Hero;
 using WebGame.Core.Model.Skills;
-using WebGame.Core.Model.UserSession;
+using WebGame.Core.Model.Session;
 using WebGame.Core.Services.Interfaces;
 using WebGame.Database.Model;
 using WebGame.Database.Repositories.Interfaces;
@@ -24,29 +24,32 @@ namespace WebGame.Core.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<UserSessionViewDto>> GetAll()
+        public async Task<IEnumerable<SessionViewDto>> GetAll()
         {
             var temp = await _sessionRepo.GetAll();
 
             if (!temp.Any())
-                return Enumerable.Empty<UserSessionViewDto>();
+                return Enumerable.Empty<SessionViewDto>();
 
-            return _mapper.Map<IEnumerable<UserSessionViewDto>>(temp);
+            return _mapper.Map<IEnumerable<SessionViewDto>>(temp);
         }
 
         public async Task Update(Guid id, bool isActive)
         {
-            var user = await _sessionRepo.GetByID(id);
+            var session = await _sessionRepo.GetByID(id);
 
-            user.IsActive = isActive;
+            if (session is null)
+                throw new SessionNotFoundExeption("Сессия с указанным идентификатором не найдена");
 
-            await _sessionRepo.UpdateAsync(user);
+            session.IsActive = isActive;
+
+            await _sessionRepo.UpdateAsync(session);
         }
 
         public async Task Add(Session session)
         {
             if (session is null)
-                throw new ArgumentException("Сессия с указанным идентификатором не найдена");
+                throw new ArgumentException("Приятного дня, Сань)");
 
             await _sessionRepo.AddAsync(session);
         }
@@ -56,18 +59,18 @@ namespace WebGame.Core.Services
             await _sessionRepo.DeleteAsync(sessionId);
         }
 
-        public async Task<UserSessionViewDto> GetByID(Guid sessionId)
+        public async Task<SessionViewDto> GetByID(Guid sessionId)
         {
             var temp = await _sessionRepo.GetByID(sessionId);
             if (temp is null)
                 throw new SessionNotFoundExeption("Сессия с указанным идентификатором не найдена");
 
-            return _mapper.Map<UserSessionViewDto>(temp);
+            return _mapper.Map<SessionViewDto>(temp);
         }
 
         public async Task DeactivateSessionAsync(Guid userId)
         {
-           var sessions = _sessionRepo.GetSessionByUser(userId);
+           var sessions = await _sessionRepo.GetSessionByUser(userId);
 
             if (sessions is null)
                 throw new SessionNotFoundExeption("Сессии не найдены");

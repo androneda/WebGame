@@ -11,7 +11,7 @@ namespace WebGame.Core.Services.Interfaces
 {
     public interface IRaceService
     {
-        Task<IEnumerable<RaceViewDto>> GetAll();
+        IEnumerable<RaceViewDto> GetAllAsync();
         Task<RaceViewDto> GetById(Guid raceId);
         Task Add(CreateRaceDto raceDto);
         Task Delete(Guid raceId);
