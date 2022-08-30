@@ -75,8 +75,15 @@ namespace WebGame.Core.Services
             var claims = ReadClaims(jwt);
 
             var userId = claims.FirstOrDefault().Value;
-            Guid.TryParse(userId, out var userGuid);
+
+            if (userId is null)
+                throw new InvalidOperationException();
+
+            Guid.TryParse(userId, out Guid userGuid);
             var user = await _userService.GetByID(userGuid);
+            if (user is null || user.Role is null)
+
+                throw new InvalidOperationException();
             return user.Role.Name;
         }
     }
