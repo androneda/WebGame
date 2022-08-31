@@ -14,13 +14,20 @@ namespace WebGame.Core.Services
     {
         private readonly IUserRepository _userRepo;
         private readonly IJwtTokenHelper _jwtTokenHelper;
-        public AuthService(IUserRepository userRepo, IJwtTokenHelper jwtTokenHelper)
+        private readonly IPasswordService _passwordService;
+        public AuthService(IUserRepository userRepo, IJwtTokenHelper jwtTokenHelper, IPasswordService passwordService)
         {
             _userRepo = userRepo;
             _jwtTokenHelper = jwtTokenHelper;
+            _passwordService = passwordService;
         }
         public async Task<string> Login(string username, string password)
         {
+
+            var codedPass = Encoding.UTF8.GetBytes(password);
+            password = _passwordService.GenerateSaltedHash(codedPass);
+
+
             var user = await _userRepo.GetIdentity(username, password);
             if (user is null)
                 throw new UserNotFoundExeption("Invalid username or password.");

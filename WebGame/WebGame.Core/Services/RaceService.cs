@@ -48,6 +48,10 @@ namespace WebGame.Core.Services
             if (!races.Any())
                 return Enumerable.Empty<RaceViewDto>();
 
+            var racesDto = _mapper.Map<IEnumerable<RaceViewDto>>(races);
+
+            foreach (var race in racesDto)
+                race.Skills = await _skillService.GetByRaceId(race.Id);
 
             return _mapper.Map<IEnumerable<RaceViewDto>>(races);
         }

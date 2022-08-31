@@ -17,14 +17,17 @@ namespace WebGame.Core.Services
         private readonly IUserRepository _userRepo;
         private readonly ISessionService _sessionService;
         private readonly IMapper _mapper;
+        private readonly IPasswordService _passwordService;
 
         public UserService(IUserRepository userRepo,
                            IMapper mapper,
-                           ISessionService sessionService)
+                           ISessionService sessionService,
+                           IPasswordService passwordService)
         {
             _userRepo = userRepo;
             _mapper = mapper;
             _sessionService = sessionService;
+            _passwordService = passwordService;
         }
 
         public async Task<IEnumerable<UserViewDto>> GetAll()
@@ -41,6 +44,9 @@ namespace WebGame.Core.Services
         {
             if (userDto is null)
                 throw new ArgumentException("Неудалось добавить пользователя");
+
+            var coddedPass = System.Text.Encoding.UTF8.GetBytes(userDto.Password);
+            userDto.Password = _passwordService.GenerateSaltedHash(coddedPass);
 
             var user = _mapper.Map<User>(userDto);
             await _userRepo.AddAsync(user);
