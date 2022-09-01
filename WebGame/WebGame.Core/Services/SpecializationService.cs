@@ -62,6 +62,9 @@ namespace WebGame.Core.Services
 
             var spec = await _specializationRepo.GetByID(id);
 
+            if (spec is null)
+                throw new SpecializationNotFoundExeption("Специализация с указанным идентификатором не найдена");
+
             spec.Name = specDto.Name;
             spec.Description = specDto.Description;
 

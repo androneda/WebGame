@@ -36,6 +36,9 @@ namespace WebGame.Core.Services
         {
             var session = await _sessionRepo.GetByID(id);
 
+            if (session is null)
+                throw new SessionNotFoundExeption("Сессия с указанным идентификатором не найдена");
+
             session.IsActive = isActive;
 
             await _sessionRepo.UpdateAsync(session);
@@ -57,6 +60,7 @@ namespace WebGame.Core.Services
         public async Task<SessionViewDto> GetByID(Guid sessionId)
         {
             var session = await _sessionRepo.GetByID(sessionId);
+
             if (session is null)
                 throw new SessionNotFoundExeption("Сессия с указанным идентификатором не найдена");
 

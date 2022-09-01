@@ -51,15 +51,17 @@ namespace WebGame.Core.Services
 
         public async Task Update(Guid id, UpdateHeroDto heroDto)
         {
-            var originalhero = await GetByID(heroDto.Id);
-
             if (heroDto is null)
                 throw new CustomArgumentException();
 
-            heroDto.SpecializationId = originalhero.SpecializationId;
-            heroDto.RaceId = originalhero.RaceId;
+            var hero = await _heroRepo.GetByID(id);
 
-            var hero = _mapper.Map<Hero>(heroDto);
+            if (hero is null)
+                throw new HeroNotFoundExeption("Герой с указанным идентификатором не найден");
+
+            hero.SpecializationId = heroDto.SpecializationId;
+            hero.RaceId = heroDto.RaceId;
+
             await _heroRepo.UpdateAsync(hero);
         }
 

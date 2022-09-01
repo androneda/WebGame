@@ -54,6 +54,9 @@ namespace WebGame.Core.Services
 
             var skill = await _skillRepo.GetByID(id);
 
+            if (skill is null)
+                throw new SkillNotFoundExeption("Способность с указанным идентификатором не найдена");
+
             skill.Status = skillDto.Status;
             skill.RaceId = skillDto.RaceId;
             skill.Name = skillDto.Name;

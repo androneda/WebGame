@@ -49,9 +49,13 @@ namespace WebGame.Core.Services
 
         public async Task Update(Guid id, UpdateAmmunitionDto ammunitionDto)
         {
-            var ammunition = await _ammunitionRepo.GetByID(id);
             if (ammunitionDto is null)
                 throw new CustomArgumentException("Введите данные");
+
+            var ammunition = await _ammunitionRepo.GetByID(id);
+
+            if (ammunition is null)
+                throw new AmmunitionNotFoundExeption("Предмет с указанным идентификатором не найден");
 
             ammunition.Name = ammunitionDto.Name;
             ammunition.RaceId = ammunitionDto.RaceId;

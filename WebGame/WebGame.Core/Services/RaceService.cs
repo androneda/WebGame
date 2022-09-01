@@ -69,10 +69,13 @@ namespace WebGame.Core.Services
 
         public async Task Update(Guid id, UpdateRaceDto raceDto)
         {
-            var race = await _raceRepo.GetByID(id);
-
             if (raceDto is null)
                 throw new CustomArgumentException("Введите данные");
+
+            var race = await _raceRepo.GetByID(id);
+
+            if (race is null)
+                throw new RaceNotFoundExeption("Расса не найдена");
 
             race.Name = raceDto.Name;
             race.Description = raceDto.Description;
