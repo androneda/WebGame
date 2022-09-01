@@ -28,18 +28,18 @@ namespace WebGame.Core.Services
 
         public async Task<IEnumerable<HeroViewDto>> GetAll()
         {
-            var temp = await _heroRepo.GetAll();
+            var heroes = await _heroRepo.GetAll();
 
-            if (!temp.Any())
+            if (!heroes.Any())
                 return Enumerable.Empty<HeroViewDto>();
 
-            return _mapper.Map<IEnumerable<HeroViewDto>>(temp);
+            return _mapper.Map<IEnumerable<HeroViewDto>>(heroes);
         }
 
         public async Task Add(CreateHeroDto heroDto)
         {
             if (heroDto is null)
-                throw new ArgumentException("Введите данные");
+                throw new CustomArgumentException("Введите данные");
 
             var hero = _mapper.Map<Hero>(heroDto);
             await _heroRepo.AddAsync(hero);
@@ -50,9 +50,12 @@ namespace WebGame.Core.Services
             await _heroRepo.DeleteAsync(heroId);
         }
 
-        public async Task Update(UpdateHeroDto heroDto)
+        public async Task Update(Guid id, UpdateHeroDto heroDto)
         {
             var originalhero = await GetByID(heroDto.Id);
+
+            if (heroDto is null)
+                throw new CustomArgumentException();
 
             heroDto.SpecializationId = originalhero.SpecializationId;
             heroDto.RaceId = originalhero.RaceId;
@@ -63,18 +66,18 @@ namespace WebGame.Core.Services
 
         public async Task<HeroViewDto> GetByID(Guid heroId)
         {
-            var temp = await _heroRepo.GetByID(heroId);
-            if (temp is null)
+            var hero = await _heroRepo.GetByID(heroId);
+            if (hero is null)
                 throw new HeroNotFoundExeption("Герой с указанным идентификатором не найден");
 
-            return _mapper.Map<HeroViewDto>(temp);
+            return _mapper.Map<HeroViewDto>(hero);
         }
 
-        public async Task<IEnumerable<SkillViewDto>> GetSkillsByHeroId(Guid heroId)
-        {
-            IEnumerable<SkillViewDto> skills = await _skillService.GetByRaceId(heroId);
-            skills = await _skillService.GetBySpecId(heroId);
-            return skills;
-        }
+        //public async Task<IEnumerable<SkillViewDto>> GetSkillsByHeroId(Guid heroId)
+        //{
+        //    IEnumerable<SkillViewDto> skills = await _skillService.GetByRaceId(heroId);
+        //    skills = await _skillService.GetBySpecId(heroId);
+        //    return skills;
+        //}
     }
 }

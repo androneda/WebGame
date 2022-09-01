@@ -78,7 +78,7 @@ namespace WebGame.Api
                                     Id = "Bearer"
                                 }
                             },
-                            new string[] {}
+                            System.Array.Empty<string>()
                     }
                 });
             });
@@ -126,7 +126,7 @@ namespace WebGame.Api
 
             app.UseHttpsRedirection();
 
-            app.UseMiddleware<CustomExceptionHandlerMiddleware>();
+            //app.UseMiddleware<CustomExceptionHandlerMiddleware>();
 
             app.UseRouting();
 

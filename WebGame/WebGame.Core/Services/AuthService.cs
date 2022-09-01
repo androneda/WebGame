@@ -23,10 +23,7 @@ namespace WebGame.Core.Services
         }
         public async Task<string> Login(string username, string password)
         {
-
-            var codedPass = Encoding.UTF8.GetBytes(password);
-            password = _passwordService.GenerateSaltedHash(codedPass);
-
+            password = _passwordService.GenerateSaltedHash(password);
 
             var user = await _userRepo.GetIdentity(username, password);
             if (user is null)

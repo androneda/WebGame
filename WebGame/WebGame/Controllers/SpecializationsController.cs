@@ -47,10 +47,10 @@ namespace WebGame.Api.Controllers
         }
 
         // Put: HeroController/Put/
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateSpecializationDto spec)
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateSpecializationDto spec)
         {
-            await _specializationService.Update(spec);
+            await _specializationService.Update(id, spec);
             return NoContent();
         }
     }

@@ -38,13 +38,13 @@ namespace WebGame.Core.Services
             foreach (var spec in specializationsDto)
                 spec.Skills = await _skillService.GetBySpecId(spec.Id);
 
-            return _mapper.Map<IEnumerable<SpecializationViewDto>>(specializationsDto);
+            return specializationsDto;
         }
 
         public async Task Add(CreateSpecializationDto specDto)
         {
             if (specDto is null)
-                throw new ArgumentException("Введите данные");
+                throw new CustomArgumentException("Введите данные");
 
             var spec = _mapper.Map<Specialization>(specDto);
             await _specializationRepo.AddAsync(spec);
@@ -55,24 +55,28 @@ namespace WebGame.Core.Services
             await _specializationRepo.DeleteAsync(specId);
         }
 
-        public async Task Update(UpdateSpecializationDto specDto)
+        public async Task Update(Guid id, UpdateSpecializationDto specDto)
         {
             if (specDto is null)
-                throw new SpecializationNotFoundExeption("Специализация с указанным идентификатором не найдена");
+                throw new CustomArgumentException("Введите Данные");
 
-            var spec = _mapper.Map<Specialization>(specDto);
+            var spec = await _specializationRepo.GetByID(id);
+
+            spec.Name = specDto.Name;
+            spec.Description = specDto.Description;
+
             await _specializationRepo.UpdateAsync(spec);
         }
 
         public async Task<SpecializationViewDto> GetByID(Guid specId)
         {
-            var temp = await _specializationRepo.GetByID(specId);
-            if (temp is null)
+            var spec = await _specializationRepo.GetByID(specId);
+            if (spec is null)
                 throw new SpecializationNotFoundExeption("Специализация с указанным идентификатором не найдена");
 
-            var temp2 =  _mapper.Map<SpecializationViewDto>(temp);
-            temp2.Skills = await _skillService.GetBySpecId(specId);
-            return temp2;
+            var specDto =  _mapper.Map<SpecializationViewDto>(spec);
+            specDto.Skills = await _skillService.GetBySpecId(specId);
+            return specDto;
         }
     }
 }

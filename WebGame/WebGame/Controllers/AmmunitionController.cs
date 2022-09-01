@@ -48,10 +48,10 @@ namespace WebGame.Api.Controllers
         }
 
         // Put: HeroController/Put/
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateAmmunitionDto ammunitionDto)
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> Update([FromRoute] Guid id,[FromBody] UpdateAmmunitionDto ammunitionDto)
         {
-            await _ammunitionService.Update(ammunitionDto);
+            await _ammunitionService.Update(id,ammunitionDto);
             return NoContent();
         }
     }

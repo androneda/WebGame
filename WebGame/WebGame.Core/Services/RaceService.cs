@@ -53,27 +53,31 @@ namespace WebGame.Core.Services
             foreach (var race in racesDto)
                 race.Skills = await _skillService.GetByRaceId(race.Id);
 
-            return _mapper.Map<IEnumerable<RaceViewDto>>(races);
+            return racesDto;
         }
 
         public async Task<RaceViewDto> GetById(Guid raceId)
         {
-            var temp = await _raceRepo.GetByID(raceId);
+            var race = await _raceRepo.GetByID(raceId);
 
-            if (temp is null)
+            if (race is null)
                 throw new RaceNotFoundExeption("Расса не найдена");
 
-            var temp2 = _mapper.Map<RaceViewDto>(temp);
-            temp2.Skills = await _skillService.GetBySpecId(raceId);
-            return temp2;
+            var userDto = _mapper.Map<RaceViewDto>(race);
+            userDto.Skills = await _skillService.GetByRaceId(raceId);
+            return userDto;
         }
 
-        public async Task Update(UpdateRaceDto raceDto)
+        public async Task Update(Guid id, UpdateRaceDto raceDto)
         {
-            if (raceDto is null)
-                throw new RaceNotFoundExeption("Расса не найдена");
+            var race = await _raceRepo.GetByID(id);
 
-            var race = _mapper.Map<Race>(raceDto);
+            if (raceDto is null)
+                throw new CustomArgumentException("Введите данные");
+
+            race.Name = raceDto.Name; 
+            race.Description= raceDto.Description; 
+
             await _raceRepo.UpdateAsync(race);
         }
     }

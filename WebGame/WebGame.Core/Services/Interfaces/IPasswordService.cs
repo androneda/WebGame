@@ -8,6 +8,6 @@ namespace WebGame.Core.Services.Interfaces
 {
     public interface IPasswordService
     {
-        string GenerateSaltedHash(byte[] coddedPassword);
+        string GenerateSaltedHash(string password);
     }
 }

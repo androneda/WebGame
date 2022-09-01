@@ -19,7 +19,6 @@ namespace WebGame.Api.Attributes
         private readonly string[] _roles;
         private IJwtTokenHelper _jwtHelper;
         private ISessionService _userSesionService;
-        private IUserService _userService;
         public CustomAuthorizeAttribute()
         {
 
@@ -37,7 +36,6 @@ namespace WebGame.Api.Attributes
                 return;
 
             _userSesionService = context.HttpContext.RequestServices.GetService<ISessionService>();
-            _userService = context.HttpContext.RequestServices.GetService<IUserService>();
             _jwtHelper = context.HttpContext.RequestServices.GetService<IJwtTokenHelper>();
 
             // authorization

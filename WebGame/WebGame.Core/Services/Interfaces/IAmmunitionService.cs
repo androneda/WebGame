@@ -15,6 +15,6 @@ namespace WebGame.Core.Services.Interfaces
         Task<AmmunitionViewDto> GetByID(Guid ammunitionId);
         Task Add(CreateAmmunitionDto ammunitionDto);
         Task Delete(Guid ammunitionId);
-        Task Update(UpdateAmmunitionDto ammunitionDto);
+        Task Update(Guid id,UpdateAmmunitionDto ammunitionDto);
     }
 }

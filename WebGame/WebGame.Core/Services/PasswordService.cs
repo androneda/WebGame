@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Security.Cryptography;
+using System.Text;
 using WebGame.Core.Services.Interfaces;
 
 namespace WebGame.Core.Services
 {
     public class PasswordService : IPasswordService
     {
-        public string GenerateSaltedHash(byte[] coddedPassword)
+        public string GenerateSaltedHash(string password)
         {
-
+            byte[] coddedPassword = Encoding.UTF8.GetBytes(password);
             byte[] salt = new byte[] { 32, 12, 23, 23, 4 };
             HashAlgorithm algorithm = new SHA256Managed();
 

@@ -21,7 +21,7 @@ namespace WebGame.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(_raceService.GetAllAsync());
+            return Ok(await _raceService.GetAllAsync());
         }
 
         // GET: RacesController/GetRace/
@@ -48,10 +48,10 @@ namespace WebGame.Api.Controllers
         }
 
         // Put: RacesController/Put/
-        [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateRaceDto race)
+        [HttpPut("{id:Guid}")]
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateRaceDto race)
         {
-            await _raceService.Update(race);
+            await _raceService.Update(id,race);
             return NoContent();
         }
     }

@@ -8,10 +8,7 @@ namespace WebGame.Core.Model.Ammunition
 {
     public class UpdateAmmunitionDto
     {
-        /// <summary>
-        /// Id
-        /// </summary>
-        public Guid Id { get; set; }
+
 
         /// <summary>
         /// Name
@@ -19,23 +16,19 @@ namespace WebGame.Core.Model.Ammunition
         public string Name { get; set; }
 
         /// <summary>
-        /// Hero Head Id
+        /// Name
         /// </summary>
-        public Guid HeadId { get; set; }
+        public int Level { get; set; }
 
         /// <summary>
-        /// Hero Body Id
+        /// Hero Specialization Id
         /// </summary>
-        public Guid BodyId { get; set; }
+        public Guid SpecializationId { get; set; }
 
         /// <summary>
-        /// Hero Sex 
+        /// Hero Race Id
         /// </summary>
-        public bool Sex { get; set; }
+        public Guid RaceId { get; set; }
 
-        /// <summary>
-        /// Hero Show Helmet
-        /// </summary>
-        public bool ShowHelmet { get; set; }
     }
 }

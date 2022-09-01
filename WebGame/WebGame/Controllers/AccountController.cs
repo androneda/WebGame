@@ -49,7 +49,7 @@ namespace WebGame.Api.Controllers
         }
 
         [HttpGet("{id:Guid}")]
-        public async Task<IActionResult> test(Guid id)
+        public async Task<IActionResult> Test(Guid id)
         {
             await _sessionService.DeactivateSessionAsync(id);
 

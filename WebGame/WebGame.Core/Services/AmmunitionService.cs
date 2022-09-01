@@ -25,18 +25,18 @@ namespace WebGame.Core.Services
 
         public async Task<IEnumerable<AmmunitionViewDto>> GetAll()
         {
-            var temp = await _ammunitionRepo.GetAll();
+            var ammunition = await _ammunitionRepo.GetAll();
 
-            if (!temp.Any())
+            if (!ammunition.Any())
                 return Enumerable.Empty<AmmunitionViewDto>();
 
-            return _mapper.Map<IEnumerable<AmmunitionViewDto>>(temp);
+            return _mapper.Map<IEnumerable<AmmunitionViewDto>>(ammunition);
         }
 
         public async Task Add(CreateAmmunitionDto ammunitionDto)
         {
             if (ammunitionDto is null)
-                throw new ArgumentException("Введите данные");
+                throw new CustomArgumentException("Введите данные");
 
             var ammunition = _mapper.Map<Ammunition>(ammunitionDto);
             await _ammunitionRepo.AddAsync(ammunition);
@@ -47,22 +47,26 @@ namespace WebGame.Core.Services
             await _ammunitionRepo.DeleteAsync(ammunitionId);
         }
 
-        public async Task Update(UpdateAmmunitionDto ammunitionDto)
+        public async Task Update(Guid id, UpdateAmmunitionDto ammunitionDto)
         {
+            var ammunition = await _ammunitionRepo.GetByID(id);
             if (ammunitionDto is null)
-                throw new AmmunitionNotFoundExeption("Предмет с указанным идентификатором не найден");
+                throw new CustomArgumentException("Введите данные");
 
-            var ammunition = _mapper.Map<Ammunition>(ammunitionDto);
+            ammunition.Name = ammunitionDto.Name; 
+            ammunition.RaceId = ammunitionDto.RaceId; 
+            ammunition.SpecializationId = ammunitionDto.SpecializationId;
+            
             await _ammunitionRepo.UpdateAsync(ammunition);
         }
 
         public async Task<AmmunitionViewDto> GetByID(Guid ammunitionId)
         {
-            var temp = await _ammunitionRepo.GetByID(ammunitionId);
-            if (temp is null)
+            var ammunition = await _ammunitionRepo.GetByID(ammunitionId);
+            if (ammunition is null)
                 throw new AmmunitionNotFoundExeption("Предмет с указанным идентификатором не найден");
 
-            return _mapper.Map<AmmunitionViewDto>(temp);
+            return _mapper.Map<AmmunitionViewDto>(ammunition);
         }
     }
 }

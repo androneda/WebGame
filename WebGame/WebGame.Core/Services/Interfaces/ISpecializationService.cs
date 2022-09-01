@@ -14,6 +14,6 @@ namespace WebGame.Core.Services.Interfaces
         Task<SpecializationViewDto> GetByID(Guid specializationId);
         Task Add(CreateSpecializationDto specializationDto);
         Task Delete(Guid specializationId);
-        Task Update(UpdateSpecializationDto specializationDto);
+        Task Update(Guid id, UpdateSpecializationDto specializationDto);
     }
 }

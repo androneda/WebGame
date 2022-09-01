@@ -26,20 +26,17 @@ namespace WebGame.Core.Services
 
         public async Task<IEnumerable<SessionViewDto>> GetAll()
         {
-            var temp = await _sessionRepo.GetAll();
+            var sessions = await _sessionRepo.GetAll();
 
-            if (!temp.Any())
+            if (!sessions.Any())
                 return Enumerable.Empty<SessionViewDto>();
 
-            return _mapper.Map<IEnumerable<SessionViewDto>>(temp);
+            return _mapper.Map<IEnumerable<SessionViewDto>>(sessions);
         }
 
         public async Task Update(Guid id, bool isActive)
         {
             var session = await _sessionRepo.GetByID(id);
-
-            if (session is null)
-                throw new SessionNotFoundExeption("Сессия с указанным идентификатором не найдена");
 
             session.IsActive = isActive;
 
@@ -61,11 +58,11 @@ namespace WebGame.Core.Services
 
         public async Task<SessionViewDto> GetByID(Guid sessionId)
         {
-            var temp = await _sessionRepo.GetByID(sessionId);
-            if (temp is null)
+            var session = await _sessionRepo.GetByID(sessionId);
+            if (session is null)
                 throw new SessionNotFoundExeption("Сессия с указанным идентификатором не найдена");
 
-            return _mapper.Map<SessionViewDto>(temp);
+            return _mapper.Map<SessionViewDto>(session);
         }
 
         public async Task DeactivateSessionAsync(Guid userId)

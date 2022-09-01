@@ -32,21 +32,20 @@ namespace WebGame.Core.Services
 
         public async Task<IEnumerable<UserViewDto>> GetAll()
         {
-            var temp = await _userRepo.GetAll();
+            var users = await _userRepo.GetAll();
 
-            if (!temp.Any())
+            if (!users.Any())
                 return Enumerable.Empty<UserViewDto>();
 
-            return _mapper.Map<IEnumerable<UserViewDto>>(temp);
+            return _mapper.Map<IEnumerable<UserViewDto>>(users);
         }
 
         public async Task Add(CreateUserDto userDto)
         {
             if (userDto is null)
-                throw new ArgumentException("Неудалось добавить пользователя");
+                throw new CustomArgumentException("Неудалось добавить пользователя");
 
-            var coddedPass = System.Text.Encoding.UTF8.GetBytes(userDto.Password);
-            userDto.Password = _passwordService.GenerateSaltedHash(coddedPass);
+            _passwordService.GenerateSaltedHash(userDto.Password);
 
             var user = _mapper.Map<User>(userDto);
             await _userRepo.AddAsync(user);
@@ -59,6 +58,9 @@ namespace WebGame.Core.Services
 
         public async Task Update(Guid id, UpdateUserDto userDto)
         {
+            if (userDto is null)
+                throw new CustomArgumentException("Введите Данные");
+
             var user = await _userRepo.GetByID(id);
 
             user.Login = userDto.Login;
@@ -76,9 +78,9 @@ namespace WebGame.Core.Services
             if (userModel is null)
                 throw new UserNotFoundExeption("Пользователь с указанным идентификатором не найден");
 
-            var user = _mapper.Map<UserViewDto>(userModel);
-            user.Role = _mapper.Map<RoleViewDto>(userModel.Role);
-            return user;
+            var userDto = _mapper.Map<UserViewDto>(userModel);
+            userDto.Role = _mapper.Map<RoleViewDto>(userModel.Role);
+            return userDto;
         }
 
     }

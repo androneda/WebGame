@@ -38,6 +38,16 @@ namespace WebGame.Database
                 b.HasOne(p => p.User);
             });
 
+            //modelBuilder.Entity<Race>(b =>
+            //{
+            //    b.HasMany(p => p.Skills);
+            //});
+
+            //modelBuilder.Entity<Specialization>(b =>
+            //{
+            //    b.HasMany(p => p.Skills);
+            //});
+
         }
 
     }
