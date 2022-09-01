@@ -1,26 +1,20 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
+using WebGame.Api.Data;
+using WebGame.Common;
 using WebGame.Core.Services;
 using WebGame.Core.Services.Interfaces;
 using WebGame.Database;
 using WebGame.Database.Repositories;
 using WebGame.Database.Repositories.Interfaces;
-using Newtonsoft.Json;
-using System.Text.Json.Serialization;
-using WebGame.Api.Data;
-using WebGame.Api.Middlewares;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using WebGame.Common;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.Extensions.Options;
 
 namespace WebGame.Api
 {
@@ -140,7 +134,7 @@ namespace WebGame.Api
             });
         }
 
-        private void RegisterConfig<T>(IServiceCollection services) where T: class
+        private void RegisterConfig<T>(IServiceCollection services) where T : class
         {
             services.Configure<T>(Configuration.GetSection(typeof(T).Name));
         }

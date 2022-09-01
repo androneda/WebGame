@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using WebGame.Core.Model.Hero;
 using WebGame.Core.Model.Skills;
 using WebGame.Core.Services.Interfaces;
 

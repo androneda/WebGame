@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
 using WebGame.Api.Attributes;
 using WebGame.Core.Model.User;
-using WebGame.Core.Services;
 using WebGame.Core.Services.Interfaces;
 
 namespace WebGame.Api.Controllers

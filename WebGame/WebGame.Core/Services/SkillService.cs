@@ -47,24 +47,24 @@ namespace WebGame.Core.Services
             await _skillRepo.DeleteAsync(skillId);
         }
 
-        public async Task Update(Guid id , UpdateSkillDto skillDto)
+        public async Task Update(Guid id, UpdateSkillDto skillDto)
         {
             if (skillDto is null)
                 throw new CustomArgumentException("Введите данные");
 
             var skill = await _skillRepo.GetByID(id);
 
-             skill.Status = skillDto.Status;
-             skill.RaceId = skillDto.RaceId;
-             skill.Name = skillDto.Name;
-             skill.IsOnAlly = skillDto.IsOnAlly;
-             skill.Range = skillDto.Range;
-             skill.RechargeTime = skillDto.RechargeTime;
-             skill.SpecializationId = skillDto.SpecializationId;
-             skill.BaseStat = skillDto.BaseStat;
-             skill.BonusActionPoints = skillDto.BonusActionPoints;
-             skill.CostActionPoints = skillDto.CostActionPoints;
-             skill.DamageRadius = skillDto.DamageRadius;
+            skill.Status = skillDto.Status;
+            skill.RaceId = skillDto.RaceId;
+            skill.Name = skillDto.Name;
+            skill.IsOnAlly = skillDto.IsOnAlly;
+            skill.Range = skillDto.Range;
+            skill.RechargeTime = skillDto.RechargeTime;
+            skill.SpecializationId = skillDto.SpecializationId;
+            skill.BaseStat = skillDto.BaseStat;
+            skill.BonusActionPoints = skillDto.BonusActionPoints;
+            skill.CostActionPoints = skillDto.CostActionPoints;
+            skill.DamageRadius = skillDto.DamageRadius;
 
             await _skillRepo.UpdateAsync(skill);
         }

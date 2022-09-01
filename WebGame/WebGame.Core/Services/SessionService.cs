@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using WebGame.Common.Exeptions;
-using WebGame.Core.Model.Hero;
-using WebGame.Core.Model.Skills;
 using WebGame.Core.Model.Session;
 using WebGame.Core.Services.Interfaces;
 using WebGame.Database.Model;
@@ -67,7 +65,7 @@ namespace WebGame.Core.Services
 
         public async Task DeactivateSessionAsync(Guid userId)
         {
-           var sessions = await _sessionRepo.GetSessionByUser(userId);
+            var sessions = await _sessionRepo.GetSessionByUser(userId);
 
             if (sessions is null)
                 throw new SessionNotFoundExeption("Сессии не найдены");

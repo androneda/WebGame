@@ -2,7 +2,6 @@
 using System;
 using System.Threading.Tasks;
 using WebGame.Core.Model.Ammunition;
-using WebGame.Core.Model.Hero;
 using WebGame.Core.Services.Interfaces;
 
 namespace WebGame.Api.Controllers
@@ -49,9 +48,9 @@ namespace WebGame.Api.Controllers
 
         // Put: HeroController/Put/
         [HttpPut("{id:Guid}")]
-        public async Task<IActionResult> Update([FromRoute] Guid id,[FromBody] UpdateAmmunitionDto ammunitionDto)
+        public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateAmmunitionDto ammunitionDto)
         {
-            await _ammunitionService.Update(id,ammunitionDto);
+            await _ammunitionService.Update(id, ammunitionDto);
             return NoContent();
         }
     }

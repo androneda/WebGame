@@ -18,7 +18,7 @@ namespace WebGame.Core.Services
         private readonly IMapper _mapper;
 
         public SpecializationService(ISpecializationRepository specializationRepo,
-                                     ISkillService skillService, 
+                                     ISkillService skillService,
                                      IMapper mapper)
         {
             _specializationRepo = specializationRepo;
@@ -74,7 +74,7 @@ namespace WebGame.Core.Services
             if (spec is null)
                 throw new SpecializationNotFoundExeption("Специализация с указанным идентификатором не найдена");
 
-            var specDto =  _mapper.Map<SpecializationViewDto>(spec);
+            var specDto = _mapper.Map<SpecializationViewDto>(spec);
             specDto.Skills = await _skillService.GetBySpecId(specId);
             return specDto;
         }

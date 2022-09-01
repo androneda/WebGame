@@ -53,10 +53,10 @@ namespace WebGame.Core.Services
             if (ammunitionDto is null)
                 throw new CustomArgumentException("Введите данные");
 
-            ammunition.Name = ammunitionDto.Name; 
-            ammunition.RaceId = ammunitionDto.RaceId; 
+            ammunition.Name = ammunitionDto.Name;
+            ammunition.RaceId = ammunitionDto.RaceId;
             ammunition.SpecializationId = ammunitionDto.SpecializationId;
-            
+
             await _ammunitionRepo.UpdateAsync(ammunition);
         }
 

@@ -17,7 +17,7 @@ namespace WebGame.Database
 
         public WebGameDBContext([NotNull] DbContextOptions options) : base(options)
         {
-     
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

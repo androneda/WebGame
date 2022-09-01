@@ -1,7 +1,4 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using System.Text;
-
-namespace WebGame.Common
+﻿namespace WebGame.Common
 {
     public class AuthOptions
     {

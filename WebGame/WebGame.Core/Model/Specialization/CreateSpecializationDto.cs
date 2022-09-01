@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebGame.Common.Enums;
-
-namespace WebGame.Core.Model.Specialization
+﻿namespace WebGame.Core.Model.Specialization
 {
     public class CreateSpecializationDto
     {

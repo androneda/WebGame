@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WebGame.Core.Model.Skills
+﻿namespace WebGame.Core.Model.Skills
 {
     public class ShortSkillViewDto
     {

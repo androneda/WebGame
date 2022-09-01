@@ -2,17 +2,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
+using WebGame.Common.Exeptions;
+using WebGame.Core.Model.Races;
 using WebGame.Core.Services.Interfaces;
 using WebGame.Database.Model;
 using WebGame.Database.Repositories.Interfaces;
-using WebGame.Core.Model.Races;
-using WebGame.Common.Exeptions;
 
 namespace WebGame.Core.Services
 {
-    public class RaceService:IRaceService
+    public class RaceService : IRaceService
     {
         private readonly IRaceRepository _raceRepo;
         private readonly ISkillService _skillService;
@@ -75,8 +74,8 @@ namespace WebGame.Core.Services
             if (raceDto is null)
                 throw new CustomArgumentException("Введите данные");
 
-            race.Name = raceDto.Name; 
-            race.Description= raceDto.Description; 
+            race.Name = raceDto.Name;
+            race.Description = raceDto.Description;
 
             await _raceRepo.UpdateAsync(race);
         }

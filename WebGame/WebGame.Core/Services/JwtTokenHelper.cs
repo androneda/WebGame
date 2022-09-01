@@ -1,23 +1,20 @@
-﻿using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using System.Security.Claims;
 using WebGame.Common;
-using System.Net.Http;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Options;
 using WebGame.Core.Services.Interfaces;
 using WebGame.Database.Model;
-using WebGame.Core.Model.Role;
 
 namespace WebGame.Core.Services
 {
     public class JwtTokenHelper : IJwtTokenHelper
-{
+    {
         private readonly AuthOptions _authOptions;
         private readonly ISessionService _sessionService;
         private readonly IUserService _userService;
@@ -55,7 +52,7 @@ namespace WebGame.Core.Services
 
         private ClaimsIdentity SetClaim(User user)
         {
-            var session = new Session(user.Id,user.RoleId);
+            var session = new Session(user.Id, user.RoleId);
             _sessionService.Add(session);
 
             var claims = new List<Claim>

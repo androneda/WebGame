@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
-using WebGame.Core.Model.Hero;
+﻿using AutoMapper;
 using WebGame.Core.Model.Ammunition;
-using WebGame.Database.Model;
+using WebGame.Core.Model.Hero;
+using WebGame.Core.Model.Races;
+using WebGame.Core.Model.Role;
+using WebGame.Core.Model.Session;
 using WebGame.Core.Model.Skills;
 using WebGame.Core.Model.Specialization;
-using WebGame.Core.Model.Races;
 using WebGame.Core.Model.User;
-using WebGame.Core.Model.Session;
-using WebGame.Core.Model.Role;
+using WebGame.Database.Model;
 
 namespace WebGame.Api.Data
 {

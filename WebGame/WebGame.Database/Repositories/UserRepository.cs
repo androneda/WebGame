@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using WebGame.Database.Model;
 using WebGame.Database.Repositories.Interfaces;
@@ -10,7 +8,7 @@ namespace WebGame.Database.Repositories
 {
     public class UserRepository : BaseRepository<User>, IUserRepository
     {
-        public UserRepository(WebGameDBContext context) : base (context)  
+        public UserRepository(WebGameDBContext context) : base(context)
         {
 
         }

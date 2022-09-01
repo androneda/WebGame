@@ -10,7 +10,7 @@ namespace WebGame.Database.Repositories
 {
     public class SessionRepository : BaseRepository<Session>, ISessionRepository
     {
-        public SessionRepository(WebGameDBContext context) : base (context)  
+        public SessionRepository(WebGameDBContext context) : base(context)
         {
 
         }

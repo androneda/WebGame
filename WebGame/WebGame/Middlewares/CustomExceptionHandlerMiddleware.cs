@@ -1,10 +1,7 @@
-﻿using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Net;
-using System.Text.Json;
-using Microsoft.AspNetCore.Builder;
+using System.Threading.Tasks;
 using WebGame.Common.Exeptions;
 
 namespace WebGame.Api.Middlewares
@@ -36,7 +33,7 @@ namespace WebGame.Api.Middlewares
 
         private static Task HandleCustomExceptionAsync(HttpContext context, BuisnessException exception)
         {
-            var response = new { error = exception.Message , code = context.Response.StatusCode = (int)HttpStatusCode.BadRequest };
+            var response = new { error = exception.Message, code = context.Response.StatusCode = (int)HttpStatusCode.BadRequest };
             return context.Response.WriteAsJsonAsync(response);
         }
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)

@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
-using WebGame.Core.Model.Hero;
 using WebGame.Core.Model.Races;
 using WebGame.Core.Services.Interfaces;
 
@@ -51,7 +50,7 @@ namespace WebGame.Api.Controllers
         [HttpPut("{id:Guid}")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateRaceDto race)
         {
-            await _raceService.Update(id,race);
+            await _raceService.Update(id, race);
             return NoContent();
         }
     }

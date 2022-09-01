@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WebGame.Core.Model.Skills;
 
 namespace WebGame.Core.Model.Races
@@ -21,7 +18,7 @@ namespace WebGame.Core.Model.Races
         /// <summary>
         /// Description
         /// </summary>
-        public string Description{ get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Skills

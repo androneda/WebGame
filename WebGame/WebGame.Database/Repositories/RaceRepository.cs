@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WebGame.Database.Model;
+﻿using WebGame.Database.Model;
 using WebGame.Database.Repositories.Interfaces;
 
 namespace WebGame.Database.Repositories
