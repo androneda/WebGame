@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using WebGame.Common.Exeptions;
@@ -74,11 +78,17 @@ namespace WebGame.Core.Services
             return _mapper.Map<HeroViewDto>(hero);
         }
 
-        //public async Task<IEnumerable<SkillViewDto>> GetSkillsByHeroId(Guid heroId)
-        //{
-        //    IEnumerable<SkillViewDto> skills = await _skillService.GetByRaceId(heroId);
-        //    skills = await _skillService.GetBySpecId(heroId);
-        //    return skills;
-        //}
+        public int GetSkillsByHeroId(Guid heroId)
+        {
+            var cs = "User ID=postgres; Password=postgres;Host=localhost;Port=5432;Database=WebGameBD;Pooling=true";
+
+            using var con = new NpgsqlConnection(cs);
+            con.Open();
+            using var cmd = new NpgsqlCommand();
+            cmd.Connection = con;
+
+            cmd.CommandText = "SELECT * FROM Users";
+            return cmd.ExecuteNonQuery();
+        }
     }
 }
