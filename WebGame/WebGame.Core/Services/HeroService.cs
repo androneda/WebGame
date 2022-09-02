@@ -87,7 +87,7 @@ namespace WebGame.Core.Services
             using var cmd = new NpgsqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = "SELECT * FROM Users";
+            cmd.CommandText = $"SELECT * FROM Heroes Where Id = {heroId}";
             return cmd.ExecuteNonQuery();
         }
     }
