@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using WebGame.Common.Exeptions;
@@ -15,14 +17,12 @@ namespace WebGame.Core.Services
     {
         private readonly IHeroRepository _heroRepo;
         private readonly IMapper _mapper;
-        private readonly ISkillService _skillService;
         public HeroService(IHeroRepository heroRepo,
                            IMapper mapper,
                            ISkillService skillService)
         {
             _heroRepo = heroRepo;
             _mapper = mapper;
-            _skillService = skillService;
         }
 
         public async Task<IEnumerable<HeroViewDto>> GetAll()
@@ -74,11 +74,28 @@ namespace WebGame.Core.Services
             return _mapper.Map<HeroViewDto>(hero);
         }
 
-        //public async Task<IEnumerable<SkillViewDto>> GetSkillsByHeroId(Guid heroId)
-        //{
-        //    IEnumerable<SkillViewDto> skills = await _skillService.GetByRaceId(heroId);
-        //    skills = await _skillService.GetBySpecId(heroId);
-        //    return skills;
-        //}
+        public async Task<string> GetAllSql()
+        {
+            var dataSet = await _heroRepo.GetAllSql();
+
+            var dataTable = dataSet.Tables[0];
+
+            if (dataTable is null)
+                throw new NpgsqlException("Неудалось найти таблицу");
+
+            string result = "";
+
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                for (int i = 0; i < dataTable.Columns.Count; i++)
+                {
+                    result += dataTable.Columns[i].ToString() + ": " + dr.ItemArray[i].ToString() + "\n";
+                }
+
+                result += "\n";
+            }
+
+            return result;
+        }
     }
 }

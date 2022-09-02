@@ -27,6 +27,7 @@ namespace WebGame.Api.Controllers
         [HttpGet("{id:Guid}")]
         public async Task<IActionResult> Details([FromRoute] Guid id)
         {
+            
             return Ok(await _heroService.GetByID(id));
         }
 
@@ -52,6 +53,13 @@ namespace WebGame.Api.Controllers
         {
             await _heroService.Update(id, hero);
             return NoContent();
+        }
+
+        [Route("test")]
+        [HttpGet]
+        public async Task<IActionResult> GetSkillsAsync()
+        {
+            return Ok(await _heroService.GetAllSql());
         }
     }
 }

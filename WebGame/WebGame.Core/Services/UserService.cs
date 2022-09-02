@@ -45,7 +45,6 @@ namespace WebGame.Core.Services
             if (userDto is null)
                 throw new CustomArgumentException("Неудалось добавить пользователя");
 
-
             var user = _mapper.Map<User>(userDto);
             user.Password = _passwordService.GenerateSaltedHash(userDto.Password);
             await _userRepo.AddAsync(user);
