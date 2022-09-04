@@ -90,8 +90,17 @@ namespace WebGame.Core.Services
 
             cmd.Parameters.AddWithValue("@id", heroId);
 
-            var count = cmd.ExecuteReader().FieldCount;
-            return count;
+            var reader = cmd.ExecuteReader();
+            string result;
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    result = reader.GetGuid(0).ToString() +" "+ reader.GetString(1);
+                    return result;
+                }
+            }
+            return null;
         }
     }
 }
