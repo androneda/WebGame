@@ -78,7 +78,7 @@ namespace WebGame.Core.Services
             return _mapper.Map<HeroViewDto>(hero);
         }
 
-        public async Task<int> GetSkillsByHeroId(Guid heroId)
+        public async Task<NpgsqlDataReader> GetSkillsByHeroId(Guid heroId)
         {
             var cs = "User ID=postgres; Password=postgres;Host=localhost;Port=5432;Database=WebGameBD;Pooling=true";
 
@@ -91,7 +91,7 @@ namespace WebGame.Core.Services
             
             cmd.Parameters.AddWithValue("@id",heroId);
 
-            return await cmd.ExecuteNonQueryAsync();
+            return await cmd.ExecuteReaderAsync();
         }
     }
 }
