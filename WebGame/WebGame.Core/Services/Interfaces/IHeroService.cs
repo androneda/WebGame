@@ -1,6 +1,7 @@
 ﻿using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Threading.Tasks;
 using WebGame.Core.Model.Hero;
 
@@ -13,6 +14,6 @@ namespace WebGame.Core.Services.Interfaces
         Task Add(CreateHeroDto heroDto);
         Task Delete(Guid heroId);
         Task Update(Guid Id, UpdateHeroDto heroDto);
-        Task<NpgsqlDataReader> GetSkillsByHeroId(Guid heroId);
+        object GetSkillsByHeroId(Guid heroId);
     }
 }

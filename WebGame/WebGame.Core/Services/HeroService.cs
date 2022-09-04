@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
 using Npgsql;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using WebGame.Common.Exeptions;
@@ -78,20 +76,22 @@ namespace WebGame.Core.Services
             return _mapper.Map<HeroViewDto>(hero);
         }
 
-        public async Task<NpgsqlDataReader> GetSkillsByHeroId(Guid heroId)
+        public object GetSkillsByHeroId(Guid heroId)
         {
             var cs = "User ID=postgres; Password=postgres;Host=localhost;Port=5432;Database=WebGameBD;Pooling=true";
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
+            DataTable dataTable = new DataTable();
             using var cmd = new NpgsqlCommand();
             cmd.Connection = con;
 
-            cmd.CommandText = $"SELECT * FROM Heroes Where Heroes.Id = @id";
-            
-            cmd.Parameters.AddWithValue("@id",heroId);
+            cmd.CommandText = $"SELECT * FROM public.\"Heroes\" Where public.\"Heroes\".\"Id\" = @id";
 
-            return await cmd.ExecuteReaderAsync();
+            cmd.Parameters.AddWithValue("@id", heroId);
+
+            var count = cmd.ExecuteReader().FieldCount;
+            return count;
         }
     }
 }
