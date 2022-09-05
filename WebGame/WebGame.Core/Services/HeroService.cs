@@ -74,7 +74,7 @@ namespace WebGame.Core.Services
             return _mapper.Map<HeroViewDto>(hero);
         }
 
-        public async Task<string> GetHeroesSql()
+        public async Task<string> GetAllSql()
         {
             var dataSet = await _heroRepo.GetAllSql();
 

@@ -59,7 +59,7 @@ namespace WebGame.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetSkillsAsync()
         {
-            return Ok(await _heroService.GetHeroesSql());
+            return Ok(await _heroService.GetAllSql());
         }
     }
 }
