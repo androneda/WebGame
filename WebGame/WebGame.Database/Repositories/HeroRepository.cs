@@ -15,7 +15,7 @@ namespace WebGame.Database.Repositories
 
         public async Task<DataSet> GetAllSql()
         {
-            var cs = "User ID=postgres; Password=postgres;Host=localhost;Port=5432;Database=WebGameBD;Pooling=true";
+            string cs = "User ID=postgres; Password=postgres;Host=localhost;Port=5432;Database=WebGameBD;Pooling=true";
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
