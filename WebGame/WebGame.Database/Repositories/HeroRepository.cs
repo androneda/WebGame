@@ -21,7 +21,9 @@ namespace WebGame.Database.Repositories
         {
             using var con = new NpgsqlConnection(cs);
             con.Open();
-            using var command = new NpgsqlCommand("SELECT * FROM public.\"Heroes\"", con);
+            using var command = new NpgsqlCommand("SELECT * FROM public.\"Heroes\" " +
+                                                            "INNER JOIN public.\"Races\" " +
+                                                            "ON public.\"Heroes\".\"RaceId\" = public.\"Races\".\"Id\"", con);
 
             await command.PrepareAsync();
 
