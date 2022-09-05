@@ -54,12 +54,5 @@ namespace WebGame.Api.Controllers
             await _heroService.Update(id, hero);
             return NoContent();
         }
-
-        [Route("test")]
-        [HttpGet]
-        public async Task<IActionResult> GetSkillsAsync()
-        {
-            return Ok(await _heroService.GetAllSql());
-        }
     }
 }

@@ -73,29 +73,5 @@ namespace WebGame.Core.Services
 
             return _mapper.Map<HeroViewDto>(hero);
         }
-
-        public async Task<string> GetAllSql()
-        {
-            var dataSet = await _heroRepo.GetAllSql();
-
-            var dataTable = dataSet.Tables[0];
-
-            if (dataTable is null)
-                throw new NpgsqlException("Неудалось найти таблицу");
-
-            string result = "";
-
-            foreach (DataRow dr in dataTable.Rows)
-            {
-                for (int i = 0; i < dataTable.Columns.Count; i++)
-                {
-                    result += dataTable.Columns[i].ToString() + ": " + dr.ItemArray[i].ToString() + "\n";
-                }
-
-                result += "\n";
-            }
-
-            return result;
-        }
     }
 }
