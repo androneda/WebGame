@@ -1,4 +1,5 @@
-﻿using Npgsql;
+﻿using Microsoft.Extensions.Configuration;
+using Npgsql;
 using System.Data;
 using System.Threading.Tasks;
 using WebGame.Database.Model;
@@ -8,15 +9,16 @@ namespace WebGame.Database.Repositories
 {
     public class HeroRepository : BaseRepository<Hero>, IHeroRepository
     {
-        public HeroRepository(WebGameDBContext context) : base(context)
+        private readonly string cs;
+        IConfiguration config;
+        public HeroRepository(WebGameDBContext context, IConfiguration configuration) : base(context)
         {
-
+            config = configuration;
+            cs = config.GetConnectionString("WebGameData");
         }
 
         public async Task<DataSet> GetAllSql()
         {
-            string cs = "User ID=postgres; Password=postgres;Host=localhost;Port=5432;Database=WebGameBD;Pooling=true";
-
             using var con = new NpgsqlConnection(cs);
             con.Open();
             using var command = new NpgsqlCommand("SELECT * FROM public.\"Heroes\"", con);
