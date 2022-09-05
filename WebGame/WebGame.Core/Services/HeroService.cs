@@ -79,11 +79,15 @@ namespace WebGame.Core.Services
         public string GetHeroesSql()
         {
             DataTable dataTable = _heroRepo.GetAllSql().Tables[0];
-            string result="";
+
+            if (dataTable is null)
+                throw new NpgsqlException("Неудалось найти таблицу");
+
+            string result = "";
 
             foreach (DataRow dr in dataTable.Rows)
             {
-                for (int i = 0;i<dataTable.Columns.Count;i++)
+                for (int i = 0; i < dataTable.Columns.Count; i++)
                 {
                     result += dataTable.Columns[i].ToString() + ": " + dr.ItemArray[i].ToString() + "\n";
                 }
