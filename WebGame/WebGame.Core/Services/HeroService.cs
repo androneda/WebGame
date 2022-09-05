@@ -78,54 +78,20 @@ namespace WebGame.Core.Services
 
         public string GetHeroesSql()
         {
-            var cs = "User ID=postgres; Password=postgres;Host=localhost;Port=5432;Database=WebGameBD;Pooling=true";
-
-            using var con = new NpgsqlConnection(cs);
-            con.Open();
-            DataTable dataTable = new DataTable();
-            using var cmd = new NpgsqlCommand();
-
-            cmd.Connection = con;
-
-            cmd.CommandText = $"SELECT * FROM public.\"Heroes\"" /*WHERE public.\"Heroes\".\"Id\" = @id"*/;
-
-            //cmd.Parameters.AddWithValue("@id", heroId);
-
-            cmd.Prepare();
-
-            DataSet _ds = new DataSet();
-            DataTable _dt = new DataTable();
-
-            NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
-
-            da.Fill(_ds);
-
-            _dt = _ds.Tables[0];
+            DataTable dataTable = _heroRepo.GetAllSql().Tables[0];
             string result="";
-            foreach (DataRow dr in _dt.Rows)
+
+            foreach (DataRow dr in dataTable.Rows)
             {
-                foreach (var columnValue in dr.ItemArray)
+                for (int i = 0;i<dataTable.Columns.Count;i++)
                 {
-                    result += columnValue.ToString() + " \n ";
+                    result += dataTable.Columns[i].ToString() + ": " + dr.ItemArray[i].ToString() + "\n";
                 }
+
+                result += "\n";
             }
+
             return result;
-
-            //var reader = cmd.ExecuteReader();
-            //string result;
-            //if (reader.HasRows)
-            //{
-            //    while (reader.Read())
-            //    {
-            //        foreach (var column in reader.)
-            //        {
-
-            //        }
-
-            //        //result += reader.GetGuid(0).ToString() + " " + reader.GetString(1);
-            //    }
-            //}
-            //return result;
         }
     }
 }
