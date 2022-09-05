@@ -76,7 +76,7 @@ namespace WebGame.Core.Services
             return _mapper.Map<HeroViewDto>(hero);
         }
 
-        public object GetSkillsByHeroId(Guid heroId)
+        public string GetHeroesSql()
         {
             var cs = "User ID=postgres; Password=postgres;Host=localhost;Port=5432;Database=WebGameBD;Pooling=true";
 
@@ -89,7 +89,7 @@ namespace WebGame.Core.Services
 
             cmd.CommandText = $"SELECT * FROM public.\"Heroes\"" /*WHERE public.\"Heroes\".\"Id\" = @id"*/;
 
-            cmd.Parameters.AddWithValue("@id", heroId);
+            //cmd.Parameters.AddWithValue("@id", heroId);
 
             cmd.Prepare();
 

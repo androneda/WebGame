@@ -57,9 +57,9 @@ namespace WebGame.Api.Controllers
 
         [Route("test")]
         [HttpGet]
-        public JsonResult GetSkills(Guid id)
+        public JsonResult GetSkills()
         {
-            return Json(_heroService.GetSkillsByHeroId(id));
+            return Json(_heroService.GetHeroesSql());
         }
     }
 }
