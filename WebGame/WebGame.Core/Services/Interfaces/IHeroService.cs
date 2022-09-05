@@ -14,6 +14,6 @@ namespace WebGame.Core.Services.Interfaces
         Task Add(CreateHeroDto heroDto);
         Task Delete(Guid heroId);
         Task Update(Guid Id, UpdateHeroDto heroDto);
-        string GetHeroesSql();
+        Task<string> GetHeroesSql();
     }
 }

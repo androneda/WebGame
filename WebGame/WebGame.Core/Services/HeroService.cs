@@ -17,14 +17,12 @@ namespace WebGame.Core.Services
     {
         private readonly IHeroRepository _heroRepo;
         private readonly IMapper _mapper;
-        private readonly ISkillService _skillService;
         public HeroService(IHeroRepository heroRepo,
                            IMapper mapper,
                            ISkillService skillService)
         {
             _heroRepo = heroRepo;
             _mapper = mapper;
-            _skillService = skillService;
         }
 
         public async Task<IEnumerable<HeroViewDto>> GetAll()
@@ -76,9 +74,11 @@ namespace WebGame.Core.Services
             return _mapper.Map<HeroViewDto>(hero);
         }
 
-        public string GetHeroesSql()
+        public async Task<string> GetHeroesSql()
         {
-            DataTable dataTable = _heroRepo.GetAllSql().Tables[0];
+            var dataSet = await _heroRepo.GetAllSql();
+
+            var dataTable = dataSet.Tables[0];
 
             if (dataTable is null)
                 throw new NpgsqlException("Неудалось найти таблицу");

@@ -18,13 +18,7 @@ namespace WebGame.Database.Repositories
 
             using var con = new NpgsqlConnection(cs);
             con.Open();
-            using var command = new NpgsqlCommand();
-
-            command.Connection = con;
-
-            command.CommandText = $"SELECT * FROM public.\"Heroes\"" /*WHERE public.\"Heroes\".\"Id\" = @id"*/;
-
-            //cmd.Parameters.AddWithValue("@id", heroId);
+            using var command = new NpgsqlCommand("SELECT * FROM public.\"Heroes\"", con );
 
             command.Prepare();
 
