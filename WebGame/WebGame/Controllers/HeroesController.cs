@@ -8,7 +8,7 @@ namespace WebGame.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class HeroesController : Controller
+    public class HeroesController : ControllerBase
     {
         private readonly IHeroService _heroService;
         public HeroesController(IHeroService heroService)
@@ -57,9 +57,9 @@ namespace WebGame.Api.Controllers
 
         [Route("test")]
         [HttpGet]
-        public JsonResult GetSkills()
+        public IActionResult GetSkills()
         {
-            return Json(_heroService.GetHeroesSql());
+            return Ok(_heroService.GetHeroesSql());
         }
     }
 }
