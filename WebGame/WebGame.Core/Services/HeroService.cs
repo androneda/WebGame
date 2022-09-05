@@ -84,23 +84,48 @@ namespace WebGame.Core.Services
             con.Open();
             DataTable dataTable = new DataTable();
             using var cmd = new NpgsqlCommand();
+
             cmd.Connection = con;
 
-            cmd.CommandText = $"SELECT * FROM public.\"Heroes\" Where public.\"Heroes\".\"Id\" = @id";
+            cmd.CommandText = $"SELECT * FROM public.\"Heroes\"" /*WHERE public.\"Heroes\".\"Id\" = @id"*/;
 
             cmd.Parameters.AddWithValue("@id", heroId);
 
-            var reader = cmd.ExecuteReader();
-            string result;
-            if (reader.HasRows)
+            cmd.Prepare();
+
+            DataSet _ds = new DataSet();
+            DataTable _dt = new DataTable();
+
+            NpgsqlDataAdapter da = new NpgsqlDataAdapter(cmd);
+
+            da.Fill(_ds);
+
+            _dt = _ds.Tables[0];
+            string result="";
+            foreach (DataRow dr in _dt.Rows)
             {
-                while (reader.Read())
+                foreach (var columnValue in dr.ItemArray)
                 {
-                    result = reader.GetGuid(0).ToString() +" "+ reader.GetString(1);
-                    return result;
+                    result += columnValue.ToString() + " \n ";
                 }
             }
-            return null;
+            return result;
+
+            //var reader = cmd.ExecuteReader();
+            //string result;
+            //if (reader.HasRows)
+            //{
+            //    while (reader.Read())
+            //    {
+            //        foreach (var column in reader.)
+            //        {
+
+            //        }
+
+            //        //result += reader.GetGuid(0).ToString() + " " + reader.GetString(1);
+            //    }
+            //}
+            //return result;
         }
     }
 }
