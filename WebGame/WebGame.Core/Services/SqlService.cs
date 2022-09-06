@@ -15,16 +15,16 @@ namespace WebGame.Core.Services
 {
     public class SqlService : ISqlService
     {
-        private readonly ISqlRepository _heroRepo;
-        public SqlService(ISqlRepository heroRepo)
+        private readonly ISqlRepository _sqlRepo;
+        public SqlService(ISqlRepository sqlRepo)
         {
-            _heroRepo = heroRepo;
+            _sqlRepo = sqlRepo;
         }
 
 
         public async Task<string> GetSql(string query)
         {
-            var dataSet = await _heroRepo.GetByQuerySql(query);
+            var dataSet = await _sqlRepo.GetByQuerySql(query);
 
             var dataTable = dataSet.Tables[0];
 
